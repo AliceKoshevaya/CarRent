@@ -1,11 +1,8 @@
 package ua.nure.koshova.finalProject.servlet;
 
-import ua.nure.koshova.finalProject.dao.UsersDao;
-import ua.nure.koshova.finalProject.dao.MyUtils;
-import ua.nure.koshova.finalProject.entity.User;
+import ua.nure.koshova.finalProject.service.UserService;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,11 +10,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 @WebServlet(urlPatterns = { "/login" })
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+
+    private UserService userService = new UserService();
 
     public LoginServlet() {
         super();
@@ -36,6 +34,22 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String login = request.getParameter("login");
+        String password = request.getParameter("password");
+        if(userService.registeredUser(login,password)== true){
+            RequestDispatcher dispatcher
+                    = this.getServletContext().getRequestDispatcher("/WEB-INF/views/SuccessfulLogin.jsp");
+
+            dispatcher.forward(request, response);
+        }
+        else{
+            RequestDispatcher dispatcher
+                    = this.getServletContext().getRequestDispatcher("/WEB-INF/views/loginView.jsp");
+
+            dispatcher.forward(request, response);
+
+        }
+
 
     }
 

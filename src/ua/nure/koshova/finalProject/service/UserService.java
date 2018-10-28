@@ -1,26 +1,24 @@
 package ua.nure.koshova.finalProject.service;
 
-import ua.nure.koshova.finalProject.Roles;
-import ua.nure.koshova.finalProject.dao.RolesDao;
-import ua.nure.koshova.finalProject.dao.UsersDao;
-import ua.nure.koshova.finalProject.entity.Role;
-import ua.nure.koshova.finalProject.entity.User;
-
-import java.sql.SQLException;
+import ua.nure.koshova.finalProject.db.dao.RolesDao;
+import ua.nure.koshova.finalProject.db.dao.UsersDao;
+import ua.nure.koshova.finalProject.db.entity.Role;
+import ua.nure.koshova.finalProject.db.entity.Roles;
+import ua.nure.koshova.finalProject.db.entity.User;
 
 public class UserService {
 
-    private RolesDao roles;
-    private UsersDao u;
+    private RolesDao rolesDao = RolesDao.getInstance();
+    private UsersDao usersDao = UsersDao.getInstance();
+    ;
 
-    public User createNewUser(String login, String password, String name, String lastName, String thirdName ){
+    public User createNewUser(String login,
+                              String password,
+                              String name,
+                              String lastName,
+                              String thirdName) {
 
-        Role role = null;
-        try {
-            role = roles.findRoleByName(Roles.user.toString());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Role role = rolesDao.findRoleByName(Roles.user.toString());
         User user = new User();
         user.setLogin(login);
         user.setPassword(password);
@@ -29,8 +27,16 @@ public class UserService {
         user.setThirdName(thirdName);
         user.setRole(role);
 
-        u = UsersDao.getInstance();
-        u.createUser(user);
+        usersDao.createUser(user);
         return user;
+    }
+
+    public boolean registeredUser(String login, String password) {
+        boolean register = usersDao.findUser(login, password);
+        boolean isRegister = false;
+        if (register == true) {
+            isRegister = true;
+        }
+        return isRegister;
     }
 }

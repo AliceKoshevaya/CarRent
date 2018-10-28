@@ -1,6 +1,6 @@
 package ua.nure.koshova.finalProject.servlet;
 
-import ua.nure.koshova.finalProject.entity.Car;
+import ua.nure.koshova.finalProject.db.entity.Car;
 import ua.nure.koshova.finalProject.service.CarService;
 
 import java.io.IOException;

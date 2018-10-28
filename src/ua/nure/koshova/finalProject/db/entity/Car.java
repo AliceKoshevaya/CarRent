@@ -1,6 +1,4 @@
-package ua.nure.koshova.finalProject.entity;
-
-import ua.nure.koshova.finalProject.Status;
+package ua.nure.koshova.finalProject.db.entity;
 
 public class Car {
 

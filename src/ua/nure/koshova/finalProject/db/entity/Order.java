@@ -1,4 +1,4 @@
-package ua.nure.koshova.finalProject.entity;
+package ua.nure.koshova.finalProject.db.entity;
 
 import java.sql.Timestamp;
 

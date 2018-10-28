@@ -1,8 +1,10 @@
-package ua.nure.koshova.finalProject.entity;
+package ua.nure.koshova.finalProject.db.entity;
 
-public class Brand {
+public class ClassCar {
+
     private Long id;
     private String name;
+    private int coefficient;
 
     public void setId(Long id) {
         this.id = id;
@@ -18,6 +20,14 @@ public class Brand {
 
     public String getName() {
         return name;
+    }
+
+    public void setCoefficient(int coefficient) {
+        this.coefficient = coefficient;
+    }
+
+    public int getCoefficient() {
+        return coefficient;
     }
 
     @Override

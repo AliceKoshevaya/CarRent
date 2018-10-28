@@ -1,7 +1,7 @@
 package ua.nure.koshova.finalProject.servlet;
 
-import ua.nure.koshova.finalProject.dao.MyUtils;
-import ua.nure.koshova.finalProject.entity.User;
+import ua.nure.koshova.finalProject.db.dao.util.MyUtils;
+import ua.nure.koshova.finalProject.db.entity.User;
 
 import java.io.IOException;
 

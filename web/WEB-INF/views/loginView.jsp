@@ -15,7 +15,7 @@
             <form class="form-horizontal">
                 <span class="heading">SING IN</span>
                 <div class="form-group">
-                    <input type="email" class="form-control" id="inputEmail" name="login" value= "${user.login}" placeholder="Login">
+                    <input class="form-control"  name="login" value= "${user.login}" placeholder="Login">
                     <i class="fa fa-user"></i>
                 </div>
                 <div class="form-group help">

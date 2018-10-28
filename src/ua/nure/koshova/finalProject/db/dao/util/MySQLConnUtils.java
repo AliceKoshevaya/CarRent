@@ -1,4 +1,4 @@
-package ua.nure.koshova.finalProject.dao;
+package ua.nure.koshova.finalProject.db.dao.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

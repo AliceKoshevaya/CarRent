@@ -1,6 +1,6 @@
-package ua.nure.koshova.finalProject.dao;
+package ua.nure.koshova.finalProject.db.dao.util;
 
-import ua.nure.koshova.finalProject.entity.User;
+import ua.nure.koshova.finalProject.db.entity.User;
 
 import java.sql.Connection;
 

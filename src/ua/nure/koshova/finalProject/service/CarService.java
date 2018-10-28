@@ -1,7 +1,7 @@
 package ua.nure.koshova.finalProject.service;
 
-import ua.nure.koshova.finalProject.dao.CarsDao;
-import ua.nure.koshova.finalProject.entity.Car;
+import ua.nure.koshova.finalProject.db.dao.CarsDao;
+import ua.nure.koshova.finalProject.db.entity.Car;
 
 import java.util.List;
 
