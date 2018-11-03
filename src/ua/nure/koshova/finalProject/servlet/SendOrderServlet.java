@@ -51,18 +51,8 @@ public class SendOrderServlet extends HttpServlet {
         Car car = carsDao.findCarById(idCar);
         int priceCar = car.getPrice();
         Bill bill = billService.createBill(startRent, endRent, priceCar, idOrder);
-//        request.setAttribute("bill", bill);
-//        String pay = request.getParameter("pay");
-//        if (pay == null) {
-//
-//        } else if (pay.equals("Pay")) {
-//            bill.setStatus(true);
-//            request.setAttribute("bill", bill);
-//        }
-        RequestDispatcher dispatcher
-                = this.getServletContext().getRequestDispatcher("/WEB-INF/views/BillView.jsp");
-
-        dispatcher.forward(request, response);
+        Long id = bill.getId();
+        response.sendRedirect("/bill?txt1=" + id);
     }
 }
 

@@ -1,9 +1,9 @@
 package ua.nure.koshova.finalProject.db.dao.util;
 
-public final class Requests {
+public final class RequestsToDB {
 
     //////////////////////
-    // Requests to cars //
+    // RequestsToDB to cars //
     //////////////////////
 
     public static final String INSERT_CAR = "insert into cars values (DEFAULT ,?,?,?,?,?,?)";
@@ -39,14 +39,14 @@ public final class Requests {
             "where c.id =?";
 
     ///////////////////////
-    // Requests to roles //
+    // RequestsToDB to roles //
     ///////////////////////
 
     public static final String SELECT_ALL_ROLES = "select * from roles";
     public static final String SELECT_ROLE_BY_NAME = "select id, role_name from roles where role_name =";
 
     ///////////////////////
-    // Requests to users //
+    // RequestsToDB to users //
     ///////////////////////
 
     public static final String INSERT_USER = "insert into users values (DEFAULT ,?,?,?,?,?,?,?,?);";
@@ -61,7 +61,7 @@ public final class Requests {
             "WHERE u.user_login=? and u.password=?";
 
     ////////////////////////
-    // Requests to orders //
+    // RequestsToDB to orders //
     ////////////////////////
 
     public static final String INSERT_ORDER = "insert into orders values (DEFAULT ,?,?,?,?,?)";
@@ -71,7 +71,7 @@ public final class Requests {
             "left join cars AS c ON o.id_car = c.id order by o.id";
 
     //////////////////////
-    // Requests to bill //
+    // RequestsToDB to bill //
     //////////////////////
 
     public static final String INSERT_BILL = "insert into bill values (DEFAULT ,?,?,?,?,?)";
@@ -79,14 +79,14 @@ public final class Requests {
     public static final String UPDATE_BILL ="UPDATE bill SET status = TRUE WHERE id = ?";
 
     //////////////////////
-    // Requests to brand /
+    // RequestsToDB to brand /
     //////////////////////
 
     public static final String SELECT_BRAND_BY_ID = "select name from brand where id=?";
     public static final String SELECT_ALL_BRAND = "select * from brand";
 
     ///////////////////////
-    // Requests to class //
+    // RequestsToDB to class //
     ///////////////////////
 
     public static final String SELECT_CLASS_BY_ID = "select name from classes where id=?";

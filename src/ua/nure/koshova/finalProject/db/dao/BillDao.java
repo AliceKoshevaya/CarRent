@@ -1,10 +1,9 @@
 package ua.nure.koshova.finalProject.db.dao;
 
 import ua.nure.koshova.finalProject.db.dao.util.MySQLConnUtils;
-import ua.nure.koshova.finalProject.db.dao.util.Requests;
+import ua.nure.koshova.finalProject.db.dao.util.RequestsToDB;
 import ua.nure.koshova.finalProject.db.entity.Bill;
 import ua.nure.koshova.finalProject.db.entity.Order;
-import ua.nure.koshova.finalProject.db.entity.Status;
 
 import java.sql.*;
 
@@ -35,7 +34,7 @@ public class BillDao {
         Long id = null;
         Connection con = MySQLConnUtils.getMySQLConnection();
 
-        try (PreparedStatement ps = con.prepareStatement(Requests.INSERT_BILL, Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement ps = con.prepareStatement(RequestsToDB.INSERT_BILL, Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setBoolean(1, status.booleanValue());
             ps.setString(2,type);
@@ -62,7 +61,7 @@ public class BillDao {
         Connection connection = MySQLConnUtils.getMySQLConnection();
         Bill bill = new Bill();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(Requests.SELECT_BILL_BY_ID);
+            PreparedStatement preparedStatement = connection.prepareStatement(RequestsToDB.SELECT_BILL_BY_ID);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -84,7 +83,7 @@ public class BillDao {
     public void updateBill(Long id) {
         Connection con = MySQLConnUtils.getMySQLConnection();
         try {
-            PreparedStatement preparedStatement = con.prepareStatement(Requests.UPDATE_BILL);
+            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.UPDATE_BILL);
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

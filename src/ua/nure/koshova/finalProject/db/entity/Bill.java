@@ -1,6 +1,5 @@
 package ua.nure.koshova.finalProject.db.entity;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 public class Bill {

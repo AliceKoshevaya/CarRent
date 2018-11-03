@@ -1,7 +1,7 @@
 package ua.nure.koshova.finalProject.db.dao;
 
 import ua.nure.koshova.finalProject.db.dao.util.MySQLConnUtils;
-import ua.nure.koshova.finalProject.db.dao.util.Requests;
+import ua.nure.koshova.finalProject.db.dao.util.RequestsToDB;
 import ua.nure.koshova.finalProject.db.entity.*;
 
 import java.sql.*;
@@ -31,7 +31,7 @@ public class OrdersDao {
         Long id = null;
         Connection con = MySQLConnUtils.getMySQLConnection();
         if (order != null) {
-            try (PreparedStatement ps = con.prepareStatement(Requests.INSERT_ORDER, Statement.RETURN_GENERATED_KEYS)) {
+            try (PreparedStatement ps = con.prepareStatement(RequestsToDB.INSERT_ORDER, Statement.RETURN_GENERATED_KEYS)) {
                 ps.setBoolean(1, order.isDriver());
                 ps.setTimestamp(2, order.getStartRent());
                 ps.setTimestamp(3, order.getEndRent());
@@ -56,7 +56,7 @@ public class OrdersDao {
         List<Order> orderList = new ArrayList<Order>();
         Connection connection = MySQLConnUtils.getMySQLConnection();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(Requests.SELECT_ALL_ORDERS);
+            PreparedStatement preparedStatement = connection.prepareStatement(RequestsToDB.SELECT_ALL_ORDERS);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Order order = new Order();

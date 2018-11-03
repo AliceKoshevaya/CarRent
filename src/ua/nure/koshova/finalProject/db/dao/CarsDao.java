@@ -1,9 +1,8 @@
 package ua.nure.koshova.finalProject.db.dao;
 
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import ua.nure.koshova.finalProject.db.dao.util.MySQLConnUtils;
-import ua.nure.koshova.finalProject.db.dao.util.Requests;
+import ua.nure.koshova.finalProject.db.dao.util.RequestsToDB;
 import ua.nure.koshova.finalProject.db.entity.*;
 
 import java.sql.*;
@@ -61,7 +60,7 @@ public class CarsDao {
         Long id = null;
         Connection con = MySQLConnUtils.getMySQLConnection();
         if (car != null) {
-            try (PreparedStatement ps = con.prepareStatement(Requests.INSERT_CAR, Statement.RETURN_GENERATED_KEYS)) {
+            try (PreparedStatement ps = con.prepareStatement(RequestsToDB.INSERT_CAR, Statement.RETURN_GENERATED_KEYS)) {
                 ps.setString(1, car.getCarName());
                 ps.setInt(2, car.getPrice());
                 ps.setString(3, car.getStateNumber());
@@ -86,7 +85,7 @@ public class CarsDao {
     public void deleteCar(Long id) {
         Connection con = MySQLConnUtils.getMySQLConnection();
         try {
-            PreparedStatement preparedStatement = con.prepareStatement(Requests.DELETE_CAR);
+            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.DELETE_CAR);
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -103,7 +102,7 @@ public class CarsDao {
         Connection con = MySQLConnUtils.getMySQLConnection();
 
         try {
-            PreparedStatement preparedStatement = con.prepareStatement(Requests.UPDATE_CAR);
+            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.UPDATE_CAR);
             preparedStatement.setString(1, name);
             preparedStatement.setInt(2, price);
             preparedStatement.setString(1, govNumber);
@@ -124,7 +123,7 @@ public class CarsDao {
         List<Car> carList = new ArrayList<>();
         Connection connection = MySQLConnUtils.getMySQLConnection();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(Requests.SELECT_ALL_CAR);
+            PreparedStatement preparedStatement = connection.prepareStatement(RequestsToDB.SELECT_ALL_CAR);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Car car = new Car();
@@ -162,7 +161,7 @@ public class CarsDao {
         Connection con = MySQLConnUtils.getMySQLConnection();
         try {
             String order = String.format(" order by %s %s", sortField, sortOrder);
-            PreparedStatement preparedStatement = con.prepareStatement(Requests.SELECT_GET_CAR_BY_BRAND + order);
+            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.SELECT_GET_CAR_BY_BRAND + order);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -194,7 +193,7 @@ public class CarsDao {
         Connection con = MySQLConnUtils.getMySQLConnection();
         try {
             String order = String.format(" order by %s %s", sortField, sortOrder);
-            PreparedStatement preparedStatement = con.prepareStatement(Requests.SELECT_GET_CAR_BY_CLASS + order);
+            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.SELECT_GET_CAR_BY_CLASS + order);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -228,7 +227,7 @@ public class CarsDao {
         Connection con = MySQLConnUtils.getMySQLConnection();
         try {
             String order = String.format(" order by %s %s", sortField, sortOrder);
-            PreparedStatement preparedStatement = con.prepareStatement(Requests.SELECT_BY_CLASS_AND_BRAND + order);
+            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.SELECT_BY_CLASS_AND_BRAND + order);
             preparedStatement.setLong(1, brandId);
             preparedStatement.setLong(2, classId);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -258,7 +257,7 @@ public class CarsDao {
         Connection connection = MySQLConnUtils.getMySQLConnection();
         Car c = new Car();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(Requests.SELECT_CAR_BY_ID);
+            PreparedStatement preparedStatement = connection.prepareStatement(RequestsToDB.SELECT_CAR_BY_ID);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {

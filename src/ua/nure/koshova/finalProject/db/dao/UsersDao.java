@@ -1,7 +1,7 @@
 package ua.nure.koshova.finalProject.db.dao;
 
 import ua.nure.koshova.finalProject.db.dao.util.MySQLConnUtils;
-import ua.nure.koshova.finalProject.db.dao.util.Requests;
+import ua.nure.koshova.finalProject.db.dao.util.RequestsToDB;
 import ua.nure.koshova.finalProject.db.entity.Role;
 import ua.nure.koshova.finalProject.db.entity.User;
 
@@ -42,7 +42,7 @@ public class UsersDao {
         List<User> userList = new ArrayList<>();
         Connection connection = MySQLConnUtils.getMySQLConnection();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(Requests.SELECT_ALL_USERS);
+            PreparedStatement preparedStatement = connection.prepareStatement(RequestsToDB.SELECT_ALL_USERS);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 User user = new User();
@@ -71,7 +71,7 @@ public class UsersDao {
         List<User> userList = new ArrayList<>();
         Connection connection = MySQLConnUtils.getMySQLConnection();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(Requests.SELECT_USER_BY_ROLE);
+            PreparedStatement preparedStatement = connection.prepareStatement(RequestsToDB.SELECT_USER_BY_ROLE);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 User user = new User();
@@ -97,7 +97,7 @@ public class UsersDao {
         Connection connection = MySQLConnUtils.getMySQLConnection();
         boolean isUser = false;
         try {
-            PreparedStatement pstm = connection.prepareStatement(Requests.SELECT_GET_USER);
+            PreparedStatement pstm = connection.prepareStatement(RequestsToDB.SELECT_GET_USER);
             pstm.setString(1, login);
             pstm.setString(2, password);
             ResultSet rs = pstm.executeQuery();
@@ -138,7 +138,7 @@ public class UsersDao {
         Connection connection = MySQLConnUtils.getMySQLConnection();
         if (user != null) {
             try (PreparedStatement ps =
-                         connection.prepareStatement(Requests.INSERT_USER,
+                         connection.prepareStatement(RequestsToDB.INSERT_USER,
                                  Statement.RETURN_GENERATED_KEYS)) {
                 ps.setString(1, user.getLogin());
                 ps.setString(2, user.getPassword());

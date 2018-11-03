@@ -1,7 +1,7 @@
 package ua.nure.koshova.finalProject.db.dao;
 
 import ua.nure.koshova.finalProject.db.dao.util.MySQLConnUtils;
-import ua.nure.koshova.finalProject.db.dao.util.Requests;
+import ua.nure.koshova.finalProject.db.dao.util.RequestsToDB;
 import ua.nure.koshova.finalProject.db.entity.ClassCar;
 
 import java.sql.Connection;
@@ -34,7 +34,7 @@ public class ClassDao {
         Long id = null;
         Connection con = MySQLConnUtils.getMySQLConnection();
         try {
-            PreparedStatement preparedStatement = con.prepareStatement(Requests.SELECT_CLASS_BY_ID);
+            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.SELECT_CLASS_BY_ID);
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -52,7 +52,7 @@ public class ClassDao {
         List<ClassCar> cars = new ArrayList<>();
         Connection connection = MySQLConnUtils.getMySQLConnection();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(Requests.SELECT_ALL_CLASSES);
+            PreparedStatement preparedStatement = connection.prepareStatement(RequestsToDB.SELECT_ALL_CLASSES);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 ClassCar classCar = new ClassCar();

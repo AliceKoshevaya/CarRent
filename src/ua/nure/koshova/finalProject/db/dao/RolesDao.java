@@ -1,7 +1,7 @@
 package ua.nure.koshova.finalProject.db.dao;
 
 import ua.nure.koshova.finalProject.db.dao.util.MySQLConnUtils;
-import ua.nure.koshova.finalProject.db.dao.util.Requests;
+import ua.nure.koshova.finalProject.db.dao.util.RequestsToDB;
 import ua.nure.koshova.finalProject.db.entity.Role;
 
 import java.sql.*;
@@ -32,7 +32,7 @@ public class RolesDao {
         Connection connection = MySQLConnUtils.getMySQLConnection();
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = connection.prepareStatement(Requests.SELECT_ALL_ROLES);
+            preparedStatement = connection.prepareStatement(RequestsToDB.SELECT_ALL_ROLES);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Role role = new Role();
@@ -51,7 +51,7 @@ public class RolesDao {
         Connection connection = MySQLConnUtils.getMySQLConnection();
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = connection.prepareStatement(Requests.SELECT_ROLE_BY_NAME + role);
+            preparedStatement = connection.prepareStatement(RequestsToDB.SELECT_ROLE_BY_NAME + role);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 rol.setId(resultSet.getLong(1));
