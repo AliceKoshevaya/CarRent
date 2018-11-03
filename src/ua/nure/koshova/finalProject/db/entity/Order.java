@@ -10,6 +10,7 @@ public class Order {
     private Timestamp endRent;
     private User user;
     private Car car;
+    private OrderStatus status;
 
     public void setId(Long id) {
         this.id = id;
@@ -57,5 +58,13 @@ public class Order {
 
     public User getUser() {
         return user;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
     }
 }

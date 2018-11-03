@@ -64,8 +64,8 @@ public final class RequestsToDB {
     // RequestsToDB to orders //
     ////////////////////////
 
-    public static final String INSERT_ORDER = "insert into orders values (DEFAULT ,?,?,?,?,?)";
-    public static final String SELECT_ALL_ORDERS = "select o.id, o.driver, o.start_rent, o.end_rent,  u.id, u.user_login " +
+    public static final String INSERT_ORDER = "insert into orders values (DEFAULT ,?,?,?,?,?,?)";
+    public static final String SELECT_ALL_ORDERS = "select o.id, o.driver, o.status, o.start_rent, o.end_rent,  u.id, u.user_login " +
             "from orders AS o " +
             "left join users AS u ON o.id_user = u.id "  +
             "left join cars AS c ON o.id_car = c.id order by o.id";
@@ -77,6 +77,7 @@ public final class RequestsToDB {
     public static final String INSERT_BILL = "insert into bill values (DEFAULT ,?,?,?,?,?)";
     public static final String SELECT_BILL_BY_ID = "select id, status, type, summa, data, id_order from bill where id =?";
     public static final String UPDATE_BILL ="UPDATE bill SET status = TRUE WHERE id = ?";
+    public static final String SELECT_BILL_BY_ORDER_ID = "select id from bill where id_order =?";
 
     //////////////////////
     // RequestsToDB to brand /

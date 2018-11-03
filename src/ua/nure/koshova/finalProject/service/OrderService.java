@@ -1,15 +1,14 @@
 package ua.nure.koshova.finalProject.service;
 
-import ua.nure.koshova.finalProject.db.dao.BillDao;
-import ua.nure.koshova.finalProject.db.dao.CarsDao;
+
 import ua.nure.koshova.finalProject.db.dao.OrdersDao;
-import ua.nure.koshova.finalProject.db.dao.UsersDao;
-import ua.nure.koshova.finalProject.db.entity.Bill;
+
 import ua.nure.koshova.finalProject.db.entity.Car;
 import ua.nure.koshova.finalProject.db.entity.Order;
 import ua.nure.koshova.finalProject.db.entity.User;
+import java.util.List;
 
-import java.sql.Date;
+
 import java.sql.Timestamp;
 
 public class OrderService {
@@ -31,6 +30,11 @@ public class OrderService {
         order.setCar(car);
         Long id = ordersDao.createOrder(order);
         return id;
+    }
+
+    public List<Order> getOrderList(){
+        List<Order> orderList = ordersDao.findAllOrders();
+        return orderList;
     }
 
     public static void main(String[] args) {

@@ -80,6 +80,25 @@ public class BillDao {
         return bill;
     }
 
+    public Long findBillByIdOrder(Long id) {
+        Connection connection = MySQLConnUtils.getMySQLConnection();
+        Bill bill = new Bill();
+        Long idBill = null;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(RequestsToDB.SELECT_BILL_BY_ORDER_ID);
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                bill.setId(resultSet.getLong(1));
+
+            }
+            idBill = bill.getId();
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+        return idBill;
+    }
+
     public void updateBill(Long id) {
         Connection con = MySQLConnUtils.getMySQLConnection();
         try {

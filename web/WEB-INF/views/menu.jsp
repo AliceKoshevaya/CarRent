@@ -18,6 +18,6 @@
     |
     <a href="${pageContext.request.contextPath}/registration">Registration</a>
     |
-    <a href="${pageContext.request.contextPath}/makeOrder">Make an order</a>
+    <a href="${pageContext.request.contextPath}/ordersList">List orders</a>
 
 </div>

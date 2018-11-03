@@ -19,8 +19,8 @@ CREATE TABLE users(
 	  password VARCHAR(15) NOT NULL,
 	  first_name VARCHAR(20) NOT NULL,
 	  last_name VARCHAR(25) NOT NULL,
-	  threerd_name VARCHAR(25),
-	  pass_seria VARCHAR(10),
+	  third_name VARCHAR(25),
+	  pass_seria VARCHAR(10) unique,
 	  data_pass VARCHAR(30),
 	  id_role INT NOT NULL REFERENCES roles(id)
 
@@ -50,25 +50,26 @@ CREATE TABLE cars(
 	id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
 	name VARCHAR(30)  NOT NULL,
 	price INT NOT NULL,
-	gos_number VARCHAR(8) NOT NULL,
-	status varchar(25),
+	gov_number VARCHAR(8) NOT NULL unique,
+	status enum('RENT','CRASH','STOCK'),
 	id_brand INT NOT NULL REFERENCES brand(id),
 	id_class INT NOT NULL REFERENCES classes(id)
 );
 
 CREATE TABLE bill(
 	id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-	status boolean NOT NULL,
+	status boolean NOT NULL, 
 	type VARCHAR(20) NOT NULL,
-	sum INT NOT NULL,
-	data DATE NOT NULL
+	summa INT NOT NULL,
+	data TIMESTAMP,
+    id_order  INT NOT NULL REFERENCES orders(id) ON UPDATE CASCADE
 );
 CREATE TABLE orders(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	driver BOOLEAN NOT NULL,
+    status enum('NEW', 'CLOSED', 'IN_PROGRESS'),
 	start_rent TIMESTAMP NOT NULL,
 	end_rent TIMESTAMP NOT NULL,
     id_user INT NOT NULL REFERENCES users(id),
-    id_bill  INT NOT NULL REFERENCES bill(id),
 	id_car  INT NOT NULL REFERENCES cars(id)
 );

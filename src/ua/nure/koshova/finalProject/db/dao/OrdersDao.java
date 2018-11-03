@@ -33,10 +33,11 @@ public class OrdersDao {
         if (order != null) {
             try (PreparedStatement ps = con.prepareStatement(RequestsToDB.INSERT_ORDER, Statement.RETURN_GENERATED_KEYS)) {
                 ps.setBoolean(1, order.isDriver());
-                ps.setTimestamp(2, order.getStartRent());
-                ps.setTimestamp(3, order.getEndRent());
-                ps.setLong(4, order.getUser().getId());
-                ps.setLong(5, order.getCar().getId());
+                ps.setString(2, order.getStatus().toString());
+                ps.setTimestamp(3, order.getStartRent());
+                ps.setTimestamp(4, order.getEndRent());
+                ps.setLong(5, order.getUser().getId());
+                ps.setLong(6, order.getCar().getId());
                 ps.executeUpdate();
 
                 ResultSet generatedKeys = ps.getGeneratedKeys();
@@ -53,7 +54,7 @@ public class OrdersDao {
     }
 
     public List<Order> findAllOrders(){
-        List<Order> orderList = new ArrayList<Order>();
+        List<Order> orderList = new ArrayList<>();
         Connection connection = MySQLConnUtils.getMySQLConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(RequestsToDB.SELECT_ALL_ORDERS);
@@ -66,8 +67,9 @@ public class OrdersDao {
                 order.setCar(car);
                 order.setId(resultSet.getLong(1));
                 order.setDriver(resultSet.getBoolean(2));
-                order.setStartRent(resultSet.getTimestamp(3));
-                order.setEndRent(resultSet.getTimestamp(4));
+                order.setStatus(OrderStatus.valueOf(resultSet.getString(3).toUpperCase()));
+                order.setStartRent(resultSet.getTimestamp(4));
+                order.setEndRent(resultSet.getTimestamp(5));
                 orderList.add(order);
             }
         } catch (SQLException e) {
