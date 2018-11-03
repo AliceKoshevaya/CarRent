@@ -7,9 +7,33 @@ import java.util.List;
 
 public class CarService {
 
-    private CarsDao carDao  = CarsDao.getInstance();
+    private CarsDao carDao = CarsDao.getInstance();
 
-    public List<Car> findAllCar() {
-        return carDao.findAllCars();
+    public List<Car> getCarsList(String sortField, String sortOrder,
+                                 String brandId, String classId) {
+        List<Car> cars;
+        if (brandId == null && classId == null) {
+            cars = carDao.findAllCars();
+        } else if (brandId == null && classId != null) {
+            Long classIdNum = Long.valueOf(classId);
+            cars = carDao.getCarByClass(sortField, sortOrder, classIdNum);
+        } else if (brandId != null && classId == null) {
+            Long classIdNum = Long.valueOf(brandId);
+            cars = carDao.getCarByBrand(sortField, sortOrder, classIdNum);
+        } else {
+            Long brandIdNum = Long.valueOf(brandId);
+            Long classIdNum = Long.valueOf(classId);
+            cars = carDao.getCarByClassBrand(sortField, sortOrder, brandIdNum, classIdNum);
+        }
+        return cars;
+    }
+
+    public Car getCarById(Long id){
+        return carDao.findCarById(id);
+    }
+
+    public static void main(String[] args) {
+        ClassService cs = new ClassService();
+        System.out.println(cs.getClassList());
     }
 }

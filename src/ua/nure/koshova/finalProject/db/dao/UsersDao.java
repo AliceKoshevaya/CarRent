@@ -35,8 +35,7 @@ public class UsersDao {
         Role role = new Role();
         role.setName("manager");
         System.out.println(u.findUsersByRole(role));
-        User user = new User();
-        u.createUser(user);
+        System.out.println(u.findUserByLogin("alice777"));
     }
 
     public List<User> findAllUsers(){
@@ -118,7 +117,22 @@ public class UsersDao {
         }
         return isUser;
     }
-
+    public Long findUserByLogin(String login){
+        Connection connection = MySQLConnUtils.getMySQLConnection();
+        Long id = null;
+        try {
+            PreparedStatement pstm = connection.prepareStatement("SELECT users.id FROM users WHERE users.user_login = ?");
+            pstm.setString(1, login);
+            ResultSet rs = pstm.executeQuery();
+            User user = new User();
+            if (rs.next()) {
+                id = rs.getLong(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
     public Long createUser(User user) {
         Long id = null;
         Connection connection = MySQLConnUtils.getMySQLConnection();

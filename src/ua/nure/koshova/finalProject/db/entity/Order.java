@@ -10,7 +10,6 @@ public class Order {
     private Timestamp endRent;
     private User user;
     private Car car;
-    private Bill bill;
 
     public void setId(Long id) {
         this.id = id;
@@ -26,14 +25,6 @@ public class Order {
 
     public boolean isDriver() {
         return driver;
-    }
-
-    public void setBill(Bill bill) {
-        this.bill = bill;
-    }
-
-    public Bill getBill() {
-        return bill;
     }
 
     public void setCar(Car car) {

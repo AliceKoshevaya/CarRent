@@ -10,7 +10,6 @@ public class UserService {
 
     private RolesDao rolesDao = RolesDao.getInstance();
     private UsersDao usersDao = UsersDao.getInstance();
-    ;
 
     public User createNewUser(String login,
                               String password,

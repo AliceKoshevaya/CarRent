@@ -1,19 +1,21 @@
 package ua.nure.koshova.finalProject.db.entity;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Bill {
-    private int id;
+    private Long id;
     private String type;
-    private boolean status;
+    private Boolean status;
     private int sum;
-    private Date date;
+    private Timestamp date;
+    private Order order;
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -33,19 +35,27 @@ public class Bill {
         return sum;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 
-    public boolean getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Order getOrder() {
+        return order;
     }
 }

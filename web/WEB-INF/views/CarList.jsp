@@ -11,10 +11,40 @@
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet" type="text/css"/>
     <title>Cars</title>
 </head>
 <body>
-<form method="POST" action="${pageContext.request.contextPath}/carList">
+<form method="GET" action="${pageContext.request.contextPath}/carList">
+    <div class="form-group ">
+        <label>Select Brand: </label>
+        <select id="select1" name="selectBrand">
+            <c:forEach items="${brands}" var="brand">
+                <option value="${brand.id}">${brand.name}</option>
+            </c:forEach>
+        </select>
+    </div>
+    <div class="form-group ">
+        <label>Select Class Car: </label>
+        <select id="select2" name="selectClass">
+            <c:forEach items="${classes}" var="clazz">
+                <option value="${clazz.id}">${clazz.name}</option>
+            </c:forEach>
+        </select>
+    </div>
+    <div class="form-group ">
+        <select id="select3" name="selectSort">
+            <option value="ASC:price">From cheap to expensive</option>
+            <option value="DESC:price">From expensive to cheap</option>
+            <option value="ASC:name">A-Z</option>
+            <option value="DESC:name">Z-A</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-default">Apply</button>
+    </div>
+
+</form>
 <table>
     <tr>
         <th>Id_car</th>
@@ -26,14 +56,16 @@
     </tr>
 
     <c:forEach items="${cars}" var="car">
-    <tr>
-        <td>${car.id}</td>
-        <td>${car.carName}</td>
-        <td>${car.price}</td>
-        <td>${car.stateNumber}</td>
-        <td>${car.brand.name}</td>
-        <td>${car.classCar.name}</td>
-    </tr>
+        <tr>
+            <form method="POST" action="/makeOrder">
+                <td name = "carName">${car.carName}</td>
+                <td name = "price">${car.price}</td>
+                <td name = "stateNumber">${car.stateNumber}</td>
+                <td name = "brand">${car.brand.name}</td>
+                <td name = "class">${car.classCar.name}</td>
+                <td><input type="hidden" name="carId" value="${car.id}"/><input type="submit" value="Choose a car"/></td>
+            </form>
+        </tr>
     </c:forEach>
 
 </table>

@@ -1,12 +1,10 @@
 package ua.nure.koshova.finalProject.db.dao;
 
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import ua.nure.koshova.finalProject.db.dao.util.MySQLConnUtils;
 import ua.nure.koshova.finalProject.db.dao.util.Requests;
-import ua.nure.koshova.finalProject.db.entity.Brand;
-import ua.nure.koshova.finalProject.db.entity.Car;
-import ua.nure.koshova.finalProject.db.entity.ClassCar;
-import ua.nure.koshova.finalProject.db.entity.Status;
+import ua.nure.koshova.finalProject.db.entity.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -40,10 +38,7 @@ public class CarsDao {
     public static void main(String[] args) {
         CarsDao cars = new CarsDao();
         System.out.println(cars.findAllCars());
-        System.out.println(cars.getCarByBrand(3L));
-        System.out.println(cars.getCarByClass(3L));
-        System.out.println(cars.sortByPrice("desc"));
-        System.out.println(cars.sortByName("asc"));
+//        System.out.println(cars.getCarByBrand(3L));
         //       cars.deleteCar(1L);
 //        Car car = new Car();
 //        car.setCarName("Veyron 16.4");
@@ -59,6 +54,7 @@ public class CarsDao {
 //        classCar.setName("Lux");
 //        car.setClassCar(classCar);
 //        System.out.println(cars.createCar(car));
+//        System.out.println(cars.findCarById(3L));
     }
 
     public Long createCar(Car car) {
@@ -120,6 +116,10 @@ public class CarsDao {
         }
     }
 
+    /**
+     * Случай, когда не пришёл ни один параметр
+     * @return
+     */
     public List<Car> findAllCars() {
         List<Car> carList = new ArrayList<>();
         Connection connection = MySQLConnUtils.getMySQLConnection();
@@ -153,11 +153,16 @@ public class CarsDao {
         return carList;
     }
 
-    public List<Car> getCarByBrand(Long id) {
+    /**
+     * Случай, когда пришёл только бренд
+     * @return
+     */
+    public List<Car> getCarByBrand(String sortField, String sortOrder, long id) {
         List<Car> carList = new ArrayList<Car>();
         Connection con = MySQLConnUtils.getMySQLConnection();
         try {
-            PreparedStatement preparedStatement = con.prepareStatement(Requests.SELECT_GET_CAR_BY_BRAND);
+            String order = String.format(" order by %s %s", sortField, sortOrder);
+            PreparedStatement preparedStatement = con.prepareStatement(Requests.SELECT_GET_CAR_BY_BRAND + order);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -180,21 +185,32 @@ public class CarsDao {
         return carList;
     }
 
-    public List<Car> getCarByClass(Long Classid) {
+    /**
+     * Случай, когда пришёл только класс
+     * @return
+     */
+    public List<Car> getCarByClass(String sortField, String sortOrder, Long id) {
         List<Car> carList = new ArrayList<>();
         Connection con = MySQLConnUtils.getMySQLConnection();
         try {
-            PreparedStatement preparedStatement = con.prepareStatement(Requests.SELECT_GET_CAR_BY_CLASS);
-            preparedStatement.setLong(1, Classid);
+            String order = String.format(" order by %s %s", sortField, sortOrder);
+            PreparedStatement preparedStatement = con.prepareStatement(Requests.SELECT_GET_CAR_BY_CLASS + order);
+            preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Car c = new Car();
+                Brand brand = new Brand();
+                ClassCar classCar = new ClassCar();
+                c.setClassCar(classCar);
+                c.setBrand(brand);
 
                 c.setId(resultSet.getLong(1));
                 c.setCarName(resultSet.getString(2));
                 c.setPrice(resultSet.getInt(3));
                 c.setStateNumber(resultSet.getString(4));
                 c.setStatus(Status.valueOf(resultSet.getString(5).toUpperCase()));
+                brand.setName(resultSet.getString(6));
+                classCar.setName(resultSet.getString(7));
                 carList.add(c);
             }
         } catch (SQLException e) {
@@ -203,34 +219,34 @@ public class CarsDao {
         return carList;
     }
 
-    public List<Car> sortByPrice(String sort) {
+    /**
+     * Случай, когда пришли оба
+     * @return
+     */
+    public List<Car> getCarByClassBrand(String sortField, String sortOrder, long brandId, long classId) {
         List<Car> carList = new ArrayList<>();
-        Connection connection = MySQLConnUtils.getMySQLConnection();
+        Connection con = MySQLConnUtils.getMySQLConnection();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(Requests.SELECT_SORT_BY_PRICE + sort + ";");
+            String order = String.format(" order by %s %s", sortField, sortOrder);
+            PreparedStatement preparedStatement = con.prepareStatement(Requests.SELECT_BY_CLASS_AND_BRAND + order);
+            preparedStatement.setLong(1, brandId);
+            preparedStatement.setLong(2, classId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Car car = new Car();
+                Car c = new Car();
                 Brand brand = new Brand();
                 ClassCar classCar = new ClassCar();
-                car.setBrand(brand);
-                car.setClassCar(classCar);
+                c.setClassCar(classCar);
+                c.setBrand(brand);
 
-                car.setId(resultSet.getLong(1));
-                car.setCarName(resultSet.getString(2));
-                car.setPrice(resultSet.getInt(3));
-                car.setStateNumber(resultSet.getString(4));
-                car.setStatus(Status.valueOf(resultSet.getString(5).toUpperCase()));
-
-                brand.setId(resultSet.getLong(6));
-                brand.setName(resultSet.getString(7));
-
-                classCar.setId(resultSet.getLong(8));
-                classCar.setName(resultSet.getString(9));
-                classCar.setCoefficient(resultSet.getInt(10));
-
-                car.setTotalPrice(resultSet.getInt(3) * resultSet.getInt(10));
-                carList.add(car);
+                c.setId(resultSet.getLong(1));
+                c.setCarName(resultSet.getString(2));
+                c.setPrice(resultSet.getInt(3));
+                c.setStateNumber(resultSet.getString(4));
+                c.setStatus(Status.valueOf(resultSet.getString(5).toUpperCase()));
+                brand.setName(resultSet.getString(6));
+                classCar.setName(resultSet.getString(7));
+                carList.add(c);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -238,65 +254,31 @@ public class CarsDao {
         return carList;
     }
 
-    public List<Car> sortByName(String sortBy) {
-        List<Car> carList = new ArrayList<>();
+    public Car findCarById(Long id){
         Connection connection = MySQLConnUtils.getMySQLConnection();
+        Car c = new Car();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(Requests.SELECT_SORT_BY_NAME + sortBy + ";");
+            PreparedStatement preparedStatement = connection.prepareStatement(Requests.SELECT_CAR_BY_ID);
+            preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Car car = new Car();
                 Brand brand = new Brand();
                 ClassCar classCar = new ClassCar();
-                car.setBrand(brand);
-                car.setClassCar(classCar);
-                car.setId(resultSet.getLong(1));
-                car.setCarName(resultSet.getString(2));
-                car.setPrice(resultSet.getInt(3));
-                car.setStateNumber(resultSet.getString(4));
-                car.setStatus(Status.valueOf(resultSet.getString(5).toUpperCase()));
-                brand.setId(resultSet.getLong(6));
-                brand.setName(resultSet.getString(7));
-                classCar.setId(resultSet.getLong(8));
-                classCar.setName(resultSet.getString(9));
-                carList.add(car);
+                c.setClassCar(classCar);
+                c.setBrand(brand);
+
+                c.setId(resultSet.getLong(1));
+                c.setCarName(resultSet.getString(2));
+                c.setPrice(resultSet.getInt(3));
+                c.setStateNumber(resultSet.getString(4));
+                c.setStatus(Status.valueOf(resultSet.getString(5).toUpperCase()));
+                brand.setName(resultSet.getString(6));
+                classCar.setName(resultSet.getString(7));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException e1) {
+            e1.printStackTrace();
         }
-        return carList;
+        return c;
     }
 
-    public List<Car> filterByPrice(int start, int end) {
-        List<Car> carList = new ArrayList<>();
-        Connection connection = MySQLConnUtils.getMySQLConnection();
-        if (end > start) {
-            Statement statement = null;
-            try {
-                String sql = "select c.id, c.name, c.price, c.gov_number, c.status, b.id, b.name,cl.id, cl.name as total from cars  AS c " +
-                        "LEFT JOIN brand AS b ON c.id_brand = b.id  LEFT JOIN classes AS cl ON c.id_class = cl.id " +
-                        "WHERE price < " + start + " AND price > " + end + " order by c.id;";
-                ResultSet resultSet = statement.executeQuery(sql);
-                while (resultSet.next()) {
-                    Car car = new Car();
-                    Brand brand = new Brand();
-                    car.setBrand(brand);
-                    car.setId(resultSet.getLong(1));
-                    car.setCarName(resultSet.getString(2));
-                    car.setPrice(resultSet.getInt(3));
-                    car.setStateNumber(resultSet.getString(4));
-                    car.setStatus(Status.valueOf(resultSet.getString(5).toUpperCase()));
-                    brand.setId(resultSet.getLong(6));
-                    brand.setName(resultSet.getString(7));
-                    carList.add(car);
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            // todo use prep stmt
-        } else {
-            //Своё исключение
-        }
-        return carList;
-    }
 }

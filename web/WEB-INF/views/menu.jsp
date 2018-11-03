@@ -17,5 +17,7 @@
     <a href="${pageContext.request.contextPath}/login">Login</a>
     |
     <a href="${pageContext.request.contextPath}/registration">Registration</a>
+    |
+    <a href="${pageContext.request.contextPath}/makeOrder">Make an order</a>
 
 </div>

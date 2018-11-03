@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         if(userService.registeredUser(login,password)== true){
             RequestDispatcher dispatcher
-                    = this.getServletContext().getRequestDispatcher("/WEB-INF/views/SuccessfulLogin.jsp");
+                    = this.getServletContext().getRequestDispatcher("/WEB-INF/views/homeView.jsp");
 
             dispatcher.forward(request, response);
         }

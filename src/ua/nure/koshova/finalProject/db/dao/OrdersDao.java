@@ -36,8 +36,7 @@ public class OrdersDao {
                 ps.setTimestamp(2, order.getStartRent());
                 ps.setTimestamp(3, order.getEndRent());
                 ps.setLong(4, order.getUser().getId());
-                ps.setLong(5, order.getBill().getId());
-                ps.setLong(6, order.getCar().getId());
+                ps.setLong(5, order.getCar().getId());
                 ps.executeUpdate();
 
                 ResultSet generatedKeys = ps.getGeneratedKeys();
@@ -61,11 +60,10 @@ public class OrdersDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Order order = new Order();
-                Bill bill = new Bill();
                 User user = new User();
                 Car car = new Car();
-                order.setBill(bill);
                 order.setUser(user);
+                order.setCar(car);
                 order.setId(resultSet.getLong(1));
                 order.setDriver(resultSet.getBoolean(2));
                 order.setStartRent(resultSet.getTimestamp(3));
@@ -81,7 +79,23 @@ public class OrdersDao {
 
 
     public static void main(String[] args) throws SQLException {
-        OrdersDao o = new OrdersDao();
-        o.findAllOrders();
+        OrdersDao order = new OrdersDao();
+        order.findAllOrders();
+        Order o = new Order();
+        User user = new User();
+        Bill b = new Bill();
+        Car car = new Car();
+        user.setId(1L);
+        b.setId(1L);
+        car.setId(3L);
+        o.setDriver(true);
+        Timestamp t = Timestamp.valueOf("2018-10-29 12:00:00");
+        o.setStartRent(t);
+        o.setEndRent(t);
+        o.setUser(user);
+        o.setCar(car);
+
+
+        order.createOrder(o);
     }
 }
