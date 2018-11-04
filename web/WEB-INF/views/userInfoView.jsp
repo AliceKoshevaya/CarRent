@@ -15,7 +15,7 @@
 <body>
 <form method="POST" action="${pageContext.request.contextPath}/userInfo">
 <jsp:include page="header.jsp"></jsp:include>
-<jsp:include page="menu.jsp"></jsp:include>
+
 
 <h3>Hello: ${user.name}</h3>
 
