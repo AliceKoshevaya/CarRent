@@ -19,10 +19,10 @@ public class PGRBillServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("txt1");
+        String id = request.getParameter("idBill");
         Long idBill = Long.valueOf(id);
         billDao.updateBill(idBill);
-        response.sendRedirect("/bill?txt1=" + idBill);
+        response.sendRedirect("/bill?idBill=" + idBill);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class PGRBillServlet extends HttpServlet {
         Bill bill = billDao.findBillById(idBill);
         request.setAttribute("bill", bill);
         RequestDispatcher dispatcher
-                = this.getServletContext().getRequestDispatcher("/WEB-INF/views/PGRBillView.jsp");
+                = this.getServletContext().getRequestDispatcher("/WEB-INF/views/BillView.jsp");
         dispatcher.forward(request, response);
     }
 }

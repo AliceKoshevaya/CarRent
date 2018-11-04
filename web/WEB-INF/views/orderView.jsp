@@ -15,7 +15,7 @@
 <body>
 <p class="form-control">Make an order</p>
 <div class="container">
-    <div class="row main-form">
+        <div class="com-lg-1">
         <form method="POST" action="${pageContext.request.contextPath}/finalOrder">
             <div class="form-group">
                 <label for="name" class="cols-sm-2 control-label">Driver or not</label>
@@ -26,10 +26,6 @@
                     </div>
                 </div>
             </div>
-            <%--<form action="">--%>
-                <%--<input type="radio" name="driver" value="with"> With a driver<br>--%>
-                <%--<input type="radio" name="driver" value="without"> Without driver<br>--%>
-            <%--</form>--%>
 
             <div class="form-group">
                 <label for="password" class="cols-sm-2 control-label">Start date</label>
@@ -69,6 +65,36 @@
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
                         <input type="hidden" class="form-control" name="carId" value="${car.id}">
+                        <table class="table table-lg">
+                            <thead>
+                            <tr class="table-primary">
+                                <th scope="col">Characteristic</th>
+                                <th scope="col">Value</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="table-primary">
+                                <td>Car Name</td>
+                                <td>${car.carName}</td>
+                            </tr>
+                            <tr class="table-primary">
+                                <td>State Number</td>
+                                <td>${car.stateNumber}</td>
+                            </tr>
+                            <tr class="table-primary">
+                                <td>Price:</td>
+                                <td>${car.price}</td>
+                            </tr>
+                            <tr class="table-primary">
+                                <td>Brand:</td>
+                                <td>${car.brand.name}</td>
+                            </tr>
+                            <tr class="table-primary">
+                                <td>Class:</td>
+                                <td>${car.classCar.name}</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -77,27 +103,9 @@
                 <input type="submit" value="Accept" id="button" class="btn btn-primary btn-lg btn-block login-button />
                 <a href="${pageContext.request.contextPath}/">
             </div>
-
         </form>
+        </div>
     </div>
 </div>
-<form>
-    <div style="text-align: right; vertical-align: top">
-        <p>Car Name</p>
-        <p>${car.carName}</p>
-        <p>Price</p>
-        <p>${car.price}
-        </p>
-        <p>StateNumber</p>
-        <p>${car.stateNumber}
-        </p>
-        <p>Brand</p>
-        <p>${car.brand.name}
-        </p>
-        <p>Class</p>
-        <p>${car.classCar.name}
-        </p>
-    </div>
-</form>
 </body>
 </html>

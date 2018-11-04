@@ -34,9 +34,7 @@
                 <td>${order.user.id}</td>
                 <td>${order.car.id}</td>
                 <td><input type="submit" value="Edit"/></td>
-                <td><form method="get" action="/billList">
-                    <input type="submit" value="Bills">
-                </form></td>
+                <td><a href="/billList?idOrder=${order.id}">bills</a>
             </form>
         </tr>
     </c:forEach>

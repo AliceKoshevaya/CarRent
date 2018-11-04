@@ -25,7 +25,9 @@ public class ListBillServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        List<Bill> allBills = billService.getAllBillByOrder(1l);
+        String orderId = request.getParameter("idOrder");
+        Long id = Long.valueOf(orderId);
+        List<Bill> allBills = billService.getAllBillByOrder(id);
         request.setAttribute("bills", allBills);
 
         RequestDispatcher dispatcher = request.getServletContext()
