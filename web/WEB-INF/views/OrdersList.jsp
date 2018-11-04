@@ -26,7 +26,7 @@
     <c:forEach items="${orders}" var="order">
         <tr>
             <form method="POST" action="/ordersList">
-                <td>${order.id}</td>
+                <td name = idOrder>${order.id}</td>
                 <td>${order.driver}</td>
                 <td>${order.status}</td>
                 <td>${order.startRent}</td>
@@ -34,7 +34,9 @@
                 <td>${order.user.id}</td>
                 <td>${order.car.id}</td>
                 <td><input type="submit" value="Edit"/></td>
-                <td><input type="submit" value="Bills"/></td>
+                <td><form method="get" action="/billList">
+                    <input type="submit" value="Bills">
+                </form></td>
             </form>
         </tr>
     </c:forEach>

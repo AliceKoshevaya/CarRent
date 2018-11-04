@@ -5,6 +5,9 @@ import ua.nure.koshova.finalProject.db.dao.util.RequestsToDB;
 import ua.nure.koshova.finalProject.db.entity.Bill;
 import ua.nure.koshova.finalProject.db.entity.Order;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import java.sql.*;
 
 public class BillDao {
@@ -28,6 +31,8 @@ public class BillDao {
     }
 
     public static void main(String[] args) {
+        BillDao billDao = new BillDao();
+        System.out.println(billDao.findBillByIdOrder(1L));
     }
 
     public Long createBill(String type, Boolean status, int sum, Timestamp date, Long idOrder) {
@@ -36,7 +41,7 @@ public class BillDao {
 
         try (PreparedStatement ps = con.prepareStatement(RequestsToDB.INSERT_BILL, Statement.RETURN_GENERATED_KEYS)) {
 
-            ps.setBoolean(1, status.booleanValue());
+            ps.setBoolean(1, status);
             ps.setString(2,type);
             ps.setInt(3, sum);
             ps.setTimestamp(4, date);
@@ -80,23 +85,26 @@ public class BillDao {
         return bill;
     }
 
-    public Long findBillByIdOrder(Long id) {
+    public List<Bill> findBillByIdOrder(Long id) {
         Connection connection = MySQLConnUtils.getMySQLConnection();
-        Bill bill = new Bill();
-        Long idBill = null;
+        List<Bill> billList = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(RequestsToDB.SELECT_BILL_BY_ORDER_ID);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
+                Bill bill = new Bill();
                 bill.setId(resultSet.getLong(1));
-
+                bill.setStatus(resultSet.getBoolean(2));
+                bill.setType(resultSet.getString(3));
+                bill.setSum(resultSet.getInt(4));
+                bill.setDate(resultSet.getTimestamp(5));
+                billList.add(bill);
             }
-            idBill = bill.getId();
         } catch (SQLException e1) {
             e1.printStackTrace();
         }
-        return idBill;
+        return billList;
     }
 
     public void updateBill(Long id) {

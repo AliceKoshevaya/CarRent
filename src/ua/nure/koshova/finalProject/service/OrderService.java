@@ -5,6 +5,7 @@ import ua.nure.koshova.finalProject.db.dao.OrdersDao;
 
 import ua.nure.koshova.finalProject.db.entity.Car;
 import ua.nure.koshova.finalProject.db.entity.Order;
+import ua.nure.koshova.finalProject.db.entity.OrderStatus;
 import ua.nure.koshova.finalProject.db.entity.User;
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class OrderService {
         user.setId(idUser);
         order.setUser(user);
         order.setCar(car);
+        order.setStatus(OrderStatus.NEW);
         Long id = ordersDao.createOrder(order);
         return id;
     }
@@ -38,5 +40,6 @@ public class OrderService {
     }
 
     public static void main(String[] args) {
-    }
+        OrderService os = new OrderService();
+        os.newOrder("true", "2018-11-02 13:00", "2018-11-02 14:00", 1L, 2l);    }
 }
