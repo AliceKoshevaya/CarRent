@@ -32,6 +32,7 @@
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/login">Login</a>
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/registration">Registration</a>
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/ordersList">List orders</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/userList">All users</a>
                 </div>
             </li>
         </ul>

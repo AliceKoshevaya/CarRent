@@ -5,6 +5,7 @@ import ua.nure.koshova.finalProject.db.dao.UsersDao;
 import ua.nure.koshova.finalProject.db.entity.Role;
 import ua.nure.koshova.finalProject.db.entity.Roles;
 import ua.nure.koshova.finalProject.db.entity.User;
+import java.util.List;
 
 public class UserService {
 
@@ -37,5 +38,10 @@ public class UserService {
             isRegister = true;
         }
         return isRegister;
+    }
+
+    public List<User> getAllUsers(){
+        List<User> users = usersDao.findAllUsers();
+        return users;
     }
 }

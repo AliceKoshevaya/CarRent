@@ -20,7 +20,7 @@
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img class="d-block w-100" src="../img/ford-2018-hennessey-heritage-edition-mustang-808-hp (2).jpg" alt="First slide">
+            <img class="d-block w-100" src="../img/ford-2018-hennessey-heritage-edition-mustang-808-hp.jpg" alt="First slide">
         </div>
         <div class="carousel-item">
             <img class="d-block w-100" src="../img/bmw-bmw-x72018-dzhip.jpg" alt="Second slide">

@@ -64,10 +64,12 @@
                 <td name = "brand">${car.brand.name}</td>
                 <td name = "class">${car.classCar.name}</td>
                 <td><input type="hidden" name="carId" value="${car.id}"/><input type="submit" value="Choose a car"/></td>
+                <td><input type="submit" value="Edit"/></td>
+                <td><input type="submit" value="Delete"/></td>
             </form>
         </tr>
     </c:forEach>
-
+    <input type="submit" value="Add a car"/>
 </table>
 </body>
 </html>
