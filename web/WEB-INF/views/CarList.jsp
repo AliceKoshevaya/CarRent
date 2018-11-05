@@ -47,7 +47,6 @@
 </form>
 <table>
     <tr>
-        <th>Id_car</th>
         <th>Car_name</th>
         <th>Price</th>
         <th>State_number</th>
@@ -58,19 +57,29 @@
     <c:forEach items="${cars}" var="car">
         <tr>
             <form method="POST" action="/makeOrder">
-                <td name = "carName">${car.carName}</td>
-                <td name = "price">${car.price}</td>
-                <td name = "stateNumber">${car.stateNumber}</td>
-                <td name = "brand">${car.brand.name}</td>
-                <td name = "class">${car.classCar.name}</td>
-                <td><input type="hidden" name="carId" value="${car.id}"/><input type="submit" value="Choose a car"/></td>
+                <td name="carName">${car.carName}</td>
+                <td name="price">${car.price}</td>
+                <td name="stateNumber">${car.stateNumber}</td>
+                <td name="brand">${car.brand.name}</td>
+                <td name="class">${car.classCar.name}</td>
+                <td><input type="hidden" name="carId" value="${car.id}"/><input type="submit" value="Choose a car"/>
+                </td>
                 <td><input type="submit" value="Edit"/></td>
-                <td><form method="post" action="/deleteCar"><input type="hidden" name="carId" value="${car.id}"/>
-                    <input type="submit" value="Delete"/></form></td>
+                <td>
+                    <form method="post" action="/deleteCar"><input type="hidden" name="carId" value="${car.id}"/>
+                        <input type="submit" value="Delete"/></form>
+                </td>
             </form>
         </tr>
     </c:forEach>
-    <input type="submit" value="Add a car"/>
+    <form method="GET" action="${pageContext.request.contextPath}/addCar">
+        <input style="float: left;" type="text" name="CarName" placeholder="Enter car name"/>
+        <input style="float: left;" type="text" name="Price" placeholder="Enter price"/>
+        <input style="float: left;" type="text" name="StateNumber" placeholder="Enter state Number"/>
+        <input style="float: left;" type="text" name="Brand" placeholder="Enter brand id"/>
+        <input style="float: left;" type="text" name="Class" placeholder="Enter class id"/>
+        <input style="float: left;" type="submit" value="Add a car" style="float: left;"/>
+    </form>
 </table>
 </body>
 </html>

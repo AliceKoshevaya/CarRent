@@ -1,5 +1,5 @@
 package ua.nure.koshova.finalProject.db.entity;
 
 public enum Status {
-    RENT, CRASH, STOCK
+    RENT, CRASH, STOCK, NEW
 }

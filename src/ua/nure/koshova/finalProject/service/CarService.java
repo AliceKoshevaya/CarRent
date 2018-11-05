@@ -1,7 +1,10 @@
 package ua.nure.koshova.finalProject.service;
 
 import ua.nure.koshova.finalProject.db.dao.CarsDao;
+import ua.nure.koshova.finalProject.db.entity.Brand;
 import ua.nure.koshova.finalProject.db.entity.Car;
+import ua.nure.koshova.finalProject.db.entity.ClassCar;
+import ua.nure.koshova.finalProject.db.entity.Status;
 
 import java.util.List;
 
@@ -32,8 +35,22 @@ public class CarService {
         return carDao.findCarById(id);
     }
 
-    public void geleteCar(Long id){
+    public void geliteCar(Long id){
         carDao.deleteCar(id);
+    }
+
+    public void addNewCar(String name, int price, String stateNumber, Long idBrand, Long idClass){
+        Car car = new Car();
+        car.setCarName(name);
+        car.setPrice(price);
+        car.setStateNumber(stateNumber);
+        car.setStatus(Status.valueOf("NEW"));
+        Brand brand = new Brand();
+        brand.setId(idBrand);
+        car.setBrand(brand);
+        ClassCar classCar = new ClassCar();
+        classCar.setId(idClass);
+        car.setClassCar(classCar);
     }
 
     public static void main(String[] args) {
