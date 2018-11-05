@@ -12,4 +12,9 @@ public class BrandService {
     public List<Brand> getBrandList() {
         return brandDao.findAllBrands();
     }
+
+    public Brand getBrandById(Long id){
+        Brand brand = brandDao.getBrandById(id);
+        return brand;
+    }
 }

@@ -65,7 +65,7 @@ public class CarServlet extends HttpServlet {
         request.setAttribute("cars", allCar);
 
         RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/views/CarList.jsp");
+                .getRequestDispatcher("/WEB-INF/views/CarListForAdmin.jsp");
         dispatcher.forward(request, response);
     }
 

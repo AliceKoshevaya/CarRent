@@ -9,4 +9,9 @@ public class ClassService {
     public List<ClassCar> getClassList() {
         return classDao.findAllClasses();
     }
+
+    public ClassCar getClassById(Long id){
+        ClassCar classCar = classDao.getClassById(id);
+        return classCar;
+    }
 }

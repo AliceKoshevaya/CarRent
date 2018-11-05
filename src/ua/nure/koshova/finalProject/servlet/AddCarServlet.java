@@ -1,6 +1,8 @@
 package ua.nure.koshova.finalProject.servlet;
 
+import ua.nure.koshova.finalProject.service.BrandService;
 import ua.nure.koshova.finalProject.service.CarService;
+import ua.nure.koshova.finalProject.service.ClassService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,12 +22,6 @@ public class AddCarServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
         String carName = request.getParameter("CarName");
         String price = request.getParameter("Price");
         String stateNumber = request.getParameter("StateNumber");
@@ -33,9 +29,14 @@ public class AddCarServlet extends HttpServlet {
         String classCar = request.getParameter("Class");
         Long idBrand = Long.valueOf(brand);
         Long idClass = Long.valueOf(classCar);
-        Integer priceCar = Integer.getInteger(price);
+        Integer priceCar = Integer.valueOf(price);
         carService.addNewCar(carName, priceCar, stateNumber, idBrand, idClass);
         response.sendRedirect("/carList");
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
     }
 }

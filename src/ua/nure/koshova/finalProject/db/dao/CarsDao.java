@@ -38,21 +38,20 @@ public class CarsDao {
         CarsDao cars = new CarsDao();
         System.out.println(cars.findAllCars());
 //        System.out.println(cars.getCarByBrand(3L));
-        //       cars.deleteCar(1L);
-//        Car car = new Car();
-//        car.setCarName("Veyron 16.4");
-//        car.setPrice(1100);
-//        car.setStateNumber("AX7845CH");
-//        car.setStatus(Status.valueOf("RENT"));
-//        Brand brand = new Brand();
-//        brand.setId(8l);
-//        brand.setName("Bugatti");
-//        car.setBrand(brand);
-//        ClassCar classCar = new ClassCar();
-//        classCar.setId(5l);
-//        classCar.setName("Lux");
-//        car.setClassCar(classCar);
-//        System.out.println(cars.createCar(car));
+        Car car = new Car();
+        car.setCarName("Veyron 16.4");
+        car.setPrice(1100);
+        car.setStateNumber("AX7845CH");
+        car.setStatus(Status.valueOf("RENT"));
+        Brand brand = new Brand();
+        brand.setId(8l);
+        brand.setName("Bugatti");
+        car.setBrand(brand);
+        ClassCar classCar = new ClassCar();
+        classCar.setId(5l);
+        classCar.setName("Lux");
+        car.setClassCar(classCar);
+        System.out.println(cars.createCar(car));
 //        System.out.println(cars.findCarById(3L));
     }
 

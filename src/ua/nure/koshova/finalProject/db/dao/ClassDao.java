@@ -30,22 +30,21 @@ public class ClassDao {
         return localInstance;
     }
 
-    public Long getClassByName(String name) {
-        Long id = null;
+    public ClassCar getClassById(Long id) {
+        ClassCar classCar = new ClassCar();
         Connection con = MySQLConnUtils.getMySQLConnection();
         try {
             PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.SELECT_CLASS_BY_ID);
-            preparedStatement.setString(1, name);
+            preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                ClassCar classCar = new ClassCar();
-
-                classCar.setId(resultSet.getLong(1));
+                classCar.setName(resultSet.getString(1));
             }
+            classCar.setId(id);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return id;
+        return classCar;
     }
 
     public List<ClassCar> findAllClasses() {
@@ -70,6 +69,5 @@ public class ClassDao {
 
     public static void main(String[] args) {
         ClassDao classDao = new ClassDao();
-        System.out.println(classDao.getClassByName("Econom"));
     }
 }

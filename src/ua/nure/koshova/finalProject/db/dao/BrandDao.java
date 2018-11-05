@@ -31,22 +31,21 @@ public class BrandDao {
         return localInstance;
     }
 
-    public Long getBrandByName(String name) {
-        Long id = null;
+    public Brand getBrandById(Long id) {
         Connection con = MySQLConnUtils.getMySQLConnection();
+        Brand b = new Brand();
         try {
             PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.SELECT_BRAND_BY_ID);
-            preparedStatement.setString(1, name);
+            preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Brand b = new Brand();
-
-                b.setId(resultSet.getLong(1));
+                b.setName(resultSet.getString(1));
+                b.setId(id);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return id;
+        return b;
     }
 
     public List<Brand> findAllBrands() {
@@ -71,7 +70,7 @@ public class BrandDao {
 
     public static void main(String[] args) {
         BrandDao brandDao = new BrandDao();
-        System.out.println(brandDao.getBrandByName("BMV"));
+        System.out.println(brandDao.getBrandById(1L));
         System.out.println(brandDao.findAllBrands());
     }
 }

@@ -10,7 +10,10 @@ import java.util.List;
 
 public class CarService {
 
+
     private CarsDao carDao = CarsDao.getInstance();
+    private ClassService classService = new ClassService();
+    private BrandService brandService = new BrandService();
 
     public List<Car> getCarsList(String sortField, String sortOrder,
                                  String brandId, String classId) {
@@ -35,7 +38,7 @@ public class CarService {
         return carDao.findCarById(id);
     }
 
-    public void geliteCar(Long id){
+    public void deleteCar(Long id){
         carDao.deleteCar(id);
     }
 
@@ -45,12 +48,11 @@ public class CarService {
         car.setPrice(price);
         car.setStateNumber(stateNumber);
         car.setStatus(Status.valueOf("NEW"));
-        Brand brand = new Brand();
-        brand.setId(idBrand);
+        Brand brand = brandService.getBrandById(idBrand);
         car.setBrand(brand);
-        ClassCar classCar = new ClassCar();
-        classCar.setId(idClass);
+        ClassCar classCar = classService.getClassById(idClass);
         car.setClassCar(classCar);
+        carDao.createCar(car);
     }
 
     public static void main(String[] args) {
