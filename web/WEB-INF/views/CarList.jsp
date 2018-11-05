@@ -65,7 +65,8 @@
                 <td name = "class">${car.classCar.name}</td>
                 <td><input type="hidden" name="carId" value="${car.id}"/><input type="submit" value="Choose a car"/></td>
                 <td><input type="submit" value="Edit"/></td>
-                <td><input type="submit" value="Delete"/></td>
+                <td><form method="post" action="/deleteCar"><input type="hidden" name="carId" value="${car.id}"/>
+                    <input type="submit" value="Delete"/></form></td>
             </form>
         </tr>
     </c:forEach>

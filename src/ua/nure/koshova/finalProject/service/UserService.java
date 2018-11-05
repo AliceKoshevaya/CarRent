@@ -44,4 +44,5 @@ public class UserService {
         List<User> users = usersDao.findAllUsers();
         return users;
     }
+
 }

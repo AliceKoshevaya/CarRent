@@ -22,7 +22,7 @@ public final class RequestsToDB {
             "left join brand b on c.id_brand = b.id " +
             "left join classes as cl on c.id_class = cl.id " +
             "WHERE id_brand =?";
-    public static final String SELECT_GET_CAR_BY_CLASS =  "select c.id, c.name as name, c.price*cl.coeff as total, c.gov_number, c.status, b.name, cl.name " +
+    public static final String SELECT_GET_CAR_BY_CLASS = "select c.id, c.name as name, c.price*cl.coeff as total, c.gov_number, c.status, b.name, cl.name " +
             "from cars AS c " +
             "left join classes cl on c.id_class = cl.id " +
             "left join brand as b on c.id_brand = b.id " +
@@ -32,7 +32,7 @@ public final class RequestsToDB {
             "left join brand as b on c.id_brand = b.id " +
             "left join classes as cl on c.id_class = cl.id " +
             "WHERE id_brand = ? AND id_class = ?";
-    public static final String SELECT_CAR_BY_ID =  "select c.id, c.name as name, c.price*cl.coeff as total, c.gov_number, c.status, b.name, cl.name " +
+    public static final String SELECT_CAR_BY_ID = "select c.id, c.name as name, c.price*cl.coeff as total, c.gov_number, c.status, b.name, cl.name " +
             "from cars AS c " +
             "left join classes cl on c.id_class = cl.id " +
             "left join brand as b on c.id_brand = b.id " +
@@ -59,6 +59,8 @@ public final class RequestsToDB {
     public static final String SELECT_GET_USER = "select u.first_name, u.last_name, u.third_name, u.pass_seria, u.data_pass " +
             "FROM users as u " +
             "WHERE u.user_login=? and u.password=?";
+    public static final String DELETE_USER = "DELETE FROM users WHERE id=?";
+    public static final String UPDATE_USER = "UPDATE users SET third_name=?, pass_seria=?,data_pass =? WHERE id=?";
 
     ////////////////////////
     // RequestsToDB to orders //
@@ -67,7 +69,7 @@ public final class RequestsToDB {
     public static final String INSERT_ORDER = "insert into orders values (DEFAULT ,?,?,?,?,?,?)";
     public static final String SELECT_ALL_ORDERS = "select o.id, o.driver, o.status, o.start_rent, o.end_rent,  u.id, u.user_login " +
             "from orders AS o " +
-            "left join users AS u ON o.id_user = u.id "  +
+            "left join users AS u ON o.id_user = u.id " +
             "left join cars AS c ON o.id_car = c.id order by o.id";
 
     //////////////////////
@@ -76,7 +78,7 @@ public final class RequestsToDB {
 
     public static final String INSERT_BILL = "insert into bill values (DEFAULT ,?,?,?,?,?)";
     public static final String SELECT_BILL_BY_ID = "select id, status, type, summa, data, id_order from bill where id =?";
-    public static final String UPDATE_BILL ="UPDATE bill SET status = TRUE WHERE id = ?";
+    public static final String UPDATE_BILL = "UPDATE bill SET status = TRUE WHERE id = ?";
     public static final String SELECT_BILL_BY_ORDER_ID = "select id, status,type,summa,data  from bill where id_order =?";
 
     //////////////////////

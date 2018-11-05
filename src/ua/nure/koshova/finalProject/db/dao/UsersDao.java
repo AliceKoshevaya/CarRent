@@ -162,6 +162,17 @@ public class UsersDao {
         }
         return id;
     }
+
+    public void deleteUser(Long id) {
+        Connection con = MySQLConnUtils.getMySQLConnection();
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.DELETE_USER);
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 

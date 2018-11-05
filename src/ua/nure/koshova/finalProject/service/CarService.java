@@ -32,8 +32,11 @@ public class CarService {
         return carDao.findCarById(id);
     }
 
+    public void geleteCar(Long id){
+        carDao.deleteCar(id);
+    }
+
     public static void main(String[] args) {
-        ClassService cs = new ClassService();
-        System.out.println(cs.getClassList());
+
     }
 }

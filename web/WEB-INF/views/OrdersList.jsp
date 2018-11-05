@@ -33,7 +33,8 @@
                 <td>${order.endRent}</td>
                 <td>${order.user.id}</td>
                 <td>${order.car.id}</td>
-                <td><input type="submit" value="Edit"/></td>
+                <td><input type="submit" value="Confirm"/></td>
+                <td><input type="submit" value="Not confirm"/></td>
                 <td><a href="/billList?idOrder=${order.id}">bills</a>
             </form>
         </tr>

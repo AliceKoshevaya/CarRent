@@ -58,7 +58,34 @@
                     </div>
                 </div>
             </div>
-
+            <p class="cols-sm-2 control-label" style="color: darkred">Please enter the required passport information for the order</p>
+            <div class="form-group">
+                <label for="name" class="cols-sm-2 control-label">Third name</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" name="thirdName"  placeholder="Enter your third name">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="name" class="cols-sm-2 control-label">Passport Series</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" name="seria"  placeholder="Enter your passport series">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="name" class="cols-sm-2 control-label">Passport Issued</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" name="issued" placeholder="Enter passport issued">
+                    </div>
+                </div>
+            </div>
             <div class="form-group">
                 <label for="name" class="cols-sm-2 control-label">Car</label>
                 <div class="cols-sm-10">
