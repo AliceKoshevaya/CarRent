@@ -17,4 +17,8 @@ public class BrandService {
         Brand brand = brandDao.getBrandById(id);
         return brand;
     }
+    public Long getBrandByName(String name){
+        Long id = brandDao.getBrandByName(name);
+        return id;
+    }
 }

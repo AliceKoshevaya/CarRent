@@ -48,6 +48,24 @@ public class BrandDao {
         return b;
     }
 
+    public Long getBrandByName(String name) {
+        Connection con = MySQLConnUtils.getMySQLConnection();
+        Long id = null;
+        Brand b = new Brand();
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.SELECT_BRAND_BY_NAME);
+            preparedStatement.setString(1, name);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                b.setId(resultSet.getLong(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        id = b.getId();
+        return id;
+    }
+
     public List<Brand> findAllBrands() {
         List<Brand> brands = new ArrayList<>();
         Connection connection = MySQLConnUtils.getMySQLConnection();

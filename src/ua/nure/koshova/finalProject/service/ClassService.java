@@ -14,4 +14,8 @@ public class ClassService {
         ClassCar classCar = classDao.getClassById(id);
         return classCar;
     }
+    public Long getClassByName(String name){
+        Long id = classDao.getClassByName(name);
+        return id;
+    }
 }

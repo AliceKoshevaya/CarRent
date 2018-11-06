@@ -26,35 +26,63 @@
     <c:forEach items="${orders}" var="order">
         <tr>
 
-                <td name = "idOrder">${order.id}</td>
-                <td>${order.driver}</td>
-                <td>${order.status}</td>
-                <td>${order.startRent}</td>
-                <td>${order.endRent}</td>
-                <td>${order.user.id}</td>
-                <td>${order.car.id}</td>
-            <form method="POST" action="/confirm"><input type="hidden" name="idOrder"
-                                                         value="${order.id}"/>
-                <input type="hidden" name="status"
-                       value="${order.status}"/>
-                <c:choose>
-                    <c:when test="${order.status == 'NEW'}">
-                        <td> <input type="submit" value="Confirm"/></td>
-                        <td><input type="submit" value="Reject"/></td>
-                    </c:when>
-                    <c:when test="${order.status == 'CRASH'}">
-                        <td><input type="submit" value="Bill for crash"/></td>
-                    </c:when>
-                    <c:when test="${order.status == 'IN_PROGRESS'}">
-                        <td><input type="submit" value="Returned"/></td>
-                        <td><input type="submit" name = "crash" value="Crash"/></td>
-                    </c:when>
-                    <c:otherwise>
+            <td name="idOrder">${order.id}</td>
+            <td>${order.driver}</td>
+            <td>${order.status}</td>
+            <td>${order.startRent}</td>
+            <td>${order.endRent}</td>
+            <td>${order.user.id}</td>
+            <td>${order.car.id}</td>
+                <%--<form method="POST" action="/confirm"><input type="hidden" name="idOrder" value="${order.id}"/>--%>
+            <c:choose>
+                <c:when test="${order.status == 'NEW'}">
+                    <td>
+                        <form method="POST" action="/confirm">
+                            <input type="hidden" name="idOrder" value="${order.id}"/>
+                            <input type="hidden" name="status" value="${order.status}"/>
+                            <input type="hidden" name="newStatus" value="IN_PROGRESS"/>
+                            <input type="submit" value="Confirm"/>
+                        </form>
+                        <form method="POST" action="/confirm">
+                            <input type="hidden" name="idOrder" value="${order.id}"/>
+                            <input type="hidden" name="status" value="${order.status}"/>
+                            <input type="hidden" name="newStatus" value="CLOSED"/>
+                            <input type="submit" value="Reject"/>
+                        </form>
+                    </td>
+                </c:when>
+                <c:when test="${order.status == 'CRASH'}">
+                    <td>
+                        <form method="POST" action="/confirm">
+                            <input type="hidden" name="idOrder" value="${order.id}"/>
+                            <input type="hidden" name="status" value="${order.status}"/>
+                            <input type="hidden" name="newStatus" value="CRASH"/>
+                            <input type="submit" value="Set bill"/>
+                        </form>
+                    </td>
+                </c:when>
+                <c:when test="${order.status == 'IN_PROGRESS'}">
+                    <td>
+                        <form method="POST" action="/confirm">
+                            <input type="hidden" name="idOrder" value="${order.id}"/>
+                            <input type="hidden" name="status" value="${order.status}"/>
+                            <input type="hidden" name="newStatus" value="CRASH"/>
+                            <input type="submit" value="Crash"/>
+                        </form>
+                        <form method="POST" action="/confirm">
+                            <input type="hidden" name="idOrder" value="${order.id}"/>
+                            <input type="hidden" name="status" value="${order.status}"/>
+                            <input type="hidden" name="newStatus" value="CLOSED"/>
+                            <input type="submit" value="Returned"/>
+                        </form>
+                    </td>
+                </c:when>
+                <c:otherwise>
 
-                    </c:otherwise>
-                </c:choose>
+                </c:otherwise>
+            </c:choose>
             <td><a href="/billList?idOrder=${order.id}">bills</a></td>
-                    </form>
+                <%--</form>--%>
         </tr>
     </c:forEach>
 

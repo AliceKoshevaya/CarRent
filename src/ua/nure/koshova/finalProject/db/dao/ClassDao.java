@@ -67,6 +67,24 @@ public class ClassDao {
         return cars;
     }
 
+    public Long getClassByName(String name) {
+        Connection con = MySQLConnUtils.getMySQLConnection();
+        Long id = null;
+        ClassCar classCar = new ClassCar();
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.SELECT_CLASS_BY_NAME);
+            preparedStatement.setString(1, name);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                classCar.setId(resultSet.getLong(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        id = classCar.getId();
+        return id;
+    }
+
     public static void main(String[] args) {
         ClassDao classDao = new ClassDao();
     }

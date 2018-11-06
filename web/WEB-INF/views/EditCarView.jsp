@@ -23,7 +23,16 @@
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="idCar" value="${car.carName}"/>
+                        <input type="text" class="form-control" name="carId" value="${car.id}"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="name" class="cols-sm-2 control-label">Car Name</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" name="name" value="${car.carName}"/>
                     </div>
                 </div>
             </div>

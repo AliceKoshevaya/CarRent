@@ -55,6 +55,10 @@ public class CarService {
         carDao.createCar(car);
     }
 
+    public void updateCar(Long id ,String name, int price,String status, String stateNumber, Long idBrand, Long idClass){
+        carDao.updateCar(name,price,stateNumber,status,idBrand,idClass,id);
+    }
+
     public static void main(String[] args) {
 
     }

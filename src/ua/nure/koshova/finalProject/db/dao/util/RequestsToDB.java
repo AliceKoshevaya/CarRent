@@ -89,6 +89,7 @@ public final class RequestsToDB {
     // RequestsToDB to brand /
     //////////////////////
 
+    public static final String SELECT_BRAND_BY_NAME = "select id from brand where name=?";
     public static final String SELECT_BRAND_BY_ID = "select name from brand where id=?";
     public static final String SELECT_ALL_BRAND = "select * from brand";
 
@@ -96,6 +97,7 @@ public final class RequestsToDB {
     // RequestsToDB to class //
     ///////////////////////
 
+    public static final String SELECT_CLASS_BY_NAME = "select id from classes where name=?";
     public static final String SELECT_CLASS_BY_ID = "select name from classes where id=?";
     public static final String SELECT_ALL_CLASSES = "select * from classes";
 

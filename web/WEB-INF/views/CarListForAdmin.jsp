@@ -64,7 +64,7 @@
             <td name="brand">${car.brand.name}</td>
             <td name="class">${car.classCar.name}</td>
             <td>
-                <form method="post" action="/editCar"><input type="hidden" name="carId" value="${car.id}"/>
+                <form method="get" action="/editCar"><input type="hidden" name="carId" value="${car.id}"/>
                     <input type="submit" value="Edit"/></form>
             </td>
             <td>

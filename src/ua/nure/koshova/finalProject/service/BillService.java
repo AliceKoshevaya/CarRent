@@ -2,6 +2,8 @@ package ua.nure.koshova.finalProject.service;
 
 import ua.nure.koshova.finalProject.db.dao.BillDao;
 import ua.nure.koshova.finalProject.db.entity.Bill;
+import ua.nure.koshova.finalProject.db.entity.OrderStatus;
+
 import java.util.List;
 
 import java.sql.Timestamp;
@@ -19,6 +21,12 @@ public class BillService {
         Long idBill = billDao.createBill("RENT", Boolean.FALSE, totalSum, null, OrderId);
         Bill bill = billDao.findBillById(idBill);
         return bill;
+    }
+
+    public Long createCrashBill(int sum, String date, Long orderId){
+        Timestamp time = Timestamp.valueOf(date);
+        Long idBill = billDao.createBill("CRASH", Boolean.FALSE, sum, time, orderId );
+        return idBill;
     }
 
     public List<Bill> getAllBillByOrder(Long id){
