@@ -14,7 +14,7 @@
     <title>All users</title>
 </head>
 <body>
-<form method="GET" action="${pageContext.request.contextPath}/userList">
+<form method="get" action="${pageContext.request.contextPath}/userList">
     <table class="table table-lg">
         <thead>
         <tr class="table-primary">
@@ -26,7 +26,7 @@
         <c:forEach items="${users}" var="user">
             <tr class="table-primary">
                 <td>Id:</td>
-                <td>${user.id}</td>
+                <td name = "idUser">${user.id}</td>
             </tr>
             <tr class="table-primary">
                 <td>Username:</td>
@@ -45,7 +45,8 @@
                 <td>${user.role.name}</td>
             </tr>
             <tr class="table-primary">
-                <td><input type="submit" value="Set manager"/></td>
+                <td><form method="post" action="/makeManager"><input type="hidden" name="idUser" value="${user.id}"/>
+                    <input type="submit" value="Set a manager"/></form></td>
                 <td><input type="submit" value="Block user"/></td>
             </tr>
         </c:forEach>

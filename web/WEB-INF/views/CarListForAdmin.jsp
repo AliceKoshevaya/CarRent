@@ -49,6 +49,7 @@
     <tr>
         <th>Car_name</th>
         <th>Price</th>
+        <th>Status</th>
         <th>State_number</th>
         <th>Brand</th>
         <th>Class</th>
@@ -56,15 +57,20 @@
 
     <c:forEach items="${cars}" var="car">
         <tr>
-                <td name="carName">${car.carName}</td>
-                <td name="price">${car.price}</td>
-                <td name="stateNumber">${car.stateNumber}</td>
-                <td name="brand">${car.brand.name}</td>
-                <td name="class">${car.classCar.name}</td>
-                <td>
-                    <form method="post" action="/deleteCar"><input type="hidden" name="carId" value="${car.id}"/>
-                        <input type="submit" value="Delete"/></form>
-                </td>
+            <td name="carName">${car.carName}</td>
+            <td name="price">${car.price}</td>
+            <td name="status">${car.status}</td>
+            <td name="stateNumber">${car.stateNumber}</td>
+            <td name="brand">${car.brand.name}</td>
+            <td name="class">${car.classCar.name}</td>
+            <td>
+                <form method="post" action="/editCar"><input type="hidden" name="carId" value="${car.id}"/>
+                    <input type="submit" value="Edit"/></form>
+            </td>
+            <td>
+                <form method="post" action="/deleteCar"><input type="hidden" name="carId" value="${car.id}"/>
+                    <input type="submit" value="Delete"/></form>
+            </td>
         </tr>
     </c:forEach>
 

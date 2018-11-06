@@ -4,6 +4,7 @@ package ua.nure.koshova.finalProject.db.dao;
 import ua.nure.koshova.finalProject.db.dao.util.MySQLConnUtils;
 import ua.nure.koshova.finalProject.db.dao.util.RequestsToDB;
 import ua.nure.koshova.finalProject.db.entity.*;
+import ua.nure.koshova.finalProject.servlet.ListOrdersServlet;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -97,17 +98,19 @@ public class CarsDao {
                           String govNumber,
                           String status,
                           Long idBrand,
-                          Long idClass) {
+                          Long idClass,
+                          Long id) {
         Connection con = MySQLConnUtils.getMySQLConnection();
 
         try {
             PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.UPDATE_CAR);
             preparedStatement.setString(1, name);
             preparedStatement.setInt(2, price);
-            preparedStatement.setString(1, govNumber);
-            preparedStatement.setString(1, status);
-            preparedStatement.setLong(1, idBrand);
-            preparedStatement.setLong(1, idClass);
+            preparedStatement.setString(3, govNumber);
+            preparedStatement.setString(4, status);
+            preparedStatement.setLong(5, idBrand);
+            preparedStatement.setLong(6, idClass);
+            preparedStatement.setLong(7,id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -39,7 +39,7 @@ public class OrderServlet extends HttpServlet {
         Car car = carService.getCarById(idCar);
         request.setAttribute("car", car);
         RequestDispatcher dispatcher
-                = this.getServletContext().getRequestDispatcher("/WEB-INF/views/orderView.jsp");
+                = this.getServletContext().getRequestDispatcher("/WEB-INF/views/OrderView.jsp");
         dispatcher.forward(request, response);
     }
 }

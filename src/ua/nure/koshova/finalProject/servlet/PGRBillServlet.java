@@ -28,7 +28,7 @@ public class PGRBillServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("txt1");
+        String id = request.getParameter("idBill");
         Long idBill = Long.valueOf(id);
         Bill bill = billDao.findBillById(idBill);
         request.setAttribute("bill", bill);

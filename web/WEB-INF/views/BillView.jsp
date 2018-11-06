@@ -24,7 +24,7 @@
     </tr>
     <tr>
         <form method="POST" action="/bill">
-            <input type="hidden" name="txt1" value="${bill.id}"/>
+            <input type="hidden" name="idBill" value="${bill.id}"/>
             <td>${bill.id}</td>
             <td>${bill.type}</td>
             <td>${bill.status}</td>

@@ -173,6 +173,34 @@ public class UsersDao {
             e.printStackTrace();
         }
     }
+
+    public void updateUser(String thirdName,
+                           String passSeria,
+                           String dataPass,
+                           Long id) {
+        Connection con = MySQLConnUtils.getMySQLConnection();
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.UPDATE_USER);
+            preparedStatement.setString(1, thirdName);
+            preparedStatement.setString(2, passSeria);
+            preparedStatement.setString(3, dataPass);
+            preparedStatement.setLong(4,id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateUserRole(Long id) {
+        Connection con = MySQLConnUtils.getMySQLConnection();
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.SET_A_MANAGER);
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 

@@ -78,6 +78,37 @@ public class OrdersDao {
         return orderList;
     }
 
+    public void updateConfirmOrder(Long id) {
+        Connection con = MySQLConnUtils.getMySQLConnection();
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.CONFIRM_ORDER);
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void updateCrashOrder(Long id) {
+        Connection con = MySQLConnUtils.getMySQLConnection();
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.CRASH_ORDER);
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void updateCloseOrder(Long id) {
+        Connection con = MySQLConnUtils.getMySQLConnection();
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.CLOSE_ORDER);
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
     public static void main(String[] args) throws SQLException {

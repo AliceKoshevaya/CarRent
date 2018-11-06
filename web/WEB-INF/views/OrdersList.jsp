@@ -25,18 +25,36 @@
 
     <c:forEach items="${orders}" var="order">
         <tr>
-            <form method="POST" action="/ordersList">
-                <td name = idOrder>${order.id}</td>
+
+                <td name = "idOrder">${order.id}</td>
                 <td>${order.driver}</td>
                 <td>${order.status}</td>
                 <td>${order.startRent}</td>
                 <td>${order.endRent}</td>
                 <td>${order.user.id}</td>
                 <td>${order.car.id}</td>
-                <td><input type="submit" value="Confirm"/></td>
-                <td><input type="submit" value="Not confirm"/></td>
-                <td><a href="/billList?idOrder=${order.id}">bills</a>
-            </form>
+            <form method="POST" action="/confirm"><input type="hidden" name="idOrder"
+                                                         value="${order.id}"/>
+                <input type="hidden" name="status"
+                       value="${order.status}"/>
+                <c:choose>
+                    <c:when test="${order.status == 'NEW'}">
+                        <td> <input type="submit" value="Confirm"/></td>
+                        <td><input type="submit" value="Reject"/></td>
+                    </c:when>
+                    <c:when test="${order.status == 'CRASH'}">
+                        <td><input type="submit" value="Bill for crash"/></td>
+                    </c:when>
+                    <c:when test="${order.status == 'IN_PROGRESS'}">
+                        <td><input type="submit" value="Returned"/></td>
+                        <td><input type="submit" name = "crash" value="Crash"/></td>
+                    </c:when>
+                    <c:otherwise>
+
+                    </c:otherwise>
+                </c:choose>
+            <td><a href="/billList?idOrder=${order.id}">bills</a></td>
+                    </form>
         </tr>
     </c:forEach>
 

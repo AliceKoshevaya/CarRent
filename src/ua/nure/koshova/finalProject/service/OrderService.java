@@ -2,21 +2,24 @@ package ua.nure.koshova.finalProject.service;
 
 
 import ua.nure.koshova.finalProject.db.dao.OrdersDao;
-
 import ua.nure.koshova.finalProject.db.entity.Car;
 import ua.nure.koshova.finalProject.db.entity.Order;
 import ua.nure.koshova.finalProject.db.entity.OrderStatus;
 import ua.nure.koshova.finalProject.db.entity.User;
-import java.util.List;
-
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class OrderService {
 
     private OrdersDao ordersDao = OrdersDao.getInstance();
 
-    public Long newOrder(String driver, String startRent, String endRent,  Long idUser, Long idCar){
+    public static void main(String[] args) {
+        OrderService os = new OrderService();
+        os.newOrder("true", "2018-11-02 13:00", "2018-11-02 14:00", 1L, 2l);
+    }
+
+    public Long newOrder(String driver, String startRent, String endRent, Long idUser, Long idCar) {
         Order order = new Order();
         String start = startRent.replace("T", " ") + ":00";
         String end = endRent.replace("T", " ") + ":00";
@@ -34,12 +37,20 @@ public class OrderService {
         return id;
     }
 
-    public List<Order> getOrderList(){
+    public List<Order> getOrderList() {
         List<Order> orderList = ordersDao.findAllOrders();
         return orderList;
     }
 
-    public static void main(String[] args) {
-        OrderService os = new OrderService();
-        os.newOrder("true", "2018-11-02 13:00", "2018-11-02 14:00", 1L, 2l);    }
+    public void confirmOrder(Long id) {
+        ordersDao.updateConfirmOrder(id);
+    }
+
+    public void crashOrder(Long id) {
+        ordersDao.updateCrashOrder(id);
+    }
+
+    public void closeOrder(Long id) {
+        ordersDao.updateCloseOrder(id);
+    }
 }

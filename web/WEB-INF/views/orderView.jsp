@@ -17,16 +17,18 @@
 <div class="container">
         <div class="com-lg-1">
         <form method="POST" action="${pageContext.request.contextPath}/finalOrder">
-            <div class="form-group">
-                <label for="name" class="cols-sm-2 control-label">Driver or not</label>
-                <div class="cols-sm-10">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="driver" placeholder="true/false">
-                    </div>
-                </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="driver" id="exampleRadios1" value="true" checked>
+                <label class="form-check-label" for="exampleRadios1">
+                    With driver
+                </label>
             </div>
-
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="driver" id="exampleRadios2" value="false">
+                <label class="form-check-label" for="exampleRadios2">
+                    Without driver
+                </label>
+            </div>
             <div class="form-group">
                 <label for="password" class="cols-sm-2 control-label">Start date</label>
                 <div class="cols-sm-10">

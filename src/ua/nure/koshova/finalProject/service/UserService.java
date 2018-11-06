@@ -45,4 +45,12 @@ public class UserService {
         return users;
     }
 
+    public void addUserInfo(Long id, String thirdName, String passSer, String passInfo ){
+        usersDao.updateUser(thirdName,passSer,passInfo,id);
+    }
+
+    public void makeManager(Long id){
+        usersDao.updateUserRole(id);
+    }
+
 }

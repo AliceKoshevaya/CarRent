@@ -52,7 +52,7 @@ public class SendOrderServlet extends HttpServlet {
         int priceCar = car.getPrice();
         Bill bill = billService.createBill(startRent, endRent, priceCar, idOrder);
         Long id = bill.getId();
-        response.sendRedirect("/bill?txt1=" + id);
+        response.sendRedirect("/bill?idBill=" + id);
     }
 }
 

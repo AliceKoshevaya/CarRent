@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RequestDispatcher dispatcher //
-                = this.getServletContext().getRequestDispatcher("/WEB-INF/views/loginView.jsp");
+                = this.getServletContext().getRequestDispatcher("/WEB-INF/views/LoginView.jsp");
 
         dispatcher.forward(request, response);
 
@@ -38,13 +38,13 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         if(userService.registeredUser(login,password)== true){
             RequestDispatcher dispatcher
-                    = this.getServletContext().getRequestDispatcher("/WEB-INF/views/homeView.jsp");
+                    = this.getServletContext().getRequestDispatcher("/WEB-INF/views/HomeView.jsp");
 
             dispatcher.forward(request, response);
         }
         else{
             RequestDispatcher dispatcher
-                    = this.getServletContext().getRequestDispatcher("/WEB-INF/views/loginView.jsp");
+                    = this.getServletContext().getRequestDispatcher("/WEB-INF/views/LoginView.jsp");
 
             dispatcher.forward(request, response);
 

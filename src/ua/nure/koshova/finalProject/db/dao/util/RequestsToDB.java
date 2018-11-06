@@ -60,7 +60,8 @@ public final class RequestsToDB {
             "FROM users as u " +
             "WHERE u.user_login=? and u.password=?";
     public static final String DELETE_USER = "DELETE FROM users WHERE id=?";
-    public static final String UPDATE_USER = "UPDATE users SET third_name=?, pass_seria=?,data_pass =? WHERE id=?";
+    public static final String UPDATE_USER = "UPDATE users SET third_name=?, pass_seria=?, data_pass =? WHERE id=?";
+    public static final String SET_A_MANAGER = "update users set id_role = 2 where id = ?";
 
     ////////////////////////
     // RequestsToDB to orders //
@@ -71,6 +72,9 @@ public final class RequestsToDB {
             "from orders AS o " +
             "left join users AS u ON o.id_user = u.id " +
             "left join cars AS c ON o.id_car = c.id order by o.id";
+    public static final String CONFIRM_ORDER = "UPDATE orders SET status = 'IN_PROGRESS' WHERE id =?";
+    public static final String CLOSE_ORDER ="UPDATE orders SET status = 'CLOSED' WHERE id =?";
+    public static final String CRASH_ORDER ="UPDATE orders SET status = 'CRASH' WHERE id =?";
 
     //////////////////////
     // RequestsToDB to bill //
