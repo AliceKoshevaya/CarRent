@@ -29,13 +29,25 @@
                     Dropdown link
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="${pageContext.request.contextPath}/login">Login</a>
-                    <a class="dropdown-item" href="${pageContext.request.contextPath}/registration">Registration</a>
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/ordersList">List orders</a>
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/userList">All users</a>
                 </div>
             </li>
         </ul>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/login">Sign Out</a>
+                </li>
+            </ul>
+        </div>
+        <div class="collapse navbar-collapse justify-content" id="navbarCollase">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/registration">Registration</a>
+                </li>
+            </ul>
+        </div>
     </div>
 
 </nav>

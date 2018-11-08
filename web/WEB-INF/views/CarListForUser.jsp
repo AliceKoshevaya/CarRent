@@ -45,13 +45,14 @@
     </div>
 
 </form>
-<table>
+<table class="table">
+    <thead class="thead-dark">
     <tr>
-        <th>Car_name</th>
-        <th>Price</th>
-        <th>State_number</th>
-        <th>Brand</th>
-        <th>Class</th>
+        <th scope="col">Car_name</th>
+        <th scope="col">Price</th>
+        <th scope="col">State_number</th>
+        <th scope="col">Brand</th>
+        <th scope="col">Class</th>
     </tr>
 
     <c:forEach items="${cars}" var="car">
@@ -62,11 +63,12 @@
                 <td name="stateNumber">${car.stateNumber}</td>
                 <td name="brand">${car.brand.name}</td>
                 <td name="class">${car.classCar.name}</td>
-                <td><input type="hidden" name="carId" value="${car.id}"/><input type="submit" value="Choose a car"/>
+                <td><input type="hidden" name="carId" value="${car.id}"/><input type="submit" class="btn btn-default" value="Choose a car"/>
                 </td>
             </form>
         </tr>
     </c:forEach>
+    </thead>
 </table>
 </body>
 </html>

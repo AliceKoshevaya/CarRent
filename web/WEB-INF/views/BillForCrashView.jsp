@@ -43,8 +43,8 @@
                 <a href="${pageContext.request.contextPath}/">
             </div>
             </div>
+    </form>
     </div>
 </div>
-    </form>
 </body>
 </html>

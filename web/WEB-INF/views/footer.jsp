@@ -6,9 +6,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<div
-        style="background: #E0E0E0; text-align: center; padding: 5px; margin-top: 10px;">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<footer class="page-footer font-small blue">
 
-    @Copyright Alisson Koshova
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2018 Copyright:
+        <p>Alisson Koshevaya</p>
+    </div>
+    <!-- Copyright -->
 
-</div>
+</footer>

@@ -9,10 +9,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>List orders</title>
 </head>
 <body>
-<table>
+<table class="table">
+    <thead class="thead-dark">
     <tr>
         <th>Id_order</th>
         <th>Driver</th>
@@ -26,13 +29,13 @@
     <c:forEach items="${orders}" var="order">
         <tr>
 
-            <td name="idOrder">${order.id}</td>
-            <td>${order.driver}</td>
-            <td>${order.status}</td>
-            <td>${order.startRent}</td>
-            <td>${order.endRent}</td>
-            <td>${order.user.id}</td>
-            <td>${order.car.id}</td>
+            <td name="idOrder" scope="col">${order.id}</td>
+            <td scope="col">${order.driver}</td>
+            <td scope="col">${order.status}</td>
+            <td scope="col">${order.startRent}</td>
+            <td scope="col">${order.endRent}</td>
+            <td scope="col">${order.user.id}</td>
+            <td scope="col">${order.car.id}</td>
                 <%--<form method="POST" action="/confirm"><input type="hidden" name="idOrder" value="${order.id}"/>--%>
             <c:choose>
                 <c:when test="${order.status == 'NEW'}">
@@ -41,13 +44,13 @@
                             <input type="hidden" name="idOrder" value="${order.id}"/>
                             <input type="hidden" name="status" value="${order.status}"/>
                             <input type="hidden" name="newStatus" value="IN_PROGRESS"/>
-                            <input type="submit" value="Confirm"/>
+                            <input type="submit" class="btn btn-default" value="Confirm"/>
                         </form>
                         <form method="POST" action="/confirm">
                             <input type="hidden" name="idOrder" value="${order.id}"/>
                             <input type="hidden" name="status" value="${order.status}"/>
                             <input type="hidden" name="newStatus" value="CLOSED"/>
-                            <input type="submit" value="Reject"/>
+                            <input type="submit" class="btn btn-default" value="Reject"/>
                         </form>
                     </td>
                 </c:when>
@@ -57,7 +60,7 @@
                             <input type="hidden" name="idOrder" value="${order.id}"/>
                             <input type="hidden" name="status" value="${order.status}"/>
                             <input type="hidden" name="newStatus" value="CRASH"/>
-                            <input type="submit" value="Set bill"/>
+                            <input type="submit" class="btn btn-default" value="Set bill"/>
                         </form>
                     </td>
                 </c:when>
@@ -67,13 +70,13 @@
                             <input type="hidden" name="idOrder" value="${order.id}"/>
                             <input type="hidden" name="status" value="${order.status}"/>
                             <input type="hidden" name="newStatus" value="CRASH"/>
-                            <input type="submit" value="Crash"/>
+                            <input type="submit" class="btn btn-default" value="Crash"/>
                         </form>
                         <form method="POST" action="/confirm">
                             <input type="hidden" name="idOrder" value="${order.id}"/>
                             <input type="hidden" name="status" value="${order.status}"/>
                             <input type="hidden" name="newStatus" value="CLOSED"/>
-                            <input type="submit" value="Returned"/>
+                            <input type="submit" class="btn btn-default" value="Returned"/>
                         </form>
                     </td>
                 </c:when>
@@ -85,7 +88,7 @@
                 <%--</form>--%>
         </tr>
     </c:forEach>
-
+    </thead>
 </table>
 </body>
 </html>

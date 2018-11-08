@@ -7,6 +7,7 @@ import ua.nure.koshova.finalProject.db.entity.Car;
 import ua.nure.koshova.finalProject.db.entity.Order;
 import ua.nure.koshova.finalProject.service.BillService;
 import ua.nure.koshova.finalProject.service.OrderService;
+import ua.nure.koshova.finalProject.service.UserService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,6 +25,7 @@ public class SendOrderServlet extends HttpServlet {
     private OrderService orderService = new OrderService();
     private BillService billService = new BillService();
     private CarsDao carsDao = CarsDao.getInstance();
+    private UserService userService = new UserService();
 
     public SendOrderServlet() {
         super();
@@ -44,9 +46,14 @@ public class SendOrderServlet extends HttpServlet {
         String startRent = request.getParameter("startRent");
         String endRent = request.getParameter("endRent");
         String userName = request.getParameter("login");
+        String thirdName = request.getParameter("thirdName");
+        String seria = request.getParameter("seria");
+        String issued = request.getParameter("issued");
+
         Long userId = Long.valueOf(userName);
         Long idOrder = orderService.newOrder(driver,startRent,endRent,userId,idCar);
 
+        userService.addUserInfo(userId,thirdName,seria,issued);
 
         Car car = carsDao.findCarById(idCar);
         int priceCar = car.getPrice();
