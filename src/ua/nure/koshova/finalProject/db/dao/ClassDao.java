@@ -84,8 +84,4 @@ public class ClassDao {
         id = classCar.getId();
         return id;
     }
-
-    public static void main(String[] args) {
-        ClassDao classDao = new ClassDao();
-    }
 }

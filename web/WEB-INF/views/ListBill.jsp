@@ -11,6 +11,7 @@
 <head>
     <title>All bills</title>
 </head>
+<jsp:include page="header2.jsp"/>
 <body>
 <table>
     <tr>

@@ -1,7 +1,7 @@
 package ua.nure.koshova.finalProject.service;
 
 
-import ua.nure.koshova.finalProject.db.dao.OrdersDao;
+import ua.nure.koshova.finalProject.db.dao.OrderDao;
 import ua.nure.koshova.finalProject.db.entity.Car;
 import ua.nure.koshova.finalProject.db.entity.Order;
 import ua.nure.koshova.finalProject.db.entity.OrderStatus;
@@ -12,12 +12,7 @@ import java.util.List;
 
 public class OrderService {
 
-    private OrdersDao ordersDao = OrdersDao.getInstance();
-
-    public static void main(String[] args) {
-        OrderService os = new OrderService();
-        os.newOrder("true", "2018-11-02 13:00", "2018-11-02 14:00", 1L, 2l);
-    }
+    private OrderDao ordersDao = OrderDao.getInstance();
 
     public Long newOrder(String driver, String startRent, String endRent, Long idUser, Long idCar) {
         Order order = new Order();
@@ -52,5 +47,9 @@ public class OrderService {
 
     public void closeOrder(Long id) {
         ordersDao.updateCloseOrder(id);
+    }
+
+    public void updateReason(Long id, String name){
+        ordersDao.updateReasonOrder(id,name);
     }
 }

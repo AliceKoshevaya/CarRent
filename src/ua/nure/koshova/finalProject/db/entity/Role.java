@@ -1,6 +1,6 @@
 package ua.nure.koshova.finalProject.db.entity;
 
-public class Role {
+public class Role extends Entity{
 
     private Long id;
     private String name;
@@ -21,8 +21,8 @@ public class Role {
     }
 
     @Override
-        public String toString() {
-            return "Role [name=" + name + "]";
-        }
+    public String toString() {
+        return "Role [name=" + name + "]";
+    }
 
 }

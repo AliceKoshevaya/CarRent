@@ -1,6 +1,5 @@
 package ua.nure.koshova.finalProject.servlet;
 
-import ua.nure.koshova.finalProject.db.dao.UsersDao;
 import ua.nure.koshova.finalProject.service.UserService;
 
 import javax.servlet.ServletException;

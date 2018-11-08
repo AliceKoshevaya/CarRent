@@ -1,6 +1,6 @@
 package ua.nure.koshova.finalProject.db.entity;
 
-public class ClassCar {
+public class ClassCar extends Entity{
 
     private Long id;
     private String name;

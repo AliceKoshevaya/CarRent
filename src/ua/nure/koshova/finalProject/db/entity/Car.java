@@ -1,9 +1,9 @@
 package ua.nure.koshova.finalProject.db.entity;
 
-public class Car {
+public class Car extends Entity {
 
     private Long id;
-    private String carName;
+    private String name;
     private int price;
     private String stateNumber;
     private Brand brand;
@@ -19,12 +19,12 @@ public class Car {
         return id;
     }
 
-    public void setCarName(String carName) {
-        this.carName = carName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCarName() {
-        return carName;
+    public String getName() {
+        return name;
     }
 
     public void setPrice(int price) {
@@ -77,7 +77,7 @@ public class Car {
 
     @Override
     public String toString() {
-            return "Car [name=" + carName + " id=" + getId() + " price=" + price + " state number=" + stateNumber +
+            return "Car [name=" + name + " id=" + getId() + " price=" + price + " state number=" + stateNumber +
         " brand=" + brand + " class=" + classCar + " status=" + status + "]" + System.lineSeparator();
 
     }

@@ -85,10 +85,4 @@ public class BrandDao {
         return brands;
     }
 
-
-    public static void main(String[] args) {
-        BrandDao brandDao = new BrandDao();
-        System.out.println(brandDao.getBrandById(1L));
-        System.out.println(brandDao.findAllBrands());
-    }
 }

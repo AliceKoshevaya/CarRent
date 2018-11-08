@@ -1,15 +1,12 @@
 package ua.nure.koshova.finalProject.servlet;
 
-import ua.nure.koshova.finalProject.db.dao.BillDao;
-import ua.nure.koshova.finalProject.db.dao.CarsDao;
+import ua.nure.koshova.finalProject.db.dao.CarDao;
 import ua.nure.koshova.finalProject.db.entity.Bill;
 import ua.nure.koshova.finalProject.db.entity.Car;
-import ua.nure.koshova.finalProject.db.entity.Order;
 import ua.nure.koshova.finalProject.service.BillService;
 import ua.nure.koshova.finalProject.service.OrderService;
 import ua.nure.koshova.finalProject.service.UserService;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +21,7 @@ public class SendOrderServlet extends HttpServlet {
 
     private OrderService orderService = new OrderService();
     private BillService billService = new BillService();
-    private CarsDao carsDao = CarsDao.getInstance();
+    private CarDao carsDao = CarDao.getInstance();
     private UserService userService = new UserService();
 
     public SendOrderServlet() {

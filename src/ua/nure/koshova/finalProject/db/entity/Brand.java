@@ -1,6 +1,6 @@
 package ua.nure.koshova.finalProject.db.entity;
 
-public class Brand {
+public class Brand extends Entity {
     private Long id;
     private String name;
 

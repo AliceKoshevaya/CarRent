@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <title>Registration</title>
 </head>
+<jsp:include page="header2.jsp"/>
 <body>
 <p class="form-control">Registration</p>
 <div class="container">

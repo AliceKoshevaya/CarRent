@@ -30,11 +30,6 @@ public class BillDao {
         return localInstance;
     }
 
-    public static void main(String[] args) {
-        BillDao billDao = new BillDao();
-        System.out.println(billDao.findBillByIdOrder(1L));
-    }
-
     public Long createBill(String type, Boolean status, int sum, Timestamp date, Long idOrder) {
         Long id = null;
         Connection con = MySQLConnUtils.getMySQLConnection();

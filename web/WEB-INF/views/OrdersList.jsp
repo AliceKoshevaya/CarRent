@@ -13,6 +13,7 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>List orders</title>
 </head>
+<jsp:include page="header2.jsp"/>
 <body>
 <table class="table">
     <thead class="thead-dark">

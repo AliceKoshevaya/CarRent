@@ -11,6 +11,7 @@ public class Order {
     private User user;
     private Car car;
     private OrderStatus status;
+    private String reason;
 
     public void setId(Long id) {
         this.id = id;
@@ -66,5 +67,13 @@ public class Order {
 
     public OrderStatus getStatus() {
         return status;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public String getReason() {
+        return reason;
     }
 }

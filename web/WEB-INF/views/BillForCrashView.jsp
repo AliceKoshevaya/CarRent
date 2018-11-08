@@ -12,6 +12,7 @@
 <head>
     <title>Bill for Crash</title>
 </head>
+<jsp:include page="header2.jsp"/>
 <body>
 <p class="form-control">NEW BILL</p>
 <div class="container">
@@ -39,6 +40,7 @@
             </div>
 
             <div class="form-group ">
+                <input type="hidden" name="idOrder" value="${order.id}"/>
                 <input type="submit" value= "Add new bill" id="button" class="btn btn-primary btn-lg btn-block login-button />
                 <a href="${pageContext.request.contextPath}/">
             </div>

@@ -12,6 +12,7 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>New order</title>
 </head>
+<jsp:include page="header2.jsp"/>
 <body>
 <p class="form-control">Make an order</p>
 <div class="container">
@@ -104,7 +105,7 @@
                             <tbody>
                             <tr class="table-primary">
                                 <td>Car Name</td>
-                                <td>${car.carName}</td>
+                                <td>${car.name}</td>
                             </tr>
                             <tr class="table-primary">
                                 <td>State Number</td>

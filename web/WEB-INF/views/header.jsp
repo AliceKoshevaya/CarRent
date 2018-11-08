@@ -48,6 +48,7 @@
                 </li>
             </ul>
         </div>
+        <p class="nav-item">Hello ${user.login}</p>
     </div>
 
 </nav>

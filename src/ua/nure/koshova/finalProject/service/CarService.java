@@ -1,6 +1,6 @@
 package ua.nure.koshova.finalProject.service;
 
-import ua.nure.koshova.finalProject.db.dao.CarsDao;
+import ua.nure.koshova.finalProject.db.dao.CarDao;
 import ua.nure.koshova.finalProject.db.entity.Brand;
 import ua.nure.koshova.finalProject.db.entity.Car;
 import ua.nure.koshova.finalProject.db.entity.ClassCar;
@@ -11,7 +11,7 @@ import java.util.List;
 public class CarService {
 
 
-    private CarsDao carDao = CarsDao.getInstance();
+    private CarDao carDao = CarDao.getInstance();
     private ClassService classService = new ClassService();
     private BrandService brandService = new BrandService();
 
@@ -44,7 +44,7 @@ public class CarService {
 
     public void addNewCar(String name, int price, String stateNumber, Long idBrand, Long idClass){
         Car car = new Car();
-        car.setCarName(name);
+        car.setName(name);
         car.setPrice(price);
         car.setStateNumber(stateNumber);
         car.setStatus(Status.valueOf("NEW"));
@@ -57,9 +57,5 @@ public class CarService {
 
     public void updateCar(Long id ,String name, int price,String status, String stateNumber, Long idBrand, Long idClass){
         carDao.updateCar(name,price,stateNumber,status,idBrand,idClass,id);
-    }
-
-    public static void main(String[] args) {
-
     }
 }

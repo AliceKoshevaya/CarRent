@@ -50,18 +50,27 @@ public final class RequestsToDB {
     ///////////////////////
 
     public static final String INSERT_USER = "insert into users values (DEFAULT ,?,?,?,?,?,?,?,?);";
-    public static final String SELECT_ALL_USERS = "select u.id, u.user_login, u.password, u.first_name, u.last_name, u.third_name, u.pass_seria,u.data_pass, u.id_role, r.role_name " +
+    public static final String SELECT_ALL_USERS = "select u.id, u.user_login, u.password, u.first_name, u.last_name, u.third_name, u.pass_seria,u.data_pass, u.id_role, r.role_name, u.block " +
             "from users AS u " +
             "left join roles AS r ON u.id_role = r.id";
     public static final String SELECT_USER_BY_ROLE = "select u.id, u.user_login,u.password, u.first_name, u.last_name, u.third_name, u.pass_seria, u.data_pass " +
             "FROM users as u " +
             "WHERE id_role = 3";
-    public static final String SELECT_GET_USER = "select u.first_name, u.last_name, u.third_name, u.pass_seria, u.data_pass " +
+    public static final String SELECT_GET_USER = "select u.id, u.first_name, u.last_name, u.third_name, u.pass_seria, u.data_pass " +
             "FROM users as u " +
             "WHERE u.user_login=? and u.password=?";
     public static final String DELETE_USER = "DELETE FROM users WHERE id=?";
     public static final String UPDATE_USER = "UPDATE users SET third_name=?, pass_seria=?, data_pass =? WHERE id=?";
     public static final String SET_A_MANAGER = "update users set id_role = 2 where id = ?";
+    public static final String SELECT_USER_BY_LOGIN = "select  u.id,u.user_login, u.first_name, u.last_name, u.third_name, u.pass_seria, u.data_pass, id_role " +
+            "FROM users as u WHERE u.user_login=?";
+    public static final String SELECT_USER_ROLE = "select r.id, r.role_name " +
+            "FROM users AS u " +
+            "LEFT JOIN roles AS r " +
+            "ON u.id_role = r.id where u.id =?";
+    public static final String BLOCK_USER = "update users SET block = true where id =?";
+    public static final String UNBLOCK_USER = "update users SET block = false where id =?";
+    public static final String CHECKBLOCK = "select id, block from users where id = ?";
 
     ////////////////////////
     // RequestsToDB to orders //
@@ -75,6 +84,7 @@ public final class RequestsToDB {
     public static final String CONFIRM_ORDER = "UPDATE orders SET status = 'IN_PROGRESS' WHERE id =?";
     public static final String CLOSE_ORDER ="UPDATE orders SET status = 'CLOSED' WHERE id =?";
     public static final String CRASH_ORDER ="UPDATE orders SET status = 'CRASH' WHERE id =?";
+    public static final String UPDATE_REASON = "update orders SET reason = ? WHERE id = ?";
 
     //////////////////////
     // RequestsToDB to bill //

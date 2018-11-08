@@ -1,7 +1,7 @@
 package ua.nure.koshova.finalProject.service;
 
-import ua.nure.koshova.finalProject.db.dao.RolesDao;
-import ua.nure.koshova.finalProject.db.dao.UsersDao;
+import ua.nure.koshova.finalProject.db.dao.RoleDao;
+import ua.nure.koshova.finalProject.db.dao.UserDao;
 import ua.nure.koshova.finalProject.db.entity.Role;
 import ua.nure.koshova.finalProject.db.entity.Roles;
 import ua.nure.koshova.finalProject.db.entity.User;
@@ -9,8 +9,8 @@ import java.util.List;
 
 public class UserService {
 
-    private RolesDao rolesDao = RolesDao.getInstance();
-    private UsersDao usersDao = UsersDao.getInstance();
+    private RoleDao rolesDao = RoleDao.getInstance();
+    private UserDao usersDao = UserDao.getInstance();
 
     public User createNewUser(String login,
                               String password,
@@ -31,13 +31,9 @@ public class UserService {
         return user;
     }
 
-    public boolean registeredUser(String login, String password) {
-        boolean register = usersDao.findUser(login, password);
-        boolean isRegister = false;
-        if (register == true) {
-            isRegister = true;
-        }
-        return isRegister;
+    public User registeredUser(String login, String password) {
+        User user = usersDao.findUser(login, password);
+        return user;
     }
 
     public List<User> getAllUsers(){
@@ -51,6 +47,31 @@ public class UserService {
 
     public void makeManager(Long id){
         usersDao.updateUserRole(id);
+    }
+
+
+    public User getUserByLogin(String login){
+        User user = usersDao.findUserByLogin(login);
+        return user;
+    }
+
+    public Role getUserRole(Long id){
+        Role role =usersDao.findUserByRole(id);
+        return role;
+
+    }
+
+    public void blockUser(Long id){
+        usersDao.updateBlockUser(id);
+    }
+
+    public void unblockUser(Long id){
+        usersDao.updateUnblockUser(id);
+    }
+
+    public User checkBlockUser(Long id){
+        User user = usersDao.findUserById(id);
+        return  user;
     }
 
 }

@@ -34,6 +34,4 @@ public class BillService {
         return bills;
     }
 
-    public static void main(String[] args) {
-    }
 }

@@ -13,8 +13,8 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>All users</title>
 </head>
+<jsp:include page="header2.jsp"/>
 <body>
-<form method="get" action="${pageContext.request.contextPath}/userList">
     <table class="table table-lg">
         <thead>
         <tr class="table-primary">
@@ -23,6 +23,7 @@
         </tr>
         </thead>
         <tbody>
+        <form method="get" action="${pageContext.request.contextPath}/userList">
         <c:forEach items="${users}" var="user">
             <tr class="table-primary">
                 <td>Id:</td>
@@ -45,9 +46,30 @@
                 <td>${user.role.name}</td>
             </tr>
             <tr class="table-primary">
-                <td><form method="post" action="/makeManager"><input type="hidden" name="idUser" value="${user.id}"/>
-                    <input type="submit" value="Set a manager"/></form></td>
-                <td><input type="submit" value="Block user"/></td>
+                <td>Block:</td>
+                <td>${user.block}</td>
+            </tr>
+            </form>
+            <tr class="table-primary">
+                <c:choose>
+                <c:when test="${user.role.name != 'manager'}">
+                    <td><form id="makeManager" method="post" action="/makeManager"><input type="hidden" name="idUser" value="${user.id}"/>
+                        <input type="submit" value="Set a manager"/></form></td>
+                </c:when>
+                <c:when test="${user.role.name == 'manager'}">
+                    <td></td>
+                </c:when>
+                </c:choose>
+                <form method="post" action="/block"><input type="hidden" name="idUser" value="${user.id}"/>
+                <c:choose>
+                    <c:when test="${user.block == false}">
+                        <td><input type="submit" value="Block user"/></td>
+                    </c:when>
+                    <c:when test="${user.block == true}">
+                        <td><input type="submit" value="Unblock user"/></td>
+                    </c:when>
+                </c:choose>
+                </form>
             </tr>
         </c:forEach>
         </tbody>

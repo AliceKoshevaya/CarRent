@@ -14,6 +14,7 @@
     <link href="style.css" rel="stylesheet" type="text/css"/>
     <title>Cars</title>
 </head>
+<jsp:include page="header2.jsp"/>
 <body>
 <form method="GET" action="${pageContext.request.contextPath}/carList">
     <div class="form-group ">
@@ -58,7 +59,7 @@
     <c:forEach items="${cars}" var="car">
         <tr>
             <form method="POST" action="/makeOrder">
-                <td name="carName">${car.carName}</td>
+                <td name="name">${car.name}</td>
                 <td name="price">${car.price}</td>
                 <td name="stateNumber">${car.stateNumber}</td>
                 <td name="brand">${car.brand.name}</td>

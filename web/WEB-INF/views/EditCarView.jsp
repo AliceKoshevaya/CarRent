@@ -13,6 +13,7 @@
 <head>
     <title>Edit a car</title>
 </head>
+<jsp:include page="header2.jsp"/>
 <body>
 <p class="form-control">Edit a car</p>
 <div class="container">
@@ -32,7 +33,7 @@
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="name" value="${car.carName}"/>
+                        <input type="text" class="form-control" name="name" value="${car.name}"/>
                     </div>
                 </div>
             </div>

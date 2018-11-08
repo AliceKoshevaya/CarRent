@@ -1,12 +1,13 @@
 package ua.nure.koshova.finalProject.db.entity;
 
-public class User {
+public class User extends Entity {
     private Long id;
     private String login;
     private String password;
     private String name;
     private String lastName;
     private Role role;
+    private boolean block;
 
     private String seria;
     private String passDate;
@@ -82,6 +83,14 @@ public class User {
 
     public String getThirdName() {
         return thirdName;
+    }
+
+    public void setBlock(boolean block) {
+        this.block = block;
+    }
+
+    public boolean isBlock() {
+        return block;
     }
 
     @Override

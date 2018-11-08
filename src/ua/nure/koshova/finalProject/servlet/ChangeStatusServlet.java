@@ -65,9 +65,6 @@ public class ChangeStatusServlet extends HttpServlet {
             orderService.closeOrder(idOrder);
         }
 
-
-
-
         response.sendRedirect("/ordersList");
 
     }
