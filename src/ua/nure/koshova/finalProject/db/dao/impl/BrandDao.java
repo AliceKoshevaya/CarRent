@@ -1,9 +1,12 @@
 package ua.nure.koshova.finalProject.db.dao.impl;
 
+import org.apache.log4j.Logger;
 import ua.nure.koshova.finalProject.db.dao.IBrandDao;
 import ua.nure.koshova.finalProject.db.dao.util.MySQLConnUtils;
 import ua.nure.koshova.finalProject.db.dao.util.RequestsToDB;
 import ua.nure.koshova.finalProject.db.entity.Brand;
+import ua.nure.koshova.finalProject.db.exception.CloseResourcesException;
+import ua.nure.koshova.finalProject.db.exception.QueryException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,11 +17,18 @@ import java.util.List;
 
 
 public class BrandDao implements IBrandDao {
+
     private static volatile BrandDao instance;
+
+    private static final Logger LOGGER = Logger.getLogger(BrandDao.class);
+
+    public static final String ERROR_MESSAGE_SELECT_ALL_BRANDS = "Can't select all brand ";
+
 
     private BrandDao() {
 
     }
+
     public static BrandDao getInstance() {
         BrandDao localInstance = instance;
         if (localInstance == null) {
@@ -32,47 +42,62 @@ public class BrandDao implements IBrandDao {
         return localInstance;
     }
 
-    public Brand getBrandById(Long id) {
+    public Brand getBrandById(Long id) throws QueryException, CloseResourcesException {
         Connection con = MySQLConnUtils.getMySQLConnection();
         Brand b = new Brand();
+
+        ResultSet resultSet = null;
         try {
             PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.SELECT_BRAND_BY_ID);
             preparedStatement.setLong(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 b.setName(resultSet.getString(1));
                 b.setId(id);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            LOGGER.error("Can't select brand car by id (id = " + id + ")", ex);
+            throw new QueryException("Can't select brand car by id (id = " + id + ")", ex);
+        } finally {
+            MySQLConnUtils.closeResultSet(resultSet);
         }
         return b;
     }
 
-    public Long getBrandByName(String name) {
+    public Long getBrandByName(String name) throws QueryException, CloseResourcesException{
         Connection con = MySQLConnUtils.getMySQLConnection();
+
         Long id = null;
+        ResultSet resultSet = null;
+
         Brand b = new Brand();
         try {
             PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.SELECT_BRAND_BY_NAME);
             preparedStatement.setString(1, name);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 b.setId(resultSet.getLong(1));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            LOGGER.error("Can't select car brand by name (name = " + name + ")", ex);
+            throw new QueryException("Can't select car brand by name (name = " + name + ")", ex);
+        } finally {
+            MySQLConnUtils.closeResultSet(resultSet);
         }
         id = b.getId();
         return id;
     }
 
-    public List<Brand> findAllBrands() {
+    public List<Brand> findAllBrands() throws QueryException, CloseResourcesException{
         List<Brand> brands = new ArrayList<>();
+
         Connection connection = MySQLConnUtils.getMySQLConnection();
+
+        ResultSet resultSet = null;
+
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(RequestsToDB.SELECT_ALL_BRAND);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Brand brand = new Brand();
 
@@ -80,8 +105,11 @@ public class BrandDao implements IBrandDao {
                 brand.setName(resultSet.getString(2));
                 brands.add(brand);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            LOGGER.error(ERROR_MESSAGE_SELECT_ALL_BRANDS, ex);
+            throw new QueryException(ERROR_MESSAGE_SELECT_ALL_BRANDS, ex);
+        } finally {
+            MySQLConnUtils.closeResultSet(resultSet);
         }
         return brands;
     }

@@ -1,9 +1,12 @@
 package ua.nure.koshova.finalProject.db.dao.impl;
 
+import org.apache.log4j.Logger;
 import ua.nure.koshova.finalProject.db.dao.IClassDao;
 import ua.nure.koshova.finalProject.db.dao.util.MySQLConnUtils;
 import ua.nure.koshova.finalProject.db.dao.util.RequestsToDB;
 import ua.nure.koshova.finalProject.db.entity.ClassCar;
+import ua.nure.koshova.finalProject.db.exception.CloseResourcesException;
+import ua.nure.koshova.finalProject.db.exception.QueryException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,7 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClassDao implements IClassDao {
+
     private static volatile ClassDao instance;
+
+    private static final Logger LOGGER = Logger.getLogger(ClassDao.class);
+
+    public static final String ERROR_MESSAGE_SELECT_ALL_CLASSES= "Can't select all classes";
 
     private ClassDao() {
 
@@ -31,29 +39,38 @@ public class ClassDao implements IClassDao {
         return localInstance;
     }
 
-    public ClassCar getClassById(Long id) {
+    public ClassCar getClassById(Long id)  throws CloseResourcesException, QueryException {
         ClassCar classCar = new ClassCar();
         Connection con = MySQLConnUtils.getMySQLConnection();
+
+        ResultSet resultSet = null;
+
         try {
             PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.SELECT_CLASS_BY_ID);
             preparedStatement.setLong(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 classCar.setName(resultSet.getString(1));
             }
             classCar.setId(id);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            LOGGER.error("Can't select class car by id (id = " + id + ")", ex);
+            throw new QueryException("Can't select class car by id (id = " + id + ")", ex);
+        } finally {
+            MySQLConnUtils.closeResultSet(resultSet);
         }
         return classCar;
     }
 
-    public List<ClassCar> findAllClasses() {
+    public List<ClassCar> findAllClasses()  throws CloseResourcesException, QueryException{
         List<ClassCar> cars = new ArrayList<>();
         Connection connection = MySQLConnUtils.getMySQLConnection();
+
+        ResultSet resultSet = null;
+
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(RequestsToDB.SELECT_ALL_CLASSES);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 ClassCar classCar = new ClassCar();
 
@@ -62,25 +79,34 @@ public class ClassDao implements IClassDao {
                 classCar.setCoefficient(resultSet.getInt(3));
                 cars.add(classCar);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            LOGGER.error(ERROR_MESSAGE_SELECT_ALL_CLASSES, ex);
+            throw new QueryException(ERROR_MESSAGE_SELECT_ALL_CLASSES, ex);
+        } finally {
+            MySQLConnUtils.closeResultSet(resultSet);
         }
         return cars;
     }
 
-    public Long getClassByName(String name) {
+    public Long getClassByName(String name)  throws CloseResourcesException, QueryException{
         Connection con = MySQLConnUtils.getMySQLConnection();
+
         Long id = null;
+        ResultSet resultSet = null;
+
         ClassCar classCar = new ClassCar();
         try {
             PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.SELECT_CLASS_BY_NAME);
             preparedStatement.setString(1, name);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 classCar.setId(resultSet.getLong(1));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            LOGGER.error("Can't select class car by name (name = " + name + ")", ex);
+            throw new QueryException("Can't select class car by name (name = " + name + ")", ex);
+        } finally {
+            MySQLConnUtils.closeResultSet(resultSet);
         }
         id = classCar.getId();
         return id;

@@ -1,13 +1,16 @@
 package ua.nure.koshova.finalProject.db.dao.util;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import org.apache.log4j.Logger;
+import ua.nure.koshova.finalProject.db.exception.CloseResourcesException;
+
+import java.sql.*;
 
 /**
  * Used to establish database connections.
  */
 public class MySQLConnUtils {
+
+    private static final Logger LOGGER = Logger.getLogger(MySQLConnUtils.class);
 
     public static Connection getMySQLConnection() {
         String hostName = "localhost";
@@ -32,8 +35,18 @@ public class MySQLConnUtils {
             conn = DriverManager.getConnection(connectionURL, userName,
                     password);
         } catch (SQLException e) {
+            LOGGER.error("Can't establish connection with MySQL", e);
             e.printStackTrace();
         }
         return conn;
+    }
+
+    public static void closeResultSet(ResultSet resultSet) throws CloseResourcesException{
+        try {
+            resultSet.close();
+        } catch (SQLException e) {
+            LOGGER.error("Can't close result set", e);
+            throw new CloseResourcesException("An error occurred while closing result set",e);
+        }
     }
 }

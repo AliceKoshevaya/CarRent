@@ -29,5 +29,7 @@ public final class Pages {
     public static final String REG_PAGE = "/WEB-INF/views/RegView.jsp";
 
     public static final String USER_LIST_PAGE = "/WEB-INF/views/UsersView.jsp";
+
+    public static final String ERROR_PAGE = "/WEB-INF/views/ErrorPage.jsp";
 }
 
