@@ -1,10 +1,6 @@
 package ua.nure.koshova.finalProject.servlet;
 
-import ua.nure.koshova.finalProject.db.entity.Brand;
-import ua.nure.koshova.finalProject.db.entity.Car;
-import ua.nure.koshova.finalProject.db.entity.ClassCar;
 import ua.nure.koshova.finalProject.db.entity.Order;
-import ua.nure.koshova.finalProject.service.BillService;
 import ua.nure.koshova.finalProject.service.OrderService;
 
 import javax.servlet.RequestDispatcher;
@@ -31,7 +27,7 @@ public class ListOrdersServlet extends HttpServlet {
         request.setAttribute("orders", allOrders);
 
         RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/views/OrdersList.jsp");
+                .getRequestDispatcher(Pages.LIST_ORDER_PAGE);
         dispatcher.forward(request, response);
     }
 

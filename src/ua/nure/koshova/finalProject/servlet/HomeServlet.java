@@ -20,7 +20,7 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/HomeView.jsp");
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(Pages.HOMEPAGE);
 
         dispatcher.forward(request, response);
 

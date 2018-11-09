@@ -1,8 +1,7 @@
 package ua.nure.koshova.finalProject.service;
 
-import ua.nure.koshova.finalProject.db.dao.BillDao;
+import ua.nure.koshova.finalProject.db.dao.impl.BillDao;
 import ua.nure.koshova.finalProject.db.entity.Bill;
-import ua.nure.koshova.finalProject.db.entity.OrderStatus;
 
 import java.util.List;
 
@@ -24,8 +23,7 @@ public class BillService {
     }
 
     public Long createCrashBill(int sum, String date, Long orderId){
-        Timestamp time = Timestamp.valueOf(date);
-        Long idBill = billDao.createBill("CRASH", Boolean.FALSE, sum, time, orderId );
+        Long idBill = billDao.createBill("CRASH", Boolean.FALSE, sum, null, orderId );
         return idBill;
     }
 

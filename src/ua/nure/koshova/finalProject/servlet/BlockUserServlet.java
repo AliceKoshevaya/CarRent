@@ -33,7 +33,7 @@ public class BlockUserServlet extends HttpServlet {
         String idUser = request.getParameter("idUser");
         Long id = Long.valueOf(idUser);
         User user = userService.checkBlockUser(id);
-        if(user.isBlock() == true){
+        if(user.isBlock()){
             userService.unblockUser(id);
         }else {
             userService.blockUser(id);

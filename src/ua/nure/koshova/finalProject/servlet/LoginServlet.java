@@ -55,7 +55,7 @@ public class LoginServlet extends HttpServlet {
         if (login == null || password == null) {
             String errorMessage = "Please fill all the fields!";
             request.setAttribute("errorMessage", errorMessage);
-            request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
+            request.getRequestDispatcher(Pages.LOGIN_PAGE).forward(request, response);
         } else {
             try {
                 User user = userService.registeredUser(login,password);
@@ -66,23 +66,23 @@ public class LoginServlet extends HttpServlet {
 
                 if (role.getName().equals("administrator")) {
                     RequestDispatcher dispatcher = request.getServletContext()
-                            .getRequestDispatcher("/WEB-INF/views/CarListForAdmin.jsp");
+                            .getRequestDispatcher(Pages.ADMIN_PAGE_CAR);
                     dispatcher.forward(request, response);
                 }else if(role.getName().equals("manager")) {
                     RequestDispatcher dispatcher = request.getServletContext()
-                            .getRequestDispatcher("/WEB-INF/views/OrdersList.jsp");
+                            .getRequestDispatcher(Pages.LIST_ORDER_PAGE);
                     dispatcher.forward(request, response);
                 }
                 else{
                     RequestDispatcher dispatcher = request.getServletContext()
-                            .getRequestDispatcher("/WEB-INF/views/HomeView.jsp");
+                            .getRequestDispatcher(Pages.HOMEPAGE);
                     dispatcher.forward(request, response);
                 }
 
             } catch (IllegalLoginParametersException e) {
                 String errorMessage = e.getMessage();
                 request.setAttribute("errorMessage", errorMessage);
-                request.getRequestDispatcher("/WEB-INF/views/LoginView.jsp").forward(request, response);
+                request.getRequestDispatcher(Pages.LOGIN_PAGE).forward(request, response);
             }
         }
 

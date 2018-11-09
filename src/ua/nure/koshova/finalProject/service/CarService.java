@@ -1,6 +1,6 @@
 package ua.nure.koshova.finalProject.service;
 
-import ua.nure.koshova.finalProject.db.dao.CarDao;
+import ua.nure.koshova.finalProject.db.dao.impl.CarDao;
 import ua.nure.koshova.finalProject.db.entity.Brand;
 import ua.nure.koshova.finalProject.db.entity.Car;
 import ua.nure.koshova.finalProject.db.entity.ClassCar;

@@ -25,7 +25,7 @@ public class RegistrationServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RequestDispatcher dispatcher
-                = this.getServletContext().getRequestDispatcher("/WEB-INF/views/RegView.jsp");
+                = this.getServletContext().getRequestDispatcher(Pages.REG_PAGE);
 
         dispatcher.forward(request, response);
 

@@ -50,7 +50,7 @@ public class EditACarServlet extends HttpServlet{
         Car car = carService.getCarById(idCar);
         request.setAttribute("car", car);
         request.setAttribute("statuses", Status.values());
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/EditCarView.jsp");
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(Pages.EDIT_A_CAR_PAGE);
 
         dispatcher.forward(request, response);
 

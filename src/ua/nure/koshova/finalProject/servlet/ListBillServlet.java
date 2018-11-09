@@ -31,7 +31,7 @@ public class ListBillServlet extends HttpServlet {
         request.setAttribute("bills", allBills);
 
         RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/views/ListBill.jsp");
+                .getRequestDispatcher(Pages.BILL_LIST_PAGE);
         dispatcher.forward(request, response);
     }
 

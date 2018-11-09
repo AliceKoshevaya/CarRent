@@ -1,6 +1,6 @@
 package ua.nure.koshova.finalProject.servlet;
 
-import ua.nure.koshova.finalProject.db.dao.BillDao;
+import ua.nure.koshova.finalProject.db.dao.impl.BillDao;
 import ua.nure.koshova.finalProject.db.entity.Bill;
 
 import javax.servlet.RequestDispatcher;
@@ -33,7 +33,7 @@ public class PGRBillServlet extends HttpServlet {
         Bill bill = billDao.findBillById(idBill);
         request.setAttribute("bill", bill);
         RequestDispatcher dispatcher
-                = this.getServletContext().getRequestDispatcher("/WEB-INF/views/BillView.jsp");
+                = this.getServletContext().getRequestDispatcher(Pages.BILL_PAGE);
         dispatcher.forward(request, response);
     }
 }

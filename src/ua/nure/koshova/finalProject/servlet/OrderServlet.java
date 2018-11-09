@@ -1,10 +1,7 @@
 package ua.nure.koshova.finalProject.servlet;
 
-import ua.nure.koshova.finalProject.db.entity.Brand;
 import ua.nure.koshova.finalProject.db.entity.Car;
-import ua.nure.koshova.finalProject.db.entity.ClassCar;
 import ua.nure.koshova.finalProject.service.CarService;
-import ua.nure.koshova.finalProject.service.OrderService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -39,7 +36,7 @@ public class OrderServlet extends HttpServlet {
         Car car = carService.getCarById(idCar);
         request.setAttribute("car", car);
         RequestDispatcher dispatcher
-                = this.getServletContext().getRequestDispatcher("/WEB-INF/views/OrderView.jsp");
+                = this.getServletContext().getRequestDispatcher(Pages.ORDER_PAGE);
         dispatcher.forward(request, response);
     }
 }

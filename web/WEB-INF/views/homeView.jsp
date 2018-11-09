@@ -26,7 +26,7 @@
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img class="d-block w-100" src="../img/ford-2018-hennessey-heritage-edition-mustang-808-hp.jpg"
+            <img class="d-block w-100" src="../img/5.jpg"
                  alt="First slide">
         </div>
         <div class="carousel-item">
@@ -36,10 +36,9 @@
             <img class="d-block w-100" src="../img/lamborghini-urus-2018-topcar-vid-sboku.jpg" alt="Third slide">
             <div class="container">
                 <div class="carousel-caption">
-                    <h1>Another example headline.</h1>
-                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida
-                        at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                    <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+                    <h1>Car Rental</h1>
+                    <p>For a business and busy person who has come to another country with a working trip, it is inconceivable to be left without a car. He will be dependent on external factors, he will not be able to precisely manage his time. And time is money. We offer such people to contact our company.
+                        We provide rental cars in Kharkov, as well as throughout the country.</p>
                 </div>
             </div>
         </div>
@@ -64,7 +63,6 @@
             <p>Thanks to favorable rates, our customers save on car rental without sacrificing comfort and safety. Low
                 prices for car rental allow individuals to move freely throughout the country, not owning a personal
                 car, and businesses - to optimize the cost of maintaining a fleet.</p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
             <img class="rounded-circle" src="../img/2.jpg"
@@ -75,8 +73,7 @@
                 100% guarantee that at the right time the ordered car will be delivered directly to your doors: on time,
                 with a clean interior and a full tank.
             </p>
-            <p><a class="btn btn-secondary" href="../img/x5-kh5-kh5m-x5m-bmw-x5-bmw-bmw-x5m.jpg" alt="" role="button">View
-                details &raquo;</a></p>
+            <p><a class="btn btn-secondary" href="../img/x5-kh5-kh5m-x5m-bmw-x5-bmw-bmw-x5m.jpg" alt="" role="button"></a></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
             <img class="rounded-circle" src="../img/3.jpg" href="../img/x5-kh5-kh5m-x5m-bmw-x5-bmw-bmw-x5m.jpg"

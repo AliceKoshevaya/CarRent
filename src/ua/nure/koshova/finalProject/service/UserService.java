@@ -1,7 +1,7 @@
 package ua.nure.koshova.finalProject.service;
 
-import ua.nure.koshova.finalProject.db.dao.RoleDao;
-import ua.nure.koshova.finalProject.db.dao.UserDao;
+import ua.nure.koshova.finalProject.db.dao.impl.RoleDao;
+import ua.nure.koshova.finalProject.db.dao.impl.UserDao;
 import ua.nure.koshova.finalProject.db.entity.Role;
 import ua.nure.koshova.finalProject.db.entity.Roles;
 import ua.nure.koshova.finalProject.db.entity.User;

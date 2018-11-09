@@ -17,7 +17,7 @@
 <jsp:include page="header2.jsp"/>
 <body>
 <form method="GET" action="${pageContext.request.contextPath}/carList">
-    <div class="form-group ">
+    <div class="col-lg-3 center-block">
         <label>Select Brand: </label>
         <select id="select1" name="selectBrand">
             <c:forEach items="${brands}" var="brand">
@@ -25,7 +25,7 @@
             </c:forEach>
         </select>
     </div>
-    <div class="form-group ">
+    <div class="col-lg-3 center-block">
         <label>Select Class Car: </label>
         <select id="select2" name="selectClass">
             <c:forEach items="${classes}" var="clazz">
@@ -33,7 +33,7 @@
             </c:forEach>
         </select>
     </div>
-    <div class="form-group ">
+    <div class="col-lg-3 center-block">
         <select id="select3" name="selectSort">
             <option value="ASC:price">From cheap to expensive</option>
             <option value="DESC:price">From expensive to cheap</option>
@@ -41,7 +41,7 @@
             <option value="DESC:name">Z-A</option>
         </select>
     </div>
-    <div class="form-group">
+    <div class="col-lg-3 center-block">
         <button type="submit" class="btn btn-default">Apply</button>
     </div>
 
@@ -49,9 +49,9 @@
 <table class="table">
     <thead class="thead-dark">
     <tr>
-        <th scope="col">Car_name</th>
+        <th scope="col">Car name</th>
         <th scope="col">Price</th>
-        <th scope="col">State_number</th>
+        <th scope="col">State number</th>
         <th scope="col">Brand</th>
         <th scope="col">Class</th>
     </tr>

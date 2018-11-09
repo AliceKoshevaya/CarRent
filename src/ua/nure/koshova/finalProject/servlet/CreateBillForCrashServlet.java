@@ -1,6 +1,5 @@
 package ua.nure.koshova.finalProject.servlet;
 
-import ua.nure.koshova.finalProject.db.entity.Bill;
 import ua.nure.koshova.finalProject.service.BillService;
 
 import javax.servlet.RequestDispatcher;
@@ -30,13 +29,13 @@ public class CreateBillForCrashServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String idOrder = request.getParameter("idOrder");
-        Long id = Long.valueOf(idOrder);
+        Object idUser = request.getSession().getAttribute("idOrder");
+        Long id = ((Number) idUser).longValue();
         String sum = request.getParameter("sum");
         Integer summa = Integer.valueOf(sum);
         billService.createCrashBill(summa,null,id);
         RequestDispatcher dispatcher //
-                = this.getServletContext().getRequestDispatcher("/WEB-INF/views/HomeView.jsp");
+                = this.getServletContext().getRequestDispatcher(Pages.LIST_ORDER_PAGE);
         dispatcher.forward(request, response);
 
     }

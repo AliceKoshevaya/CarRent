@@ -1,7 +1,7 @@
 package ua.nure.koshova.finalProject.service;
 
 
-import ua.nure.koshova.finalProject.db.dao.OrderDao;
+import ua.nure.koshova.finalProject.db.dao.impl.OrderDao;
 import ua.nure.koshova.finalProject.db.entity.Car;
 import ua.nure.koshova.finalProject.db.entity.Order;
 import ua.nure.koshova.finalProject.db.entity.OrderStatus;

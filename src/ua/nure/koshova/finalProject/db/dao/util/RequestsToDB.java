@@ -1,10 +1,14 @@
 package ua.nure.koshova.finalProject.db.dao.util;
 
+/**
+ * Stores database queries
+ */
+
 public final class RequestsToDB {
 
-    //////////////////////
-    // RequestsToDB to cars //
-    //////////////////////
+    /**
+     * Request to table cars
+     */
 
     public static final String INSERT_CAR = "insert into cars values (DEFAULT ,?,?,?,?,?,?)";
     public static final String DELETE_CAR = "DELETE FROM cars WHERE id=?";
@@ -38,16 +42,16 @@ public final class RequestsToDB {
             "left join brand as b on c.id_brand = b.id " +
             "where c.id =?";
 
-    ///////////////////////
-    // RequestsToDB to roles //
-    ///////////////////////
+    /**
+     * Request to table roles
+     */
 
     public static final String SELECT_ALL_ROLES = "select * from roles";
     public static final String SELECT_ROLE_BY_NAME = "select id, role_name from roles where role_name =";
 
-    ///////////////////////
-    // RequestsToDB to users //
-    ///////////////////////
+    /**
+     * Request to table users
+     */
 
     public static final String INSERT_USER = "insert into users values (DEFAULT ,?,?,?,?,?,?,?,?);";
     public static final String SELECT_ALL_USERS = "select u.id, u.user_login, u.password, u.first_name, u.last_name, u.third_name, u.pass_seria,u.data_pass, u.id_role, r.role_name, u.block " +
@@ -72,9 +76,9 @@ public final class RequestsToDB {
     public static final String UNBLOCK_USER = "update users SET block = false where id =?";
     public static final String CHECKBLOCK = "select id, block from users where id = ?";
 
-    ////////////////////////
-    // RequestsToDB to orders //
-    ////////////////////////
+    /**
+     * Request to table orders
+     */
 
     public static final String INSERT_ORDER = "insert into orders values (DEFAULT ,?,?,?,?,?,?)";
     public static final String SELECT_ALL_ORDERS = "select o.id, o.driver, o.status, o.start_rent, o.end_rent,  u.id, u.user_login " +
@@ -86,26 +90,26 @@ public final class RequestsToDB {
     public static final String CRASH_ORDER ="UPDATE orders SET status = 'CRASH' WHERE id =?";
     public static final String UPDATE_REASON = "update orders SET reason = ? WHERE id = ?";
 
-    //////////////////////
-    // RequestsToDB to bill //
-    //////////////////////
+    /**
+     * Request to table bill
+     */
 
     public static final String INSERT_BILL = "insert into bill values (DEFAULT ,?,?,?,?,?)";
     public static final String SELECT_BILL_BY_ID = "select id, status, type, summa, data, id_order from bill where id =?";
     public static final String UPDATE_BILL = "UPDATE bill SET status = TRUE WHERE id = ?";
     public static final String SELECT_BILL_BY_ORDER_ID = "select id, status,type,summa,data  from bill where id_order =?";
 
-    //////////////////////
-    // RequestsToDB to brand /
-    //////////////////////
+    /**
+     * Request to table brand
+     */
 
     public static final String SELECT_BRAND_BY_NAME = "select id from brand where name=?";
     public static final String SELECT_BRAND_BY_ID = "select name from brand where id=?";
     public static final String SELECT_ALL_BRAND = "select * from brand";
 
-    ///////////////////////
-    // RequestsToDB to class //
-    ///////////////////////
+    /**
+     * Request to table classes
+     */
 
     public static final String SELECT_CLASS_BY_NAME = "select id from classes where name=?";
     public static final String SELECT_CLASS_BY_ID = "select name from classes where id=?";

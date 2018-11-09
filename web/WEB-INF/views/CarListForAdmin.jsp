@@ -48,10 +48,10 @@
 </form>
 <table>
     <tr>
-        <th>Car_name</th>
+        <th>Car name</th>
         <th>Price</th>
         <th>Status</th>
-        <th>State_number</th>
+        <th>State number</th>
         <th>Brand</th>
         <th>Class</th>
     </tr>

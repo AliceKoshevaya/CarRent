@@ -16,12 +16,12 @@
 <h3>Thank you for ordering, here is your account.</h3>
 <table>
     <tr>
-        <th>Id_bill</th>
+        <th>Id bill</th>
         <th>Type</th>
         <th>Status</th>
         <th>Sum</th>
         <th>Date</th>
-        <th>Id_order</th>
+        <th>Id order</th>
     </tr>
     <tr>
         <form method="POST" action="/bill">

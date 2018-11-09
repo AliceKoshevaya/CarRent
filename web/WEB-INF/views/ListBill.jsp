@@ -15,7 +15,7 @@
 <body>
 <table>
     <tr>
-        <th>Id_bill</th>
+        <th>Id bill</th>
         <th>Type</th>
         <th>Status</th>
         <th>Price</th>

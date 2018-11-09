@@ -18,13 +18,13 @@
 <table class="table">
     <thead class="thead-dark">
     <tr>
-        <th>Id_order</th>
+        <th>Id order</th>
         <th>Driver</th>
         <th>Status</th>
-        <th>Start_rent</th>
-        <th>End_rent</th>
-        <th>Id_user</th>
-        <th>Id_car</th>
+        <th>Start rent</th>
+        <th>End rent</th>
+        <th>Id user</th>
+        <th>Id car</th>
     </tr>
 
     <c:forEach items="${orders}" var="order">

@@ -27,7 +27,7 @@ public class UsersServlet extends HttpServlet {
         request.setAttribute("users", allUsers);
 
         RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/views/UsersView.jsp");
+                .getRequestDispatcher(Pages.USER_LIST_PAGE);
         dispatcher.forward(request, response);
     }
 
