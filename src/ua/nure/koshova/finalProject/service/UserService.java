@@ -32,13 +32,11 @@ public class UserService {
     }
 
     public User registeredUser(String login, String password) {
-        User user = usersDao.findUser(login, password);
-        return user;
+        return usersDao.findUser(login, password);
     }
 
     public List<User> getAllUsers(){
-        List<User> users = usersDao.findAllUsers();
-        return users;
+        return usersDao.findAllUsers();
     }
 
     public void addUserInfo(Long id, String thirdName, String passSer, String passInfo ){
@@ -51,13 +49,11 @@ public class UserService {
 
 
     public User getUserByLogin(String login){
-        User user = usersDao.findUserByLogin(login);
-        return user;
+        return usersDao.findUserByLogin(login);
     }
 
     public Role getUserRole(Long id){
-        Role role =usersDao.findUserByRole(id);
-        return role;
+        return usersDao.findUserByRole(id);
 
     }
 
@@ -70,8 +66,7 @@ public class UserService {
     }
 
     public User checkBlockUser(Long id){
-        User user = usersDao.findUserById(id);
-        return  user;
+        return usersDao.findUserById(id);
     }
 
 }

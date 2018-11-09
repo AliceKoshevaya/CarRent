@@ -1,4 +1,4 @@
-package ua.nure.koshova.finalProject.servlet;
+package ua.nure.koshova.finalProject.servlet.constant;
 
 public final class Pages {
 

@@ -33,8 +33,7 @@ public class OrderService {
     }
 
     public List<Order> getOrderList() {
-        List<Order> orderList = ordersDao.findAllOrders();
-        return orderList;
+        return ordersDao.findAllOrders();
     }
 
     public void confirmOrder(Long id) {

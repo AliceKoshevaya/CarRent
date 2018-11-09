@@ -21,17 +21,11 @@ public class MakeManagerServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-    }
-
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String idUser = request.getParameter("idUser");
-        Long id = Long.valueOf(idUser);
-        userService.makeManager(id);
+        String stringIdUser = request.getParameter("idUser");
+        Long idUser = Long.valueOf(stringIdUser);
+        userService.makeManager(idUser);
         response.sendRedirect("/userList");
     }
 }

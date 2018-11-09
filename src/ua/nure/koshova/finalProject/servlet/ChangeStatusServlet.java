@@ -2,6 +2,7 @@ package ua.nure.koshova.finalProject.servlet;
 
 import ua.nure.koshova.finalProject.db.entity.OrderStatus;
 import ua.nure.koshova.finalProject.service.OrderService;
+import ua.nure.koshova.finalProject.servlet.constant.Pages;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,8 +22,8 @@ public class ChangeStatusServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("idOrder");
-        Long idOrder = Long.valueOf(id);
+        String stringIdOrder = request.getParameter("idOrder");
+        Long idOrder = Long.valueOf(stringIdOrder);
         String oldStatus = request.getParameter("status");
         String newStatus = request.getParameter("newStatus");
 
@@ -36,26 +37,18 @@ public class ChangeStatusServlet extends HttpServlet {
                 OrderStatus.valueOf(oldStatus) == OrderStatus.NEW) {
             orderService.closeOrder(idOrder);
             // forward
-            request.getSession().setAttribute("idOrder", idOrder);
+            request.setAttribute("idOrder", idOrder);
             RequestDispatcher dispatcher = request.getServletContext()
                     .getRequestDispatcher(Pages.REJECT_REASON_PAGE);
             dispatcher.forward(request, response);
         }
         // set bill for crash case
-        else if(OrderStatus.valueOf(oldStatus) == OrderStatus.CRASH  &&
+        else if((OrderStatus.valueOf(oldStatus) == OrderStatus.CRASH ||
+                OrderStatus.valueOf(oldStatus) == OrderStatus.IN_PROGRESS)  &&
                 OrderStatus.valueOf(newStatus) == OrderStatus.CRASH) {
             orderService.crashOrder(idOrder);
             // forward
-            request.getSession().setAttribute("idOrder", idOrder);
-            RequestDispatcher dispatcher = request.getServletContext()
-                    .getRequestDispatcher(Pages.CRASH_BILL_PAGE);
-            dispatcher.forward(request, response);
-        }
-        else if(OrderStatus.valueOf(oldStatus) == OrderStatus.IN_PROGRESS &&
-                OrderStatus.valueOf(newStatus) == OrderStatus.CRASH) {
-            orderService.crashOrder(idOrder);
-            // forward
-            request.getSession().setAttribute("idOrder", idOrder);
+            request.setAttribute("idOrder", idOrder);
             RequestDispatcher dispatcher = request.getServletContext()
                     .getRequestDispatcher(Pages.CRASH_BILL_PAGE);
             dispatcher.forward(request, response);
@@ -69,12 +62,4 @@ public class ChangeStatusServlet extends HttpServlet {
         response.sendRedirect("/ordersList");
 
     }
-
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-    }
-
 }

@@ -2,6 +2,7 @@ package ua.nure.koshova.finalProject.servlet;
 
 import ua.nure.koshova.finalProject.db.dao.impl.BillDao;
 import ua.nure.koshova.finalProject.db.entity.Bill;
+import ua.nure.koshova.finalProject.servlet.constant.Pages;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,8 +29,8 @@ public class PGRBillServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("idBill");
-        Long idBill = Long.valueOf(id);
+        String stringIdBill = request.getParameter("idBill");
+        Long idBill = Long.valueOf(stringIdBill);
         Bill bill = billDao.findBillById(idBill);
         request.setAttribute("bill", bill);
         RequestDispatcher dispatcher

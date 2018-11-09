@@ -11,11 +11,9 @@ public class ClassService {
     }
 
     public ClassCar getClassById(Long id){
-        ClassCar classCar = classDao.getClassById(id);
-        return classCar;
+        return classDao.getClassById(id);
     }
     public Long getClassByName(String name){
-        Long id = classDao.getClassByName(name);
-        return id;
+        return classDao.getClassByName(name);
     }
 }

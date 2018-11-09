@@ -18,18 +18,15 @@ public class BillService {
                 / 3600000 );
         int totalSum = time *price;
         Long idBill = billDao.createBill("RENT", Boolean.FALSE, totalSum, null, OrderId);
-        Bill bill = billDao.findBillById(idBill);
-        return bill;
+        return billDao.findBillById(idBill);
     }
 
     public Long createCrashBill(int sum, String date, Long orderId){
-        Long idBill = billDao.createBill("CRASH", Boolean.FALSE, sum, null, orderId );
-        return idBill;
+        return billDao.createBill("CRASH", Boolean.FALSE, sum, null, orderId );
     }
 
     public List<Bill> getAllBillByOrder(Long id){
-        List<Bill> bills = billDao.findBillByIdOrder(id);
-        return bills;
+        return billDao.findBillByIdOrder(id);
     }
 
 }

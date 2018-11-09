@@ -2,6 +2,7 @@ package ua.nure.koshova.finalProject.servlet;
 
 import ua.nure.koshova.finalProject.db.entity.Car;
 import ua.nure.koshova.finalProject.service.CarService;
+import ua.nure.koshova.finalProject.servlet.constant.Pages;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,16 +24,10 @@ public class OrderServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-    }
-
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String idcar = request.getParameter("carId");
-        Long idCar = Long.valueOf(idcar);
+        String stringIdCar = request.getParameter("carId");
+        Long idCar = Long.valueOf(stringIdCar);
         Car car = carService.getCarById(idCar);
         request.setAttribute("car", car);
         RequestDispatcher dispatcher

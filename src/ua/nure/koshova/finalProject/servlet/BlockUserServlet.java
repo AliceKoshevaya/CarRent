@@ -22,21 +22,15 @@ public class BlockUserServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-    }
-
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String idUser = request.getParameter("idUser");
-        Long id = Long.valueOf(idUser);
-        User user = userService.checkBlockUser(id);
+        String stringIdUser = request.getParameter("idUser");
+        Long numIdUser = Long.valueOf(stringIdUser);
+        User user = userService.checkBlockUser(numIdUser);
         if(user.isBlock()){
-            userService.unblockUser(id);
+            userService.unblockUser(numIdUser);
         }else {
-            userService.blockUser(id);
+            userService.blockUser(numIdUser);
         }
         response.sendRedirect("/userList");
     }

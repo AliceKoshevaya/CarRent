@@ -29,28 +29,22 @@ public class SendOrderServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-    }
-
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String idcar = request.getParameter("carId");
-        Long idCar = Long.valueOf(idcar);
+        String stringIdCar = request.getParameter("carId");
+        Long idCar = Long.valueOf(stringIdCar);
         String driver = request.getParameter("driver");
         String startRent = request.getParameter("startRent");
         String endRent = request.getParameter("endRent");
         String userName = request.getParameter("login");
         String thirdName = request.getParameter("thirdName");
-        String seria = request.getParameter("seria");
+        String series = request.getParameter("seria");
         String issued = request.getParameter("issued");
 
         Long userId = Long.valueOf(userName);
         Long idOrder = orderService.newOrder(driver,startRent,endRent,userId,idCar);
 
-        userService.addUserInfo(userId,thirdName,seria,issued);
+        userService.addUserInfo(userId,thirdName,series,issued);
 
         Car car = carsDao.findCarById(idCar);
         int priceCar = car.getPrice();

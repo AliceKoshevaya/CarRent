@@ -13,7 +13,7 @@
     <title>Rejection reason</title>
 </head>
 <body>
-<form method="post" action="/reason">
+<form method="post" action="/reason"> <input type="hidden" name="idOrder" value="${idOrder}"/>
     <div class="com-lg-1">
     <p>Reason<Br>
         <textarea name="comment" cols="40" rows="3"></textarea></p>

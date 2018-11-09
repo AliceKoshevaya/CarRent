@@ -6,6 +6,7 @@ import ua.nure.koshova.finalProject.db.entity.ClassCar;
 import ua.nure.koshova.finalProject.service.BrandService;
 import ua.nure.koshova.finalProject.service.CarService;
 import ua.nure.koshova.finalProject.service.ClassService;
+import ua.nure.koshova.finalProject.servlet.constant.Pages;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -67,12 +68,6 @@ public class CarServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getServletContext()
                 .getRequestDispatcher(Pages.USER_PAGE_CAR);
         dispatcher.forward(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        doGet(request, response);
     }
 
 }

@@ -3,7 +3,7 @@ package ua.nure.koshova.finalProject.servlet;
 
 import ua.nure.koshova.finalProject.db.entity.Bill;
 import ua.nure.koshova.finalProject.service.BillService;
-import ua.nure.koshova.finalProject.service.OrderService;
+import ua.nure.koshova.finalProject.servlet.constant.Pages;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,9 +25,9 @@ public class ListBillServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String orderId = request.getParameter("idOrder");
-        Long id = Long.valueOf(orderId);
-        List<Bill> allBills = billService.getAllBillByOrder(id);
+        String stringOrderId = request.getParameter("idOrder");
+        Long idOrder = Long.valueOf(stringOrderId);
+        List<Bill> allBills = billService.getAllBillByOrder(idOrder);
         request.setAttribute("bills", allBills);
 
         RequestDispatcher dispatcher = request.getServletContext()

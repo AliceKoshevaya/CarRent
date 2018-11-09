@@ -1,6 +1,7 @@
 package ua.nure.koshova.finalProject.servlet;
 
 import ua.nure.koshova.finalProject.service.OrderService;
+import ua.nure.koshova.finalProject.servlet.constant.Pages;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,20 +23,12 @@ public class AddReasonServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-    }
-
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Object idUser = request.getSession().getAttribute("idOrder");
-        Long id = ((Number) idUser).longValue();
+        String idOrder = request.getParameter("idOrder");
+        Long numIdOrder = Long.valueOf(idOrder);
         String reason = request.getParameter("comment");
-        orderService.updateReason(id,reason);
-        RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher(Pages.LIST_ORDER_PAGE);
-        dispatcher.forward(request, response);
+        orderService.updateReason(numIdOrder,reason);
+        response.sendRedirect("/ordersList");
     }
 }

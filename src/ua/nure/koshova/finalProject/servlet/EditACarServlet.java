@@ -5,6 +5,7 @@ import ua.nure.koshova.finalProject.db.entity.Status;
 import ua.nure.koshova.finalProject.service.BrandService;
 import ua.nure.koshova.finalProject.service.CarService;
 import ua.nure.koshova.finalProject.service.ClassService;
+import ua.nure.koshova.finalProject.servlet.constant.Pages;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -45,8 +46,8 @@ public class EditACarServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("carId");
-        Long idCar = Long.valueOf(id);
+        String stringIdCar = request.getParameter("carId");
+        Long idCar = Long.valueOf(stringIdCar);
         Car car = carService.getCarById(idCar);
         request.setAttribute("car", car);
         request.setAttribute("statuses", Status.values());
