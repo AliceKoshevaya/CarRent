@@ -2,8 +2,8 @@ package ua.nure.koshova.finalProject.db.dao.impl;
 
 import org.apache.log4j.Logger;
 import ua.nure.koshova.finalProject.db.dao.IOrderDao;
-import ua.nure.koshova.finalProject.db.dao.util.DatabaseUtils;
 import ua.nure.koshova.finalProject.db.dao.util.DatabaseRequests;
+import ua.nure.koshova.finalProject.db.dao.util.DatabaseUtils;
 import ua.nure.koshova.finalProject.db.entity.Car;
 import ua.nure.koshova.finalProject.db.entity.Order;
 import ua.nure.koshova.finalProject.db.entity.OrderStatus;
@@ -20,8 +20,12 @@ public class OrderDao implements IOrderDao {
     private static final Logger LOGGER = Logger.getLogger(OrderDao.class);
     private static volatile OrderDao instance;
 
-    public static final String ERROR_MESSAGE_SELECT_ALL_ORDERS= "Can't select all orders";
-    public static final String ERROR_MESSAGE_CREATE_ORDER = "Can't create a new order";
+    private static final String ERROR_MESSAGE_UPDATE_CLOSE_ORDER = "Can't update order to status closed by id (id = %d)";
+    private static final String ERROR_MESSAGE_UPDATE_REASON_ORDER = "Can't update reason to reject in order by id (id = %d reason =%s)";
+    private static final String ERROR_MESSAGE_UPDATE_CRASH_ORDER = "Can't update order to status crash by id (id = %d)";
+    private static final String ERROR_MESSAGE_UPDATE_CONFIRM_ORDER = "Can't update order to status confirm by id (id = %d)";
+    private static final String ERROR_MESSAGE_SELECT_ALL_ORDERS = "Can't select all orders";
+    private static final String ERROR_MESSAGE_CREATE_ORDER = "Can't create a new order";
 
     private OrderDao() {
 
@@ -78,8 +82,7 @@ public class OrderDao implements IOrderDao {
 
         ResultSet resultSet = null;
 
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(DatabaseRequests.SELECT_ALL_ORDERS);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(DatabaseRequests.SELECT_ALL_ORDERS)) {
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Order order = new Order();
@@ -105,50 +108,46 @@ public class OrderDao implements IOrderDao {
 
     public void updateConfirmOrder(Long id) throws QueryException, CloseResourcesException {
         Connection con = DatabaseUtils.getConnection();
-        try {
-            PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.CONFIRM_ORDER);
+        try (PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.CONFIRM_ORDER)) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
-            LOGGER.error("Can't update order to status confirm by id (id = " + id + ")", ex);
-            throw new QueryException("Can't update order to status confirm by id (id = " + id + ")", ex);
+            LOGGER.error(String.format(ERROR_MESSAGE_UPDATE_CONFIRM_ORDER, id), ex);
+            throw new QueryException(String.format(ERROR_MESSAGE_UPDATE_CONFIRM_ORDER, id), ex);
         }
     }
 
     public void updateCrashOrder(Long id) throws QueryException, CloseResourcesException {
         Connection con = DatabaseUtils.getConnection();
-        try {
-            PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.CRASH_ORDER);
+        try (PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.CRASH_ORDER)) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
-            LOGGER.error("Can't update order to status crash by id (id = " + id + ")", ex);
-            throw new QueryException("Can't update order to status crash by id (id = " + id + ")", ex);
+            LOGGER.error(String.format(ERROR_MESSAGE_UPDATE_CRASH_ORDER, id), ex);
+            throw new QueryException(String.format(ERROR_MESSAGE_UPDATE_CRASH_ORDER, id), ex);
         }
     }
 
     public void updateCloseOrder(Long id) throws QueryException, CloseResourcesException {
         Connection con = DatabaseUtils.getConnection();
-        try {
-            PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.CLOSE_ORDER);
+        try (PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.CLOSE_ORDER)) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
-            LOGGER.error("Can't update order to status closed by id (id = " + id + ")", ex);
-            throw new QueryException("Can't update order to status closed by id (id = " + id + ")", ex);
+            LOGGER.error(String.format(ERROR_MESSAGE_UPDATE_CLOSE_ORDER, id), ex);
+            throw new QueryException(String.format(ERROR_MESSAGE_UPDATE_CLOSE_ORDER, id), ex);
         }
     }
 
     public void updateReasonOrder(Long id, String reason) throws QueryException, CloseResourcesException {
         Connection con = DatabaseUtils.getConnection();
-        try {
-            PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.UPDATE_REASON);
+        try (PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.UPDATE_REASON)) {
             preparedStatement.setString(1, reason);
             preparedStatement.setLong(2, id);
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
-            LOGGER.error("Can't update reason to reject in order by id (id = " + id + " reason =" + reason + ")", ex);
-            throw new QueryException("Can't update reason to reject in order by id (id = " + id + " reason =" + reason + ")", ex);
+            LOGGER.error(String.format(ERROR_MESSAGE_UPDATE_REASON_ORDER, id, reason), ex);
+            throw new QueryException(String.format(ERROR_MESSAGE_UPDATE_REASON_ORDER, id, reason), ex);
         }
     }
 }

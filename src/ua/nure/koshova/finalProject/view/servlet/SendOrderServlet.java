@@ -1,4 +1,4 @@
-package ua.nure.koshova.finalProject.servlet;
+package ua.nure.koshova.finalProject.view.servlet;
 
 import org.apache.log4j.Logger;
 import ua.nure.koshova.finalProject.db.dao.impl.CarDao;

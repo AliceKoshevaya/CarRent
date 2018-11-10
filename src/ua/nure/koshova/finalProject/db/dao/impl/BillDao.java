@@ -16,9 +16,10 @@ import java.util.List;
 public class BillDao implements IBillDao {
 
     private static final Logger LOGGER = Logger.getLogger(BillDao.class);
-    public static final String ERROR_MESSAGE_SELECT_BILL_BY_ORDER = "Can't select user bill by order id (id = %d)";
     private static volatile BillDao instance;
 
+    private static final String ERROR_MESSAGE_UPDATE_BILL = "Can't update user bill (id = %d)";
+    private static final String ERROR_MESSAGE_SELECT_BILL_BY_ORDER = "Can't select user bill by order id (id = %d)";
     private static final String ERROR_MESSAGE_INSERT_BILL = "Unable to perform operation insert bill ";
     private static final String ERROR_MESSAGE_SELECT_BILL = "Can't select user bill (id = %d)";
 
@@ -139,8 +140,8 @@ public class BillDao implements IBillDao {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
-            LOGGER.error("Can't update user bill (id = " + id + ")", ex);
-            throw new QueryException("Can't update user bill (id = " + id + ")", ex);
+            LOGGER.error(String.format(ERROR_MESSAGE_UPDATE_BILL, id), ex);
+            throw new QueryException(String.format(ERROR_MESSAGE_UPDATE_BILL, id), ex);
         }
     }
 

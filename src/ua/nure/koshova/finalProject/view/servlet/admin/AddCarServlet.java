@@ -1,11 +1,10 @@
-package ua.nure.koshova.finalProject.servlet;
+package ua.nure.koshova.finalProject.view.servlet.admin;
 
 import org.apache.log4j.Logger;
-import ua.nure.koshova.finalProject.service.BrandService;
 import ua.nure.koshova.finalProject.service.CarService;
-import ua.nure.koshova.finalProject.service.ClassService;
+import ua.nure.koshova.finalProject.view.constant.Pages;
+import ua.nure.koshova.finalProject.view.util.right.RightChecker;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,6 +24,9 @@ public class AddCarServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if (!RightChecker.isAdmin(request.getSession())) {
+            response.sendRedirect(Pages.ERROR_PAGE_NOT_ENOUGH_RIGTH);
+        }
         String carName = request.getParameter("CarName");
         LOGGER.debug("Got carName parameter as " + carName);
         String price = request.getParameter("Price");

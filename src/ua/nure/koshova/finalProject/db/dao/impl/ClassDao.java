@@ -2,8 +2,8 @@ package ua.nure.koshova.finalProject.db.dao.impl;
 
 import org.apache.log4j.Logger;
 import ua.nure.koshova.finalProject.db.dao.IClassDao;
-import ua.nure.koshova.finalProject.db.dao.util.DatabaseUtils;
 import ua.nure.koshova.finalProject.db.dao.util.DatabaseRequests;
+import ua.nure.koshova.finalProject.db.dao.util.DatabaseUtils;
 import ua.nure.koshova.finalProject.db.entity.ClassCar;
 import ua.nure.koshova.finalProject.db.exception.CloseResourcesException;
 import ua.nure.koshova.finalProject.db.exception.QueryException;
@@ -17,15 +17,17 @@ import java.util.List;
 
 public class ClassDao implements IClassDao {
 
-    private static volatile ClassDao instance;
-
     private static final Logger LOGGER = Logger.getLogger(ClassDao.class);
 
-    public static final String ERROR_MESSAGE_SELECT_ALL_CLASSES= "Can't select all classes";
+    private static volatile ClassDao instance;
+
+    private static final String ERROR_MESSAGE_SELECT_CLASS_BY_NAME = "Can't select class car by name (name = %s)";
+    private static final String ERROR_MESSAGE_SELECT_CLASS = "Can't select class car by id (id = %d)";
+    private static final String ERROR_MESSAGE_SELECT_ALL_CLASSES = "Can't select all classes";
 
     private ClassDao() {
-
     }
+
     public static ClassDao getInstance() {
         ClassDao localInstance = instance;
         if (localInstance == null) {
@@ -39,14 +41,13 @@ public class ClassDao implements IClassDao {
         return localInstance;
     }
 
-    public ClassCar getClassById(Long id)  throws CloseResourcesException, QueryException {
+    public ClassCar getClassById(Long id) throws CloseResourcesException, QueryException {
         ClassCar classCar = new ClassCar();
         Connection con = DatabaseUtils.getConnection();
 
         ResultSet resultSet = null;
 
-        try {
-            PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.SELECT_CLASS_BY_ID);
+        try (PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.SELECT_CLASS_BY_ID)) {
             preparedStatement.setLong(1, id);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -54,22 +55,21 @@ public class ClassDao implements IClassDao {
             }
             classCar.setId(id);
         } catch (SQLException ex) {
-            LOGGER.error("Can't select class car by id (id = " + id + ")", ex);
-            throw new QueryException("Can't select class car by id (id = " + id + ")", ex);
+            LOGGER.error(String.format(ERROR_MESSAGE_SELECT_CLASS, id), ex);
+            throw new QueryException(String.format(ERROR_MESSAGE_SELECT_CLASS, id), ex);
         } finally {
             DatabaseUtils.closeResultSet(resultSet);
         }
         return classCar;
     }
 
-    public List<ClassCar> findAllClasses()  throws CloseResourcesException, QueryException{
+    public List<ClassCar> findAllClasses() throws CloseResourcesException, QueryException {
         List<ClassCar> cars = new ArrayList<>();
         Connection connection = DatabaseUtils.getConnection();
 
         ResultSet resultSet = null;
 
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(DatabaseRequests.SELECT_ALL_CLASSES);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(DatabaseRequests.SELECT_ALL_CLASSES)) {
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 ClassCar classCar = new ClassCar();
@@ -88,27 +88,30 @@ public class ClassDao implements IClassDao {
         return cars;
     }
 
-    public Long getClassByName(String name)  throws CloseResourcesException, QueryException{
+    public Long getClassByName(String name) throws CloseResourcesException, QueryException {
         Connection con = DatabaseUtils.getConnection();
 
         Long id = null;
         ResultSet resultSet = null;
+        ClassCar classCar = null;
 
-        ClassCar classCar = new ClassCar();
-        try {
-            PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.SELECT_CLASS_BY_NAME);
+        try (PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.SELECT_CLASS_BY_NAME)) {
             preparedStatement.setString(1, name);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
+                classCar = new ClassCar();
                 classCar.setId(resultSet.getLong(1));
             }
         } catch (SQLException ex) {
-            LOGGER.error("Can't select class car by name (name = " + name + ")", ex);
-            throw new QueryException("Can't select class car by name (name = " + name + ")", ex);
+            LOGGER.error(String.format(ERROR_MESSAGE_SELECT_CLASS_BY_NAME, name), ex);
+            throw new QueryException(String.format(ERROR_MESSAGE_SELECT_CLASS_BY_NAME, name), ex);
         } finally {
             DatabaseUtils.closeResultSet(resultSet);
         }
-        id = classCar.getId();
+
+        if (classCar != null) {
+            id = classCar.getId();
+        }
         return id;
     }
 }

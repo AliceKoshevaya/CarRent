@@ -1,6 +1,8 @@
-package ua.nure.koshova.finalProject.servlet;
+package ua.nure.koshova.finalProject.view.servlet.admin;
 
 import ua.nure.koshova.finalProject.service.CarService;
+import ua.nure.koshova.finalProject.view.constant.Pages;
+import ua.nure.koshova.finalProject.view.util.right.RightChecker;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +21,9 @@ public class DeleteCarServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if (!RightChecker.isAdmin(request.getSession())) {
+            response.sendRedirect(Pages.ERROR_PAGE_NOT_ENOUGH_RIGTH);
+        }
         String stringIdCar = request.getParameter("carId");
         Long idCar = Long.valueOf(stringIdCar);
         carService.deleteCar(idCar);

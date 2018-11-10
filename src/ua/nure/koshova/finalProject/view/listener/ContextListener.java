@@ -1,4 +1,4 @@
-package ua.nure.koshova.finalProject.servlet.listener;
+package ua.nure.koshova.finalProject.view.listener;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;

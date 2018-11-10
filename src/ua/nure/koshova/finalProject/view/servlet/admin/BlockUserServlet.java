@@ -1,8 +1,10 @@
-package ua.nure.koshova.finalProject.servlet;
+package ua.nure.koshova.finalProject.view.servlet.admin;
 
 import org.apache.log4j.Logger;
 import ua.nure.koshova.finalProject.db.entity.User;
 import ua.nure.koshova.finalProject.service.UserService;
+import ua.nure.koshova.finalProject.view.constant.Pages;
+import ua.nure.koshova.finalProject.view.util.right.RightChecker;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,6 +29,9 @@ public class BlockUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if (!RightChecker.isAdmin(request.getSession())) {
+            response.sendRedirect(Pages.ERROR_PAGE_NOT_ENOUGH_RIGTH);
+        }
         String stringIdUser = request.getParameter("idUser");
         LOGGER.debug("Got idUser parameter as " + stringIdUser);
         Long numIdUser = Long.valueOf(stringIdUser);

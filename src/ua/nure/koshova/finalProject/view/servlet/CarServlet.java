@@ -1,4 +1,4 @@
-package ua.nure.koshova.finalProject.servlet;
+package ua.nure.koshova.finalProject.view.servlet;
 
 import org.apache.log4j.Logger;
 import ua.nure.koshova.finalProject.db.entity.Brand;
@@ -7,7 +7,7 @@ import ua.nure.koshova.finalProject.db.entity.ClassCar;
 import ua.nure.koshova.finalProject.service.BrandService;
 import ua.nure.koshova.finalProject.service.CarService;
 import ua.nure.koshova.finalProject.service.ClassService;
-import ua.nure.koshova.finalProject.servlet.constant.Pages;
+import ua.nure.koshova.finalProject.view.constant.Pages;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

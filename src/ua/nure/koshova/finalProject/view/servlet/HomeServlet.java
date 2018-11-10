@@ -1,6 +1,6 @@
-package ua.nure.koshova.finalProject.servlet;
+package ua.nure.koshova.finalProject.view.servlet;
 
-import ua.nure.koshova.finalProject.servlet.constant.Pages;
+import ua.nure.koshova.finalProject.view.constant.Pages;
 
 import java.io.IOException;
 

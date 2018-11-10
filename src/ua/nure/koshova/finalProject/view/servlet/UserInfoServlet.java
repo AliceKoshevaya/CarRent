@@ -1,4 +1,4 @@
-package ua.nure.koshova.finalProject.servlet;
+package ua.nure.koshova.finalProject.view.servlet;
 
 import java.io.IOException;
 

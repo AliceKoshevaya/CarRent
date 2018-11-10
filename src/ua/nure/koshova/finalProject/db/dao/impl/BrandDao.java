@@ -2,8 +2,8 @@ package ua.nure.koshova.finalProject.db.dao.impl;
 
 import org.apache.log4j.Logger;
 import ua.nure.koshova.finalProject.db.dao.IBrandDao;
-import ua.nure.koshova.finalProject.db.dao.util.DatabaseUtils;
 import ua.nure.koshova.finalProject.db.dao.util.DatabaseRequests;
+import ua.nure.koshova.finalProject.db.dao.util.DatabaseUtils;
 import ua.nure.koshova.finalProject.db.entity.Brand;
 import ua.nure.koshova.finalProject.db.exception.CloseResourcesException;
 import ua.nure.koshova.finalProject.db.exception.QueryException;
@@ -22,7 +22,9 @@ public class BrandDao implements IBrandDao {
 
     private static final Logger LOGGER = Logger.getLogger(BrandDao.class);
 
-    public static final String ERROR_MESSAGE_SELECT_ALL_BRANDS = "Can't select all brand ";
+    private static final String ERROR_MESSAGE_SELECT_BRAND_BY_NAME = "Can't select car brand by name (name = %s)";
+    private static final String ERROR_MESSAGE_SELECT_BRAND = "Can't select brand car by id (id = %d)";
+    private static final String ERROR_MESSAGE_SELECT_ALL_BRANDS = "Can't select all brand ";
 
 
     private BrandDao() {
@@ -47,8 +49,7 @@ public class BrandDao implements IBrandDao {
         Brand b = new Brand();
 
         ResultSet resultSet = null;
-        try {
-            PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.SELECT_BRAND_BY_ID);
+        try (PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.SELECT_BRAND_BY_ID)) {
             preparedStatement.setLong(1, id);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -56,31 +57,30 @@ public class BrandDao implements IBrandDao {
                 b.setId(id);
             }
         } catch (SQLException ex) {
-            LOGGER.error("Can't select brand car by id (id = " + id + ")", ex);
-            throw new QueryException("Can't select brand car by id (id = " + id + ")", ex);
+            LOGGER.error(String.format(ERROR_MESSAGE_SELECT_BRAND, id), ex);
+            throw new QueryException(String.format(ERROR_MESSAGE_SELECT_BRAND, id), ex);
         } finally {
             DatabaseUtils.closeResultSet(resultSet);
         }
         return b;
     }
 
-    public Long getBrandByName(String name) throws QueryException, CloseResourcesException{
+    public Long getBrandByName(String name) throws QueryException, CloseResourcesException {
         Connection con = DatabaseUtils.getConnection();
 
         Long id = null;
         ResultSet resultSet = null;
 
         Brand b = new Brand();
-        try {
-            PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.SELECT_BRAND_BY_NAME);
+        try (PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.SELECT_BRAND_BY_NAME)) {
             preparedStatement.setString(1, name);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 b.setId(resultSet.getLong(1));
             }
         } catch (SQLException ex) {
-            LOGGER.error("Can't select car brand by name (name = " + name + ")", ex);
-            throw new QueryException("Can't select car brand by name (name = " + name + ")", ex);
+            LOGGER.error(String.format(ERROR_MESSAGE_SELECT_BRAND_BY_NAME, name), ex);
+            throw new QueryException(String.format(ERROR_MESSAGE_SELECT_BRAND_BY_NAME, name), ex);
         } finally {
             DatabaseUtils.closeResultSet(resultSet);
         }
@@ -88,15 +88,14 @@ public class BrandDao implements IBrandDao {
         return id;
     }
 
-    public List<Brand> findAllBrands() throws QueryException, CloseResourcesException{
+    public List<Brand> findAllBrands() throws QueryException, CloseResourcesException {
         List<Brand> brands = new ArrayList<>();
 
         Connection connection = DatabaseUtils.getConnection();
 
         ResultSet resultSet = null;
 
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(DatabaseRequests.SELECT_ALL_BRAND);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(DatabaseRequests.SELECT_ALL_BRAND)) {
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Brand brand = new Brand();

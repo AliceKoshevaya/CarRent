@@ -1,8 +1,8 @@
-package ua.nure.koshova.finalProject.servlet;
+package ua.nure.koshova.finalProject.view.servlet;
 
 import ua.nure.koshova.finalProject.db.dao.impl.BillDao;
 import ua.nure.koshova.finalProject.db.entity.Bill;
-import ua.nure.koshova.finalProject.servlet.constant.Pages;
+import ua.nure.koshova.finalProject.view.constant.Pages;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

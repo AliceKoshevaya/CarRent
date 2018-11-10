@@ -1,11 +1,12 @@
-package ua.nure.koshova.finalProject.servlet;
+package ua.nure.koshova.finalProject.view.servlet.admin;
 
 import ua.nure.koshova.finalProject.db.entity.Car;
 import ua.nure.koshova.finalProject.db.entity.Status;
 import ua.nure.koshova.finalProject.service.BrandService;
 import ua.nure.koshova.finalProject.service.CarService;
 import ua.nure.koshova.finalProject.service.ClassService;
-import ua.nure.koshova.finalProject.servlet.constant.Pages;
+import ua.nure.koshova.finalProject.view.constant.Pages;
+import ua.nure.koshova.finalProject.view.util.right.RightChecker;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,6 +28,9 @@ public class EditACarServlet extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if (!RightChecker.isAdmin(request.getSession())) {
+            response.sendRedirect(Pages.ERROR_PAGE_NOT_ENOUGH_RIGTH);
+        }
         String id = request.getParameter("carId");
         Long idCar =Long.valueOf(id);
         String carName = request.getParameter("name");
