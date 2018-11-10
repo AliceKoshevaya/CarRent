@@ -1,26 +1,8 @@
 package ua.nure.koshova.finalProject.db.entity;
 
-public class ClassCar extends Entity{
+public class ClassCar extends Entity {
 
-    private Long id;
-    private String name;
     private int coefficient;
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
 
     public void setCoefficient(int coefficient) {
         this.coefficient = coefficient;
@@ -32,6 +14,6 @@ public class ClassCar extends Entity{
 
     @Override
     public String toString() {
-        return name + " ";
+        return getName() + " ";
     }
 }

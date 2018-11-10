@@ -53,7 +53,7 @@ public class UserService {
     }
 
     public Role getUserRole(Long id){
-        return usersDao.findUserByRole(id);
+        return usersDao.findRoleByUser(id);
 
     }
 

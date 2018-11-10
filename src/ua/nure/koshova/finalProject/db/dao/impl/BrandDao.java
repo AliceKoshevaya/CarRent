@@ -2,8 +2,8 @@ package ua.nure.koshova.finalProject.db.dao.impl;
 
 import org.apache.log4j.Logger;
 import ua.nure.koshova.finalProject.db.dao.IBrandDao;
-import ua.nure.koshova.finalProject.db.dao.util.MySQLConnUtils;
-import ua.nure.koshova.finalProject.db.dao.util.RequestsToDB;
+import ua.nure.koshova.finalProject.db.dao.util.DatabaseUtils;
+import ua.nure.koshova.finalProject.db.dao.util.DatabaseRequests;
 import ua.nure.koshova.finalProject.db.entity.Brand;
 import ua.nure.koshova.finalProject.db.exception.CloseResourcesException;
 import ua.nure.koshova.finalProject.db.exception.QueryException;
@@ -43,12 +43,12 @@ public class BrandDao implements IBrandDao {
     }
 
     public Brand getBrandById(Long id) throws QueryException, CloseResourcesException {
-        Connection con = MySQLConnUtils.getMySQLConnection();
+        Connection con = DatabaseUtils.getConnection();
         Brand b = new Brand();
 
         ResultSet resultSet = null;
         try {
-            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.SELECT_BRAND_BY_ID);
+            PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.SELECT_BRAND_BY_ID);
             preparedStatement.setLong(1, id);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -59,20 +59,20 @@ public class BrandDao implements IBrandDao {
             LOGGER.error("Can't select brand car by id (id = " + id + ")", ex);
             throw new QueryException("Can't select brand car by id (id = " + id + ")", ex);
         } finally {
-            MySQLConnUtils.closeResultSet(resultSet);
+            DatabaseUtils.closeResultSet(resultSet);
         }
         return b;
     }
 
     public Long getBrandByName(String name) throws QueryException, CloseResourcesException{
-        Connection con = MySQLConnUtils.getMySQLConnection();
+        Connection con = DatabaseUtils.getConnection();
 
         Long id = null;
         ResultSet resultSet = null;
 
         Brand b = new Brand();
         try {
-            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.SELECT_BRAND_BY_NAME);
+            PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.SELECT_BRAND_BY_NAME);
             preparedStatement.setString(1, name);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -82,7 +82,7 @@ public class BrandDao implements IBrandDao {
             LOGGER.error("Can't select car brand by name (name = " + name + ")", ex);
             throw new QueryException("Can't select car brand by name (name = " + name + ")", ex);
         } finally {
-            MySQLConnUtils.closeResultSet(resultSet);
+            DatabaseUtils.closeResultSet(resultSet);
         }
         id = b.getId();
         return id;
@@ -91,12 +91,12 @@ public class BrandDao implements IBrandDao {
     public List<Brand> findAllBrands() throws QueryException, CloseResourcesException{
         List<Brand> brands = new ArrayList<>();
 
-        Connection connection = MySQLConnUtils.getMySQLConnection();
+        Connection connection = DatabaseUtils.getConnection();
 
         ResultSet resultSet = null;
 
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(RequestsToDB.SELECT_ALL_BRAND);
+            PreparedStatement preparedStatement = connection.prepareStatement(DatabaseRequests.SELECT_ALL_BRAND);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Brand brand = new Brand();
@@ -109,7 +109,7 @@ public class BrandDao implements IBrandDao {
             LOGGER.error(ERROR_MESSAGE_SELECT_ALL_BRANDS, ex);
             throw new QueryException(ERROR_MESSAGE_SELECT_ALL_BRANDS, ex);
         } finally {
-            MySQLConnUtils.closeResultSet(resultSet);
+            DatabaseUtils.closeResultSet(resultSet);
         }
         return brands;
     }

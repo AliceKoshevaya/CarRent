@@ -30,6 +30,8 @@ public class OrderServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String stringIdCar = request.getParameter("carId");
+        LOGGER.debug("Got carId parameter as " + stringIdCar);
+
         Long idCar = null;
         try {
             idCar = Long.valueOf(stringIdCar);

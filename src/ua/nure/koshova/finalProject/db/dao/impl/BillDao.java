@@ -2,8 +2,8 @@ package ua.nure.koshova.finalProject.db.dao.impl;
 
 import org.apache.log4j.Logger;
 import ua.nure.koshova.finalProject.db.dao.IBillDao;
-import ua.nure.koshova.finalProject.db.dao.util.MySQLConnUtils;
-import ua.nure.koshova.finalProject.db.dao.util.RequestsToDB;
+import ua.nure.koshova.finalProject.db.dao.util.DatabaseRequests;
+import ua.nure.koshova.finalProject.db.dao.util.DatabaseUtils;
 import ua.nure.koshova.finalProject.db.entity.Bill;
 import ua.nure.koshova.finalProject.db.entity.Order;
 import ua.nure.koshova.finalProject.db.exception.CloseResourcesException;
@@ -16,13 +16,13 @@ import java.util.List;
 public class BillDao implements IBillDao {
 
     private static final Logger LOGGER = Logger.getLogger(BillDao.class);
-
-    public static final String ERROR_MESSAGE_INSERT_BILL = "Unable to perform operation insert bill ";
-
+    public static final String ERROR_MESSAGE_SELECT_BILL_BY_ORDER = "Can't select user bill by order id (id = %d)";
     private static volatile BillDao instance;
 
-    private BillDao() {
+    private static final String ERROR_MESSAGE_INSERT_BILL = "Unable to perform operation insert bill ";
+    private static final String ERROR_MESSAGE_SELECT_BILL = "Can't select user bill (id = %d)";
 
+    private BillDao() {
     }
 
     public static BillDao getInstance() {
@@ -41,12 +41,13 @@ public class BillDao implements IBillDao {
     public Long createBill(String type, Boolean status, int sum, Timestamp date, Long idOrder)
             throws QueryException, CloseResourcesException {
 
-        Connection con = MySQLConnUtils.getMySQLConnection();
+        Connection con = DatabaseUtils.getConnection();
 
         Long id = null;
         ResultSet generatedKeys = null;
 
-        try (PreparedStatement ps = con.prepareStatement(RequestsToDB.INSERT_BILL, Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement ps =
+                     con.prepareStatement(DatabaseRequests.INSERT_BILL, Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setBoolean(1, status);
             ps.setString(2, type);
@@ -66,7 +67,7 @@ public class BillDao implements IBillDao {
             LOGGER.error(ERROR_MESSAGE_INSERT_BILL, ex);
             throw new QueryException(ERROR_MESSAGE_INSERT_BILL, ex);
         } finally {
-            MySQLConnUtils.closeResultSet(generatedKeys);
+            DatabaseUtils.closeResultSet(generatedKeys);
         }
 
         return id;
@@ -74,43 +75,43 @@ public class BillDao implements IBillDao {
 
     public Bill findBillById(Long id) throws QueryException, CloseResourcesException {
 
-        Connection connection = MySQLConnUtils.getMySQLConnection();
+        Connection connection = DatabaseUtils.getConnection();
 
-        Bill bill = new Bill();
-
+        Bill bill = null;
         ResultSet resultSet = null;
 
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(RequestsToDB.SELECT_BILL_BY_ID);
+        try (PreparedStatement preparedStatement =
+                     connection.prepareStatement(DatabaseRequests.SELECT_BILL_BY_ID)) {
             preparedStatement.setLong(1, id);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
+                bill = new Bill();
                 Order order = new Order();
-                bill.setOrder(order);
                 bill.setId(resultSet.getLong(1));
                 bill.setStatus(resultSet.getBoolean(2));
                 bill.setType(resultSet.getString(3));
                 bill.setSum(resultSet.getInt(4));
                 bill.setDate(resultSet.getTimestamp(5));
                 order.setId(resultSet.getLong(6));
+                bill.setOrder(order);
             }
         } catch (SQLException ex) {
-            LOGGER.error("Can't select user bill (id = " + id + ")", ex);
-            throw new QueryException("Can't select user bill (id = " + id + ")", ex);
+            LOGGER.error(String.format(ERROR_MESSAGE_SELECT_BILL, id), ex);
+            throw new QueryException(String.format(ERROR_MESSAGE_SELECT_BILL, id), ex);
         } finally {
-            MySQLConnUtils.closeResultSet(resultSet);
+            DatabaseUtils.closeResultSet(resultSet);
         }
 
         return bill;
     }
 
-    public List<Bill> findBillByIdOrder(Long id) throws QueryException, CloseResourcesException{
-        Connection connection = MySQLConnUtils.getMySQLConnection();
+    public List<Bill> findBillByIdOrder(Long id) throws QueryException, CloseResourcesException {
+        Connection connection = DatabaseUtils.getConnection();
         List<Bill> billList = new ArrayList<>();
 
         ResultSet resultSet = null;
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(RequestsToDB.SELECT_BILL_BY_ORDER_ID);
+        try (PreparedStatement preparedStatement =
+                     connection.prepareStatement(DatabaseRequests.SELECT_BILL_BY_ORDER_ID)) {
             preparedStatement.setLong(1, id);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -123,18 +124,18 @@ public class BillDao implements IBillDao {
                 billList.add(bill);
             }
         } catch (SQLException ex) {
-            LOGGER.error("Can't select user bill by order id (id = " + id + ")", ex);
-            throw new QueryException("Can't select user bill by order id (id = " + id + ")", ex);
+            LOGGER.error(String.format(ERROR_MESSAGE_SELECT_BILL_BY_ORDER, id), ex);
+            throw new QueryException(String.format(ERROR_MESSAGE_SELECT_BILL_BY_ORDER, id), ex);
         } finally {
-            MySQLConnUtils.closeResultSet(resultSet);
+            DatabaseUtils.closeResultSet(resultSet);
         }
         return billList;
     }
 
     public void updateBill(Long id) throws QueryException, CloseResourcesException {
-        Connection con = MySQLConnUtils.getMySQLConnection();
-        try {
-            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.UPDATE_BILL);
+        Connection con = DatabaseUtils.getConnection();
+        try (PreparedStatement preparedStatement =
+                     con.prepareStatement(DatabaseRequests.UPDATE_BILL)) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {

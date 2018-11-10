@@ -109,5 +109,5 @@ public interface IUserDao {
      *
      */
 
-    Role findUserByRole(Long id);
+    Role findRoleByUser(Long id);
 }

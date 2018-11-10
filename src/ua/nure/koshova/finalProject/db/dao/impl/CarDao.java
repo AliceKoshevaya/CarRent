@@ -3,8 +3,8 @@ package ua.nure.koshova.finalProject.db.dao.impl;
 
 import org.apache.log4j.Logger;
 import ua.nure.koshova.finalProject.db.dao.ICarDao;
-import ua.nure.koshova.finalProject.db.dao.util.MySQLConnUtils;
-import ua.nure.koshova.finalProject.db.dao.util.RequestsToDB;
+import ua.nure.koshova.finalProject.db.dao.util.DatabaseUtils;
+import ua.nure.koshova.finalProject.db.dao.util.DatabaseRequests;
 import ua.nure.koshova.finalProject.db.entity.Brand;
 import ua.nure.koshova.finalProject.db.entity.Car;
 import ua.nure.koshova.finalProject.db.entity.ClassCar;
@@ -49,12 +49,12 @@ public class CarDao implements ICarDao {
 
     public Long createCar(Car car) throws CloseResourcesException, QueryException {
         Long id = null;
-        Connection con = MySQLConnUtils.getMySQLConnection();
+        Connection con = DatabaseUtils.getConnection();
 
         ResultSet generatedKeys = null;
 
         if (car != null) {
-            try (PreparedStatement ps = con.prepareStatement(RequestsToDB.INSERT_CAR, Statement.RETURN_GENERATED_KEYS)) {
+            try (PreparedStatement ps = con.prepareStatement(DatabaseRequests.INSERT_CAR, Statement.RETURN_GENERATED_KEYS)) {
                 ps.setString(1, car.getName());
                 ps.setInt(2, car.getPrice());
                 ps.setString(3, car.getStateNumber());
@@ -73,16 +73,16 @@ public class CarDao implements ICarDao {
                 LOGGER.error(ERROR_MESSAGE_CREATE_CAR, ex);
                 throw new QueryException(ERROR_MESSAGE_CREATE_CAR, ex);
             } finally {
-                MySQLConnUtils.closeResultSet(generatedKeys);
+                DatabaseUtils.closeResultSet(generatedKeys);
             }
         }
         return id;
     }
 
     public void deleteCar(Long id) throws QueryException, CloseResourcesException {
-        Connection con = MySQLConnUtils.getMySQLConnection();
+        Connection con = DatabaseUtils.getConnection();
         try {
-            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.DELETE_CAR);
+            PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.DELETE_CAR);
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
@@ -98,10 +98,10 @@ public class CarDao implements ICarDao {
                           Long idBrand,
                           Long idClass,
                           Long id) throws QueryException, CloseResourcesException {
-        Connection con = MySQLConnUtils.getMySQLConnection();
+        Connection con = DatabaseUtils.getConnection();
 
         try {
-            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.UPDATE_CAR);
+            PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.UPDATE_CAR);
             preparedStatement.setString(1, name);
             preparedStatement.setInt(2, price);
             preparedStatement.setString(3, govNumber);
@@ -123,12 +123,12 @@ public class CarDao implements ICarDao {
      */
     public List<Car> findAllCars() throws QueryException, CloseResourcesException {
         List<Car> carList = new ArrayList<>();
-        Connection connection = MySQLConnUtils.getMySQLConnection();
+        Connection connection = DatabaseUtils.getConnection();
 
         ResultSet resultSet = null;
 
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(RequestsToDB.SELECT_ALL_CAR);
+            PreparedStatement preparedStatement = connection.prepareStatement(DatabaseRequests.SELECT_ALL_CAR);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Car car = new Car();
@@ -155,7 +155,7 @@ public class CarDao implements ICarDao {
             LOGGER.error(ERROR_MESSAGE_SELECT_ALL_CARS, ex);
             throw new QueryException(ERROR_MESSAGE_SELECT_ALL_CARS, ex);
         } finally {
-            MySQLConnUtils.closeResultSet(resultSet);
+            DatabaseUtils.closeResultSet(resultSet);
         }
         return carList;
     }
@@ -168,13 +168,13 @@ public class CarDao implements ICarDao {
     public List<Car> getCarByBrand(String sortField, String sortOrder, long id)
             throws QueryException, CloseResourcesException {
         List<Car> carList = new ArrayList<Car>();
-        Connection con = MySQLConnUtils.getMySQLConnection();
+        Connection con = DatabaseUtils.getConnection();
 
         ResultSet resultSet = null;
 
         try {
             String order = String.format(" order by %s %s", sortField, sortOrder);
-            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.SELECT_GET_CAR_BY_BRAND + order);
+            PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.SELECT_GET_CAR_BY_BRAND + order);
             preparedStatement.setLong(1, id);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -197,7 +197,7 @@ public class CarDao implements ICarDao {
             throw new QueryException("Can't select car by id (sortField = " + sortField
                     + " sortOrder = " + sortOrder + " idBrand" + id + ")", ex);
         } finally {
-            MySQLConnUtils.closeResultSet(resultSet);
+            DatabaseUtils.closeResultSet(resultSet);
         }
         return carList;
     }
@@ -210,13 +210,13 @@ public class CarDao implements ICarDao {
     public List<Car> getCarByClass(String sortField, String sortOrder, Long id)
             throws QueryException, CloseResourcesException {
         List<Car> carList = new ArrayList<>();
-        Connection con = MySQLConnUtils.getMySQLConnection();
+        Connection con = DatabaseUtils.getConnection();
 
         ResultSet resultSet = null;
 
         try {
             String order = String.format(" order by %s %s", sortField, sortOrder);
-            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.SELECT_GET_CAR_BY_CLASS + order);
+            PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.SELECT_GET_CAR_BY_CLASS + order);
             preparedStatement.setLong(1, id);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -241,7 +241,7 @@ public class CarDao implements ICarDao {
             throw new QueryException("Can't select car by id (sortField = " + sortField
                     + " sortOrder = " + sortOrder + " idClass" + id + ")", ex);
         } finally {
-            MySQLConnUtils.closeResultSet(resultSet);
+            DatabaseUtils.closeResultSet(resultSet);
         }
         return carList;
     }
@@ -254,13 +254,13 @@ public class CarDao implements ICarDao {
     public List<Car> getCarByClassBrand(String sortField, String sortOrder, long brandId, long classId)
             throws QueryException, CloseResourcesException {
         List<Car> carList = new ArrayList<>();
-        Connection con = MySQLConnUtils.getMySQLConnection();
+        Connection con = DatabaseUtils.getConnection();
 
         ResultSet resultSet = null;
 
         try {
             String order = String.format(" order by %s %s", sortField, sortOrder);
-            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.SELECT_BY_CLASS_AND_BRAND + order);
+            PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.SELECT_BY_CLASS_AND_BRAND + order);
             preparedStatement.setLong(1, brandId);
             preparedStatement.setLong(2, classId);
             resultSet = preparedStatement.executeQuery();
@@ -286,19 +286,19 @@ public class CarDao implements ICarDao {
             throw new QueryException("Can't select car by id (sortField = " + sortField
                     + " sortOrder = " + sortOrder + " idBrand" + brandId + " idClass" + classId + ")", ex);
         } finally {
-            MySQLConnUtils.closeResultSet(resultSet);
+            DatabaseUtils.closeResultSet(resultSet);
         }
         return carList;
     }
 
     public Car findCarById(Long id) throws QueryException, CloseResourcesException {
-        Connection connection = MySQLConnUtils.getMySQLConnection();
+        Connection connection = DatabaseUtils.getConnection();
         Car c = new Car();
 
         ResultSet resultSet = null;
 
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(RequestsToDB.SELECT_CAR_BY_ID);
+            PreparedStatement preparedStatement = connection.prepareStatement(DatabaseRequests.SELECT_CAR_BY_ID);
             preparedStatement.setLong(1, id);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -319,7 +319,7 @@ public class CarDao implements ICarDao {
             LOGGER.error("Can't select car by id (id = " + id + ")", ex);
             throw new QueryException("Can't select car by id (id = " + id + ")", ex);
         } finally {
-            MySQLConnUtils.closeResultSet(resultSet);
+            DatabaseUtils.closeResultSet(resultSet);
         }
         return c;
     }

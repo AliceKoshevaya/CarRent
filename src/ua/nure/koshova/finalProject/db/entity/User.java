@@ -1,10 +1,9 @@
 package ua.nure.koshova.finalProject.db.entity;
 
 public class User extends Entity {
-    private Long id;
+
     private String login;
     private String password;
-    private String name;
     private String lastName;
     private Role role;
     private boolean block;
@@ -12,14 +11,6 @@ public class User extends Entity {
     private String seria;
     private String passDate;
     private String thirdName;
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
 
     public void setLogin(String login) {
         this.login = login;
@@ -35,14 +26,6 @@ public class User extends Entity {
 
     public String getPassword() {
         return password;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public void setLastName(String lastName) {
@@ -95,8 +78,8 @@ public class User extends Entity {
 
     @Override
     public String toString() {
-        return "User [id=" + id + ", login" + login + ", password=" + password + ", last name=" + lastName +
-                ", name=" + name + ", third name=" + thirdName + ", passport seria=" + seria + ", passport from=" + passDate+
+        return "User [id=" + getId() + ", login" + login + ", password=" + password + ", last name=" + lastName +
+                ", name=" + getName() + ", third name=" + thirdName + ", passport seria=" + seria + ", passport from=" + passDate+
                 "]" + System.lineSeparator();
 
     }

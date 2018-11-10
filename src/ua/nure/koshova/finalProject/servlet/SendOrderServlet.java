@@ -1,5 +1,6 @@
 package ua.nure.koshova.finalProject.servlet;
 
+import org.apache.log4j.Logger;
 import ua.nure.koshova.finalProject.db.dao.impl.CarDao;
 import ua.nure.koshova.finalProject.db.entity.Bill;
 import ua.nure.koshova.finalProject.db.entity.Car;
@@ -24,6 +25,8 @@ public class SendOrderServlet extends HttpServlet {
     private CarDao carsDao = CarDao.getInstance();
     private UserService userService = new UserService();
 
+    private static final Logger LOGGER = Logger.getLogger(SendOrderServlet.class);
+
     public SendOrderServlet() {
         super();
     }
@@ -32,14 +35,22 @@ public class SendOrderServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String stringIdCar = request.getParameter("carId");
+        LOGGER.debug("Got idCar parameter as " + stringIdCar);
         Long idCar = Long.valueOf(stringIdCar);
         String driver = request.getParameter("driver");
+        LOGGER.debug("Got driver parameter as " + driver);
         String startRent = request.getParameter("startRent");
+        LOGGER.debug("Got startRent parameter as " + startRent);
         String endRent = request.getParameter("endRent");
+        LOGGER.debug("Got endRent parameter as " + endRent);
         String userName = request.getParameter("login");
+        LOGGER.debug("Got userName parameter as " + userName);
         String thirdName = request.getParameter("thirdName");
+        LOGGER.debug("Got thirdName parameter as " + thirdName);
         String series = request.getParameter("seria");
+        LOGGER.debug("Got passport series parameter as " + series);
         String issued = request.getParameter("issued");
+        LOGGER.debug("Got issued parameter as " + issued);
 
         Long userId = Long.valueOf(userName);
         Long idOrder = orderService.newOrder(driver,startRent,endRent,userId,idCar);

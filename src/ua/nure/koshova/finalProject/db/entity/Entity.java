@@ -1,8 +1,8 @@
 package ua.nure.koshova.finalProject.db.entity;
 
-abstract class  Entity {
-    protected Long id;
-    protected String name;
+abstract class Entity {
+    private Long id;
+    private String name;
 
     public Long getId() {
         return id;

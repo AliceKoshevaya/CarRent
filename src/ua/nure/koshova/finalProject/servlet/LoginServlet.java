@@ -1,6 +1,7 @@
 package ua.nure.koshova.finalProject.servlet;
 
 
+import org.apache.log4j.Logger;
 import ua.nure.koshova.finalProject.db.entity.Role;
 import ua.nure.koshova.finalProject.db.entity.User;
 import ua.nure.koshova.finalProject.service.UserService;
@@ -21,6 +22,8 @@ public class LoginServlet extends HttpServlet {
 
     private UserService userService = new UserService();
 
+    private static final Logger LOGGER = Logger.getLogger(LoginServlet.class);
+
     public LoginServlet() {
         super();
     }
@@ -40,19 +43,6 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
-//        User user = userService.getUserByLogin(login);
-//        if (userService.registeredUser(login, password) == true) {
-//            RequestDispatcher dispatcher
-//                    = this.getServletContext().getRequestDispatcher("/WEB-INF/views/HomeView.jsp");
-//
-//            dispatcher.forward(request, response);
-//        } else {
-//            RequestDispatcher dispatcher
-//                    = this.getServletContext().getRequestDispatcher("/WEB-INF/views/LoginView.jsp");
-//
-//            dispatcher.forward(request, response);
-//
-//        }
         if (login == null || password == null) {
             String errorMessage = "Please fill all the fields!";
             request.setAttribute("errorMessage", errorMessage);
@@ -63,7 +53,7 @@ public class LoginServlet extends HttpServlet {
                 Role role = userService.getUserRole(user.getId());
                 request.getSession().setAttribute("user", user);
                 request.getSession().setAttribute("role", role);
-//                LOGGER.info("User \"" + user.getLogin() + "\" has been logged in as " + role.getName());
+                LOGGER.info("User " + user.getLogin() + " has been logged in as " + role.getName());
 
                 if (role.getName().equals("administrator")) {
                     RequestDispatcher dispatcher = request.getServletContext()

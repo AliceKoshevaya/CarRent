@@ -2,8 +2,8 @@ package ua.nure.koshova.finalProject.db.dao.impl;
 
 import org.apache.log4j.Logger;
 import ua.nure.koshova.finalProject.db.dao.IOrderDao;
-import ua.nure.koshova.finalProject.db.dao.util.MySQLConnUtils;
-import ua.nure.koshova.finalProject.db.dao.util.RequestsToDB;
+import ua.nure.koshova.finalProject.db.dao.util.DatabaseUtils;
+import ua.nure.koshova.finalProject.db.dao.util.DatabaseRequests;
 import ua.nure.koshova.finalProject.db.entity.Car;
 import ua.nure.koshova.finalProject.db.entity.Order;
 import ua.nure.koshova.finalProject.db.entity.OrderStatus;
@@ -42,12 +42,12 @@ public class OrderDao implements IOrderDao {
 
     public Long createOrder(Order order) throws QueryException, CloseResourcesException {
         Long id = null;
-        Connection con = MySQLConnUtils.getMySQLConnection();
+        Connection con = DatabaseUtils.getConnection();
 
         ResultSet generatedKeys = null;
 
         if (order != null) {
-            try (PreparedStatement ps = con.prepareStatement(RequestsToDB.INSERT_ORDER, Statement.RETURN_GENERATED_KEYS)) {
+            try (PreparedStatement ps = con.prepareStatement(DatabaseRequests.INSERT_ORDER, Statement.RETURN_GENERATED_KEYS)) {
                 ps.setBoolean(1, order.isDriver());
                 ps.setString(2, order.getStatus().toString());
                 ps.setTimestamp(3, order.getStartRent());
@@ -66,7 +66,7 @@ public class OrderDao implements IOrderDao {
                 LOGGER.error(ERROR_MESSAGE_CREATE_ORDER, ex);
                 throw new QueryException(ERROR_MESSAGE_CREATE_ORDER, ex);
             } finally {
-                MySQLConnUtils.closeResultSet(generatedKeys);
+                DatabaseUtils.closeResultSet(generatedKeys);
             }
         }
         return id;
@@ -74,12 +74,12 @@ public class OrderDao implements IOrderDao {
 
     public List<Order> findAllOrders() throws QueryException, CloseResourcesException {
         List<Order> orderList = new ArrayList<>();
-        Connection connection = MySQLConnUtils.getMySQLConnection();
+        Connection connection = DatabaseUtils.getConnection();
 
         ResultSet resultSet = null;
 
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(RequestsToDB.SELECT_ALL_ORDERS);
+            PreparedStatement preparedStatement = connection.prepareStatement(DatabaseRequests.SELECT_ALL_ORDERS);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Order order = new Order();
@@ -98,15 +98,15 @@ public class OrderDao implements IOrderDao {
             LOGGER.error(ERROR_MESSAGE_SELECT_ALL_ORDERS, ex);
             throw new QueryException(ERROR_MESSAGE_SELECT_ALL_ORDERS, ex);
         } finally {
-            MySQLConnUtils.closeResultSet(resultSet);
+            DatabaseUtils.closeResultSet(resultSet);
         }
         return orderList;
     }
 
     public void updateConfirmOrder(Long id) throws QueryException, CloseResourcesException {
-        Connection con = MySQLConnUtils.getMySQLConnection();
+        Connection con = DatabaseUtils.getConnection();
         try {
-            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.CONFIRM_ORDER);
+            PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.CONFIRM_ORDER);
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
@@ -116,9 +116,9 @@ public class OrderDao implements IOrderDao {
     }
 
     public void updateCrashOrder(Long id) throws QueryException, CloseResourcesException {
-        Connection con = MySQLConnUtils.getMySQLConnection();
+        Connection con = DatabaseUtils.getConnection();
         try {
-            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.CRASH_ORDER);
+            PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.CRASH_ORDER);
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
@@ -128,9 +128,9 @@ public class OrderDao implements IOrderDao {
     }
 
     public void updateCloseOrder(Long id) throws QueryException, CloseResourcesException {
-        Connection con = MySQLConnUtils.getMySQLConnection();
+        Connection con = DatabaseUtils.getConnection();
         try {
-            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.CLOSE_ORDER);
+            PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.CLOSE_ORDER);
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
@@ -140,9 +140,9 @@ public class OrderDao implements IOrderDao {
     }
 
     public void updateReasonOrder(Long id, String reason) throws QueryException, CloseResourcesException {
-        Connection con = MySQLConnUtils.getMySQLConnection();
+        Connection con = DatabaseUtils.getConnection();
         try {
-            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.UPDATE_REASON);
+            PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.UPDATE_REASON);
             preparedStatement.setString(1, reason);
             preparedStatement.setLong(2, id);
             preparedStatement.executeUpdate();

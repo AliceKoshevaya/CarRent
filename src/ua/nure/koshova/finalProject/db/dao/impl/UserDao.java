@@ -2,8 +2,8 @@ package ua.nure.koshova.finalProject.db.dao.impl;
 
 import org.apache.log4j.Logger;
 import ua.nure.koshova.finalProject.db.dao.IUserDao;
-import ua.nure.koshova.finalProject.db.dao.util.MySQLConnUtils;
-import ua.nure.koshova.finalProject.db.dao.util.RequestsToDB;
+import ua.nure.koshova.finalProject.db.dao.util.DatabaseUtils;
+import ua.nure.koshova.finalProject.db.dao.util.DatabaseRequests;
 import ua.nure.koshova.finalProject.db.entity.Role;
 import ua.nure.koshova.finalProject.db.entity.User;
 import ua.nure.koshova.finalProject.db.exception.CloseResourcesException;
@@ -40,11 +40,11 @@ public class UserDao implements IUserDao {
 
     public List<User> findAllUsers() throws QueryException, CloseResourcesException {
         List<User> userList = new ArrayList<>();
-        Connection connection = MySQLConnUtils.getMySQLConnection();
+        Connection connection = DatabaseUtils.getConnection();
 
         ResultSet resultSet = null;
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(RequestsToDB.SELECT_ALL_USERS);
+            PreparedStatement preparedStatement = connection.prepareStatement(DatabaseRequests.SELECT_ALL_USERS);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 User user = new User();
@@ -68,19 +68,19 @@ public class UserDao implements IUserDao {
             LOGGER.error(ERROR_MESSAGE_SELECT_ALL_USERS, ex);
             throw new QueryException(ERROR_MESSAGE_SELECT_ALL_USERS, ex);
         } finally {
-            MySQLConnUtils.closeResultSet(resultSet);
+            DatabaseUtils.closeResultSet(resultSet);
         }
         return userList;
     }
 
     public User findUser(String login, String password) throws QueryException, CloseResourcesException {
-        Connection connection = MySQLConnUtils.getMySQLConnection();
+        Connection connection = DatabaseUtils.getConnection();
 
         User user = new User();
 
         ResultSet rs = null;
         try {
-            PreparedStatement pstm = connection.prepareStatement(RequestsToDB.SELECT_GET_USER);
+            PreparedStatement pstm = connection.prepareStatement(DatabaseRequests.SELECT_GET_USER);
             pstm.setString(1, login);
             pstm.setString(2, password);
             rs = pstm.executeQuery();
@@ -101,20 +101,20 @@ public class UserDao implements IUserDao {
             throw new QueryException("Can't select user by login and password (login = " + login
                     + "password = " + password + ")", ex);
         } finally {
-            MySQLConnUtils.closeResultSet(rs);
+            DatabaseUtils.closeResultSet(rs);
         }
         return user;
     }
 
 
     public User findUserById(Long id) throws QueryException, CloseResourcesException {
-        Connection connection = MySQLConnUtils.getMySQLConnection();
+        Connection connection = DatabaseUtils.getConnection();
 
         User user = new User();
 
         ResultSet rs = null;
         try {
-            PreparedStatement pstm = connection.prepareStatement(RequestsToDB.CHECKBLOCK);
+            PreparedStatement pstm = connection.prepareStatement(DatabaseRequests.CHECKBLOCK);
             pstm.setLong(1, id);
             rs = pstm.executeQuery();
             if (rs.next()) {
@@ -125,19 +125,19 @@ public class UserDao implements IUserDao {
             LOGGER.error("Can't select user by id (id = " + id + ")", ex);
             throw new QueryException("Can't select user by id (id = " + id + ")", ex);
         } finally {
-            MySQLConnUtils.closeResultSet(rs);
+            DatabaseUtils.closeResultSet(rs);
         }
         return user;
     }
 
     public User findUserByLogin(String login) throws QueryException, CloseResourcesException {
-        Connection connection = MySQLConnUtils.getMySQLConnection();
+        Connection connection = DatabaseUtils.getConnection();
 
         User user = new User();
 
         ResultSet rs = null;
         try {
-            PreparedStatement pstm = connection.prepareStatement(RequestsToDB.SELECT_USER_BY_LOGIN);
+            PreparedStatement pstm = connection.prepareStatement(DatabaseRequests.SELECT_USER_BY_LOGIN);
             pstm.setString(1, login);
             rs = pstm.executeQuery();
             if (rs.next()) {
@@ -156,19 +156,19 @@ public class UserDao implements IUserDao {
             LOGGER.error("Can't select user by login (login = " + login + ")", ex);
             throw new QueryException("Can't select user by login (login = " + login + ")", ex);
         } finally {
-            MySQLConnUtils.closeResultSet(rs);
+            DatabaseUtils.closeResultSet(rs);
         }
         return user;
     }
 
     public Long createUser(User user) throws QueryException, CloseResourcesException {
         Long id = null;
-        Connection connection = MySQLConnUtils.getMySQLConnection();
+        Connection connection = DatabaseUtils.getConnection();
 
         ResultSet generatedKeys = null;
         if (user != null) {
             try (PreparedStatement ps =
-                         connection.prepareStatement(RequestsToDB.INSERT_USER,
+                         connection.prepareStatement(DatabaseRequests.INSERT_USER,
                                  Statement.RETURN_GENERATED_KEYS)) {
                 ps.setString(1, user.getLogin());
                 ps.setString(2, user.getPassword());
@@ -195,9 +195,9 @@ public class UserDao implements IUserDao {
     }
 
     public void deleteUser(Long id) throws QueryException, CloseResourcesException {
-        Connection con = MySQLConnUtils.getMySQLConnection();
+        Connection con = DatabaseUtils.getConnection();
         try {
-            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.DELETE_USER);
+            PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.DELETE_USER);
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
@@ -210,9 +210,9 @@ public class UserDao implements IUserDao {
                            String passSeria,
                            String dataPass,
                            Long id) throws QueryException, CloseResourcesException {
-        Connection con = MySQLConnUtils.getMySQLConnection();
+        Connection con = DatabaseUtils.getConnection();
         try {
-            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.UPDATE_USER);
+            PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.UPDATE_USER);
             preparedStatement.setString(1, thirdName);
             preparedStatement.setString(2, passSeria);
             preparedStatement.setString(3, dataPass);
@@ -225,9 +225,9 @@ public class UserDao implements IUserDao {
     }
 
     public void updateUserRole(Long id) throws QueryException, CloseResourcesException {
-        Connection con = MySQLConnUtils.getMySQLConnection();
+        Connection con = DatabaseUtils.getConnection();
         try {
-            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.SET_A_MANAGER);
+            PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.SET_A_MANAGER);
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
@@ -237,9 +237,9 @@ public class UserDao implements IUserDao {
     }
 
     public void updateBlockUser(Long id) throws QueryException, CloseResourcesException {
-        Connection con = MySQLConnUtils.getMySQLConnection();
+        Connection con = DatabaseUtils.getConnection();
         try {
-            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.BLOCK_USER);
+            PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.BLOCK_USER);
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
@@ -249,9 +249,9 @@ public class UserDao implements IUserDao {
     }
 
     public void updateUnblockUser(Long id) throws QueryException, CloseResourcesException {
-        Connection con = MySQLConnUtils.getMySQLConnection();
+        Connection con = DatabaseUtils.getConnection();
         try {
-            PreparedStatement preparedStatement = con.prepareStatement(RequestsToDB.UNBLOCK_USER);
+            PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.UNBLOCK_USER);
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
@@ -260,8 +260,8 @@ public class UserDao implements IUserDao {
         }
     }
 
-    public Role findUserByRole(Long id) throws QueryException, CloseResourcesException {
-        Connection connection = MySQLConnUtils.getMySQLConnection();
+    public Role findRoleByUser(Long id) throws QueryException, CloseResourcesException {
+        Connection connection = DatabaseUtils.getConnection();
 
         User user = new User();
         Role role = new Role();
@@ -269,7 +269,7 @@ public class UserDao implements IUserDao {
         ResultSet rs = null;
 
         try {
-            PreparedStatement pstm = connection.prepareStatement(RequestsToDB.SELECT_USER_ROLE);
+            PreparedStatement pstm = connection.prepareStatement(DatabaseRequests.SELECT_USER_ROLE);
             pstm.setLong(1, id);
             rs = pstm.executeQuery();
             if (rs.next()) {
@@ -281,7 +281,7 @@ public class UserDao implements IUserDao {
             LOGGER.error("Can't select user by role (id = " + id + ")", ex);
             throw new QueryException("Can't select user by role (id = " + id + ")", ex);
         } finally {
-            MySQLConnUtils.closeResultSet(rs);
+            DatabaseUtils.closeResultSet(rs);
         }
         return role;
     }
