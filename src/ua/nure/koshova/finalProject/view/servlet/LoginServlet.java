@@ -3,6 +3,7 @@ package ua.nure.koshova.finalProject.view.servlet;
 
 import org.apache.log4j.Logger;
 import ua.nure.koshova.finalProject.db.entity.Role;
+import ua.nure.koshova.finalProject.db.entity.Roles;
 import ua.nure.koshova.finalProject.db.entity.User;
 import ua.nure.koshova.finalProject.service.UserService;
 import ua.nure.koshova.finalProject.view.constant.Pages;
@@ -56,11 +57,11 @@ public class LoginServlet extends HttpServlet {
 
             LOGGER.debug("User " + user.getLogin() + " has been logged in as " + role.getName());
 
-            if (role.getName().equals("administrator")) {
+            if (role.getName().equals(Roles.admin)) {
                 RequestDispatcher dispatcher = request.getServletContext()
                         .getRequestDispatcher(Pages.ADMIN_PAGE_CAR);
                 dispatcher.forward(request, response);
-            } else if (role.getName().equals("manager")) {
+            } else if (role.getName().equals(Roles.manager)) {
                 RequestDispatcher dispatcher = request.getServletContext()
                         .getRequestDispatcher(Pages.LIST_ORDER_PAGE);
                 dispatcher.forward(request, response);
