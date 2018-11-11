@@ -38,6 +38,7 @@ public class OrderServlet extends HttpServlet {
         } catch (NumberFormatException ex) {
             LOGGER.error(String.format("Unable to convert parameter carId (%s) to Long ", stringIdCar), ex);
             response.sendRedirect("ErrorPage.jsp");
+            return;
         }
         Car car = carService.getCarById(idCar);
         request.setAttribute("car", car);

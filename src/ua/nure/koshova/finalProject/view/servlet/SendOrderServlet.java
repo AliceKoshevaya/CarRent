@@ -7,8 +7,10 @@ import ua.nure.koshova.finalProject.db.entity.Car;
 import ua.nure.koshova.finalProject.service.BillService;
 import ua.nure.koshova.finalProject.service.OrderService;
 import ua.nure.koshova.finalProject.service.UserService;
+import ua.nure.koshova.finalProject.view.constant.Pages;
 import ua.nure.koshova.finalProject.view.util.validator.OrderValidator;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -52,21 +54,25 @@ public class SendOrderServlet extends HttpServlet {
         LOGGER.debug("Got passport series parameter as " + series);
         String issued = request.getParameter("issued");
         LOGGER.debug("Got issued parameter as " + issued);
-        String errorMessage = OrderValidator.validate(driver,startRent,endRent,thirdName,series,issued);
+        String errorMessage = OrderValidator.validate(driver, startRent, endRent, thirdName, series, issued);
         if (!errorMessage.isEmpty()) {
             request.setAttribute("errorMessage", errorMessage);
+            RequestDispatcher dispatcher
+                    = this.getServletContext().getRequestDispatcher(Pages.ORDER_PAGE);
+            dispatcher.forward(request, response);
+        } else {
+
+            Long userId = Long.valueOf(userName);
+            Long idOrder = orderService.newOrder(driver, startRent, endRent, userId, idCar);
+
+            userService.addUserInfo(userId, thirdName, series, issued);
+
+            Car car = carsDao.findCarById(idCar);
+            int priceCar = car.getPrice();
+            Bill bill = billService.createBill(startRent, endRent, priceCar, idOrder);
+            Long id = bill.getId();
+            response.sendRedirect("/bill?idBill=" + id);
         }
-
-        Long userId = Long.valueOf(userName);
-        Long idOrder = orderService.newOrder(driver,startRent,endRent,userId,idCar);
-
-        userService.addUserInfo(userId,thirdName,series,issued);
-
-        Car car = carsDao.findCarById(idCar);
-        int priceCar = car.getPrice();
-        Bill bill = billService.createBill(startRent, endRent, priceCar, idOrder);
-        Long id = bill.getId();
-        response.sendRedirect("/bill?idBill=" + id);
     }
 }
 

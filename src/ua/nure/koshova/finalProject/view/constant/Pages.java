@@ -39,5 +39,7 @@ public final class Pages {
     public static final String ERROR_PAGE_NOT_ENOUGH_RIGTH = "/views/ErrorRightsPage.jsp";
 
     public static final String ERROR_PAGE_LOGIN_PLEASE = "/views/ErrorChooseCarPage.jsp";
+
+    public static final String INFO_PAGE = "/views/InfoView.jsp";
 }
 

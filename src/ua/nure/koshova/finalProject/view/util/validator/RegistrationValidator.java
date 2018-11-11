@@ -10,11 +10,10 @@ public class RegistrationValidator {
     private static final String MESSAGE_NOT_VALID_NAME = "Field name contains invalid characters";
     private static final String MESSAGE_NOT_VALID_LAST_NAME = "Field lastname contains invalid characters";
     private static final String MESSAGE_VALID = "";
-    private static final String REGEXP_VALID = "/^([A-Za-z]+|[А-Яа-я]+)$/u";
+    private static final String REGEXP_VALID = "/^[A-Za-zА-Яа-я]+$/u";
 
     public static String validate(String login, String password, String name, String lastName) {
-        LoginValidator loginValidator = new LoginValidator();
-        loginValidator.validate(login,password);
+        LoginValidator.validate(login,password);
         if (name == null || name.isEmpty()) {
             return MESSAGE_EMPTY_NAME;
         }

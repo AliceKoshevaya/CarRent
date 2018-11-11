@@ -28,6 +28,7 @@ public class EditACarServlet extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         if (!RightChecker.isAdmin(request.getSession())) {
             response.sendRedirect(Pages.ERROR_PAGE_NOT_ENOUGH_RIGTH);
             return;

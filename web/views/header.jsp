@@ -1,12 +1,11 @@
 <%--
-  Created by IntelliJ IDEA.
   User: ajiek
   Date: 25.10.2018
   Time: 20:39
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@include file="../views/fspf/include.jspf" %>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -41,7 +40,7 @@
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/userList">All users</a>
                     </c:when>
                     </c:choose>
-                    <a class="dropdown-item" href="">Info</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/info">Info</a>
                 </div>
             </li>
         </ul>
@@ -67,6 +66,10 @@
             </ul>
         </div>
         <p class="nav-item">Hello ${sessionScope.user.name}</p>
+        <select class="selectpicker" name="lang" data-width="fit" onchange="location=this.value;">
+            <option value="http://localhost:8080/?lang=en">English</option>
+            <option value="http://localhost:8080/?lang=ru">Русский</option>
+        </select>
     </div>
 
 </nav>

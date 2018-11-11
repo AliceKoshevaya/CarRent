@@ -81,7 +81,7 @@ public final class DatabaseRequests {
      * Request to table orders
      */
 
-    public static final String INSERT_ORDER = "insert into orders values (DEFAULT ,?,?,?,?,?,?)";
+    public static final String INSERT_ORDER = "insert into orders values (DEFAULT ,?,?,?,?,null,?,?)";
     public static final String SELECT_ALL_ORDERS = "select o.id, o.driver, o.status, o.start_rent, o.end_rent,  u.id, u.user_login " +
             "from orders AS o " +
             "left join users AS u ON o.id_user = u.id " +

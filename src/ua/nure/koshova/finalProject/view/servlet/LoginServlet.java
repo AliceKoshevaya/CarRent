@@ -51,6 +51,11 @@ public class LoginServlet extends HttpServlet {
             request.getRequestDispatcher(Pages.LOGIN_PAGE).forward(request, response);
         } else {
             User user = userService.registeredUser(login, password);
+            if(user.getName() == null){
+                String errorMessageLogin = "User does not exist";
+                request.setAttribute("errorMessageLogin", errorMessage);
+                request.getRequestDispatcher(Pages.LOGIN_PAGE).forward(request, response);
+            }
             Role role = userService.getUserRole(user.getId());
             user.setRole(role);
             request.getSession().setAttribute(RightChecker.ATTRIBUTE_USER, user);

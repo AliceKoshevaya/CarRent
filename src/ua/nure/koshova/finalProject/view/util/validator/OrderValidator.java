@@ -17,9 +17,9 @@ public class OrderValidator {
     private static final String MESSAGE_NOT_VALID_THIRD_NAME = "Field third name contains invalid characters";
     private static final String MESSAGE_NOT_VALID_SERIES = "Field passport series contains invalid characters";
     private static final String MESSAGE_NOT_VALID_PASSPORT_DATA = "Field passport data contains invalid characters";
-    private static final String REGEXP_THIRD_NAME = "/^([A-Za-z]+|[А-Яа-я]+)$/u";
-    private static final String REGEXP_SERIES = "^[А-Я]{2}\\d{6}$";
-    private static final String REGEXP_PASSPORT_DATA = "/^([A-Za-z]+|[А-Яа-я]+)$/u";
+    private static final String REGEXP_THIRD_NAME = "[A-ZА-Я][a-zа-я]+";
+    private static final String REGEXP_SERIES = "[А-Я]{2}[0-9]{6}";
+    private static final String REGEXP_PASSPORT_CITY = "[A-ZА-Я][a-zа-я]+";
 
 
     public static String validate(String driver, String startRent, String endRent, String thirdName,
@@ -42,28 +42,46 @@ public class OrderValidator {
         if (issued == null || issued.isEmpty()) {
             return MESSAGE_EMPTY_ISSUED;
         }
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-        if((startRent.compareTo(timeStamp) == 1) && (endRent.compareTo(thirdName) ==1 )){
+        String timeStamp = new SimpleDateFormat("yyyy-MM-ddТHH-mm").format(Calendar.getInstance().getTime());
+        if ((timeStamp.compareTo(startRent) == 1) && (timeStamp.compareTo(endRent) == 1)
+                && (endRent.compareTo(startRent) == 1)) {
             return MESSAGE_NOT_VALID_DATA;
         }
         Pattern patternThirdName = Pattern.compile(REGEXP_THIRD_NAME);
         Matcher matcherThirdName = patternThirdName.matcher(thirdName);
         boolean foundThirdName = matcherThirdName.matches();
-        if(!foundThirdName) {
+        if (!foundThirdName) {
             return MESSAGE_NOT_VALID_THIRD_NAME;
         }
         Pattern patternSeries = Pattern.compile(REGEXP_SERIES);
-        Matcher matcherSeries = patternSeries.matcher(thirdName);
+        Matcher matcherSeries = patternSeries.matcher(series);
         boolean foundSeries = matcherSeries.matches();
-        if(!foundSeries) {
+        if (!foundSeries) {
             return MESSAGE_NOT_VALID_SERIES;
         }
-        Pattern patternData = Pattern.compile(REGEXP_PASSPORT_DATA);
-        Matcher matcherData = patternData.matcher(thirdName);
+        Pattern patternData = Pattern.compile(REGEXP_PASSPORT_CITY);
+        Matcher matcherData = patternData.matcher(issued);
         boolean foundData = matcherData.matches();
-        if(!foundData) {
+        if (!foundData) {
             return MESSAGE_NOT_VALID_PASSPORT_DATA;
         }
         return MESSAGE_VALID;
     }
+
+    public static String validate(String series) {
+        Pattern patternSeries = Pattern.compile(REGEXP_SERIES);
+        Matcher matcherSeries = patternSeries.matcher(series);
+        boolean foundSeries = matcherSeries.matches();
+        if (!foundSeries) {
+            return MESSAGE_NOT_VALID_SERIES;
+        }
+        return MESSAGE_VALID;
+    }
+
+    public static void main(String[] args) {
+        String series = "АА676766";
+        OrderValidator.validate(series);
+    }
+
+
 }

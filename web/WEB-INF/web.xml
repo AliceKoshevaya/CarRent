@@ -13,12 +13,29 @@
 
     <error-page>
         <error-code>404</error-code>
-        <location>/WEB-INF/views/ErrorPage.jsp</location>
+        <location>/views/ErrorPage.jsp</location>
     </error-page>
 
     <error-page>
         <exception-type>java.lang.Exception</exception-type>
-        <location>/WEB-INF/views/ErrorPage.jsp</location>
+        <location>/views/ErrorPage.jsp</location>
     </error-page>
 
+    <!--<filter>-->
+        <!--<filter-name>LocalizationFilter</filter-name>-->
+        <!--<filter-class>ua.nure.koshova.finalProject.view.filter.LocaleFilter</filter-class>-->
+        <!--<init-param>-->
+            <!--<param-name>default-locale</param-name>-->
+            <!--<param-value>ru</param-value>-->
+        <!--</init-param>-->
+        <!--<init-param>-->
+            <!--<param-name>project-locales</param-name>-->
+            <!--<param-value>en,ru</param-value>-->
+        <!--</init-param>-->
+    <!--</filter>-->
+
+    <!--<filter-mapping>-->
+        <!--<filter-name>LocalizationFilter</filter-name>-->
+        <!--<url-pattern>/*</url-pattern>-->
+    <!--</filter-mapping>-->
 </web-app>
