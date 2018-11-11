@@ -14,7 +14,7 @@
     <link href="style.css" rel="stylesheet" type="text/css"/>
     <title>Cars</title>
 </head>
-<jsp:include page="header2.jsp"/>
+<jsp:include page="header.jsp"/>
 <body>
 <form method="GET" action="${pageContext.request.contextPath}/carList">
     <div class="form-group ">

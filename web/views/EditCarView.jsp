@@ -13,7 +13,7 @@
 <head>
     <title>Edit a car</title>
 </head>
-<jsp:include page="header2.jsp"/>
+<jsp:include page="header.jsp"/>
 <body>
 <p class="form-control">Edit a car</p>
 <div class="container">

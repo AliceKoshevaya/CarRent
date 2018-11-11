@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,18 +8,19 @@
     <meta charset="UTF-8">
     <title>Registration</title>
 </head>
-<jsp:include page="header2.jsp"/>
+<jsp:include page="header.jsp"/>
 <body>
 <p class="form-control">Registration</p>
 <div class="container">
     <div class="row main-form">
         <form method="POST" action="${pageContext.request.contextPath}/registration">
             <div class="form-group">
+                <c:out value="${errorMessage}"></c:out>
                 <label for="name" class="cols-sm-2 control-label">Your login</label>
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="login"value= "${user.login}" placeholder="Enter your login">
+                        <input type="text" class="form-control" name="login" placeholder="Enter your login">
                     </div>
                 </div>
             </div>
@@ -28,7 +30,7 @@
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                        <input type="password" class="form-control" name="password" id="password" value= "${user.password}" placeholder="Enter your Password"/>
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Enter your Password"/>
                     </div>
                 </div>
             </div>
@@ -48,7 +50,7 @@
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="fname" id="name"  value= "${user.name}" placeholder="Enter your Name">
+                        <input type="text" class="form-control" name="fname" id="name"  placeholder="Enter your Name">
                     </div>
                 </div>
             </div>
@@ -58,7 +60,7 @@
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="lname"  id = "username" value= "${user.lastName}" placeholder="Enter your Lastname"/>
+                        <input type="text" class="form-control" name="lname"  id = "username" placeholder="Enter your Lastname"/>
                     </div>
                 </div>
             </div>
@@ -68,7 +70,7 @@
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="tname" value= "${user.thirdName}" placeholder="Enter your ThirdName"/>
+                        <input type="text" class="form-control" name="tname"  placeholder="Enter your ThirdName"/>
                     </div>
                 </div>
             </div>

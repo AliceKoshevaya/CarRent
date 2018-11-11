@@ -30,6 +30,7 @@ public class EditACarServlet extends HttpServlet{
             throws ServletException, IOException {
         if (!RightChecker.isAdmin(request.getSession())) {
             response.sendRedirect(Pages.ERROR_PAGE_NOT_ENOUGH_RIGTH);
+            return;
         }
         String id = request.getParameter("carId");
         Long idCar =Long.valueOf(id);

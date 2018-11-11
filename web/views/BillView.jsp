@@ -11,7 +11,7 @@
 <head>
     <title>Title</title>
 </head>
-<jsp:include page="header2.jsp"/>
+<jsp:include page="header.jsp"/>
 <body>
 <h3>Thank you for ordering, here is your account.</h3>
 <table>

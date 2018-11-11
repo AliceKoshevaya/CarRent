@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: ajiek
-  Date: 09.11.2018
-  Time: 20:09
+  Date: 11.11.2018
+  Time: 4:34
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -12,6 +12,6 @@
 </head>
 <jsp:include page="header.jsp"/>
 <body>
-<h2>Error on server</h2>
+<h2>To select a car, please login.</h2>
 </body>
 </html>

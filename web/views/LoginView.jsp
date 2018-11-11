@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <title>Login</title>
 </head>
-<jsp:include page="header2.jsp"/>
+<jsp:include page="header.jsp"/>
 <body>
 <form method="POST" action="${pageContext.request.contextPath}/login">
     <div class="container">

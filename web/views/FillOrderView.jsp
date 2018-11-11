@@ -6,19 +6,21 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>New order</title>
 </head>
-<jsp:include page="header2.jsp"/>
+<jsp:include page="header.jsp"/>
 <body>
 <p class="form-control">Make an order</p>
 <div class="container">
         <div class="com-lg-1">
         <form method="POST" action="${pageContext.request.contextPath}/finalOrder">
             <div class="form-check">
+                <c:out value="${errorMessage}"></c:out>
                 <input class="form-check-input" type="radio" name="driver" id="exampleRadios1" value="true" checked>
                 <label class="form-check-label" for="exampleRadios1">
                     With driver
@@ -53,17 +55,16 @@
             </div>
 
             <div class="form-group">
-                <label for="name" class="cols-sm-2 control-label">User</label>
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="login" id="name" placeholder="Enter your name">
+                        <input type="hidden" class="form-control" name="login" value="${sessionScope.user.id}" >
                     </div>
                 </div>
             </div>
             <p class="cols-sm-2 control-label" style="color: darkred">Please enter the required passport information for the order</p>
             <div class="form-group">
-                <label for="name" class="cols-sm-2 control-label">Third name</label>
+                <label class="cols-sm-2 control-label">Third name</label>
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
@@ -72,7 +73,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="name" class="cols-sm-2 control-label">Passport Series</label>
+                <label class="cols-sm-2 control-label">Passport Series</label>
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
@@ -81,7 +82,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="name" class="cols-sm-2 control-label">Passport Issued</label>
+                <label  class="cols-sm-2 control-label">Passport Issued</label>
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
@@ -90,7 +91,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="name" class="cols-sm-2 control-label">Car</label>
+                <label class="cols-sm-2 control-label">Car</label>
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>

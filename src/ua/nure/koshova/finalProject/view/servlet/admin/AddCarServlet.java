@@ -26,6 +26,7 @@ public class AddCarServlet extends HttpServlet {
             throws ServletException, IOException {
         if (!RightChecker.isAdmin(request.getSession())) {
             response.sendRedirect(Pages.ERROR_PAGE_NOT_ENOUGH_RIGTH);
+            return;
         }
         String carName = request.getParameter("CarName");
         LOGGER.debug("Got carName parameter as " + carName);

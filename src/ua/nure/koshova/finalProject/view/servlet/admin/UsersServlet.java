@@ -27,6 +27,7 @@ public class UsersServlet extends HttpServlet {
             throws ServletException, IOException {
         if (!RightChecker.isAdmin(request.getSession())) {
             response.sendRedirect(Pages.ERROR_PAGE_NOT_ENOUGH_RIGTH);
+            return;
         }
         List<User> allUsers = userService.getAllUsers();
         request.setAttribute("users", allUsers);

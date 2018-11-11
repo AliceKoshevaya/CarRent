@@ -18,7 +18,6 @@ public class DatabaseUtils {
 
     private static final Logger LOGGER = Logger.getLogger(DatabaseUtils.class);
 
-//    private static final String MESSAGE_ERROR_JDBC_DRIVER = "Cannot find jdbc driver class";
     private static final String MESSAGE_ERROR_DB_CONN = "Can't establish connection with database";
     private static final String MESSAGE_ERROR_CLOSE_RESULT_SET = "Unable to close result set";
 
@@ -29,12 +28,6 @@ public class DatabaseUtils {
                                        String password,
                                        String driver) {
 
-//        try {
-//            Class.forName(driver);
-//        } catch (ClassNotFoundException e) {
-//            LOGGER.error(MESSAGE_ERROR_JDBC_DRIVER, e);
-//            throw new DatabaseConnectionException(MESSAGE_ERROR_JDBC_DRIVER, e);
-//        }
 
         BasicDataSource ds = new BasicDataSource();
         ds.setUrl(connectionURL);
@@ -65,7 +58,7 @@ public class DatabaseUtils {
             String driver = property.getProperty("db.driver");
             initDataSource(connectionURL, userName, password, driver);
         } catch (IOException | NullPointerException e) {
-            // todo logging
+            LOGGER.error("An error has occurred! Connection data was not received", e);
             e.printStackTrace();
         }
     }

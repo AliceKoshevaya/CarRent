@@ -31,6 +31,7 @@ public class BlockUserServlet extends HttpServlet {
             throws ServletException, IOException {
         if (!RightChecker.isAdmin(request.getSession())) {
             response.sendRedirect(Pages.ERROR_PAGE_NOT_ENOUGH_RIGTH);
+            return;
         }
         String stringIdUser = request.getParameter("idUser");
         LOGGER.debug("Got idUser parameter as " + stringIdUser);

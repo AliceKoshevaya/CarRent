@@ -27,6 +27,7 @@ public class ListBillServlet extends HttpServlet {
             throws ServletException, IOException {
         if (!RightChecker.isManager(request.getSession())) {
             response.sendRedirect(Pages.ERROR_PAGE_NOT_ENOUGH_RIGTH);
+            return;
         }
         String stringOrderId = request.getParameter("idOrder");
         Long idOrder = Long.valueOf(stringOrderId);

@@ -26,6 +26,7 @@ public class MakeManagerServlet extends HttpServlet {
             throws ServletException, IOException {
         if (!RightChecker.isAdmin(request.getSession())) {
             response.sendRedirect("/ErrorRightsPage.jsp");
+            return;
         }
         String stringIdUser = request.getParameter("idUser");
         Long idUser = Long.valueOf(stringIdUser);

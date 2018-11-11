@@ -23,6 +23,7 @@ public class DeleteCarServlet extends HttpServlet {
             throws ServletException, IOException {
         if (!RightChecker.isAdmin(request.getSession())) {
             response.sendRedirect(Pages.ERROR_PAGE_NOT_ENOUGH_RIGTH);
+            return;
         }
         String stringIdCar = request.getParameter("carId");
         Long idCar = Long.valueOf(stringIdCar);

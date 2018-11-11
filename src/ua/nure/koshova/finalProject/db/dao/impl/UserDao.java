@@ -85,6 +85,7 @@ public class UserDao implements IUserDao {
         Connection connection = DatabaseUtils.getConnection();
 
         User user = new User();
+        Role role = new Role();
 
         ResultSet rs = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(DatabaseRequests.SELECT_GET_USER)) {
@@ -93,13 +94,13 @@ public class UserDao implements IUserDao {
             rs = preparedStatement.executeQuery();
             if (rs.next()) {
 
+                user.setRole(role);
                 user.setLogin(login);
                 user.setId(rs.getLong(1));
                 user.setName(rs.getString(2));
                 user.setLastName(rs.getString(3));
-                user.setThirdName(rs.getString(4));
-                user.setSeria(rs.getString(5));
-                user.setPassDate(rs.getString(6));
+                role.setId(rs.getLong(4));
+                role.setName(rs.getString(5));
 
             }
         } catch (SQLException ex) {

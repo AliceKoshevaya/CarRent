@@ -60,8 +60,9 @@ public final class DatabaseRequests {
     public static final String SELECT_USER_BY_ROLE = "select u.id, u.user_login,u.password, u.first_name, u.last_name, u.third_name, u.pass_seria, u.data_pass " +
             "FROM users as u " +
             "WHERE id_role = 3";
-    public static final String SELECT_GET_USER = "select u.id, u.first_name, u.last_name, u.third_name, u.pass_seria, u.data_pass " +
-            "FROM users as u " +
+    public static final String SELECT_GET_USER = "select u.id, u.first_name, u.last_name, u.id_role, r.role_name " +
+            "from users as u " +
+            "left join roles as r on u.id_role = r.id " +
             "WHERE u.user_login=? and u.password=?";
     public static final String DELETE_USER = "DELETE FROM users WHERE id=?";
     public static final String UPDATE_USER = "UPDATE users SET third_name=?, pass_seria=?, data_pass =? WHERE id=?";

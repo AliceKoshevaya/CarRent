@@ -26,6 +26,7 @@ public class CreateBillForCrashServlet extends HttpServlet {
             throws ServletException, IOException {
         if (!RightChecker.isManager(request.getSession())) {
             response.sendRedirect(Pages.ERROR_PAGE_NOT_ENOUGH_RIGTH);
+            return;
         }
 
         Long idOrder = Long.valueOf(request.getParameter("idOrder"));

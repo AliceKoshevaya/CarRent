@@ -1,7 +1,10 @@
 package ua.nure.koshova.finalProject.view.servlet;
 
+import ua.nure.koshova.finalProject.view.constant.Pages;
+
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +22,9 @@ public class UserInfoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        RequestDispatcher dispatcher = request.getServletContext()
+                .getRequestDispatcher("/views/UserInfoView.jsp");
+        dispatcher.forward(request, response);
 
     }
 

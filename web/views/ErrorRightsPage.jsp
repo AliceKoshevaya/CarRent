@@ -10,6 +10,7 @@
 <head>
     <title>Error</title>
 </head>
+<jsp:include page="header.jsp"/>
 <body>
  <h2>You do not have enough rights for this page!</h2>
 </body>

@@ -7,6 +7,7 @@ import ua.nure.koshova.finalProject.db.entity.Car;
 import ua.nure.koshova.finalProject.service.BillService;
 import ua.nure.koshova.finalProject.service.OrderService;
 import ua.nure.koshova.finalProject.service.UserService;
+import ua.nure.koshova.finalProject.view.util.validator.OrderValidator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -51,6 +52,10 @@ public class SendOrderServlet extends HttpServlet {
         LOGGER.debug("Got passport series parameter as " + series);
         String issued = request.getParameter("issued");
         LOGGER.debug("Got issued parameter as " + issued);
+        String errorMessage = OrderValidator.validate(driver,startRent,endRent,thirdName,series,issued);
+        if (!errorMessage.isEmpty()) {
+            request.setAttribute("errorMessage", errorMessage);
+        }
 
         Long userId = Long.valueOf(userName);
         Long idOrder = orderService.newOrder(driver,startRent,endRent,userId,idCar);

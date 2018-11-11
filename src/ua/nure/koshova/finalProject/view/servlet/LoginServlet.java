@@ -32,7 +32,7 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RequestDispatcher dispatcher
-                = this.getServletContext().getRequestDispatcher("/WEB-INF/views/LoginView.jsp");
+                = this.getServletContext().getRequestDispatcher(Pages.LOGIN_PAGE);
 
         dispatcher.forward(request, response);
 

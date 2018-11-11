@@ -30,6 +30,7 @@ public class AddReasonServlet extends HttpServlet {
             throws ServletException, IOException {
         if (!RightChecker.isManager(request.getSession())) {
             response.sendRedirect(Pages.ERROR_PAGE_NOT_ENOUGH_RIGTH);
+            return;
         }
         String idOrderString = request.getParameter("idOrder");
         LOGGER.debug("Got idOrder parameter as " + idOrderString);

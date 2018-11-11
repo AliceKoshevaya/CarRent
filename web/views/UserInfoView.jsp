@@ -12,18 +12,21 @@
     <meta charset="UTF-8">
     <title>User Info</title>
 </head>
+<jsp:include page="header.jsp"/>
 <body>
 <form method="POST" action="${pageContext.request.contextPath}/userInfo">
-<jsp:include page="header.jsp"></jsp:include>
+    <jsp:include page="header.jsp"></jsp:include>
 
 
-<h3>Hello: ${user.name}</h3>
-
-Name: <b>${user.name}</b>
-<br />
-Last Name: ${user.lastName } <br />
-
-<jsp:include page="footer.jsp"></jsp:include>
+    <h3>Hello, ${sessionScope.user.name}</h3>
+<br>
+        Name: <b>${sessionScope.user.name}</b>
+<br>
+        Last Name: <b>${sessionScope.user.lastName } </b>
+<br>
+        Login: <b>${sessionScope.user.login}</b>
+<br>
+    <jsp:include page="footer.jsp"></jsp:include>
 
 </body>
 </html>
