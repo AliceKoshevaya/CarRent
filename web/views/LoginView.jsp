@@ -1,5 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="../views/fspf/include.jspf" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,25 +15,20 @@
         <div class="row">
             <div class="col-md-offset-3 col-md-6">
                 <form class="form-horizontal">
-                    <span class="heading">SING IN</span>
+                    <span class="heading"><fmt:message key="sing.in" bundle="${lang}"/></span>
                     <c:out value="${errorMessage}"></c:out>
                     <div class="form-group">
-                        <input class="form-control" name="login" placeholder="Login">
+                        <input class="form-control" name="login" placeholder=<fmt:message key="reg.login" bundle="${lang}"/>>
                         <i class="fa fa-user"></i>
                     </div>
                     <div class="form-group help">
                         <input type="password" class="form-control" id="inputPassword" name="password"
-                               placeholder="Password">
+                               placeholder=<fmt:message key="reg.password" bundle="${lang}"/>>
                         <i class="fa fa-lock"></i>
                         <a href="#" class="fa fa-question-circle"></a>
                     </div>
                     <div class="form-group">
-                        <div class="main-checkbox">
-                            <input type="checkbox" value="none" id="checkbox1" name="check"/>
-                            <label for="checkbox1"></label>
-                            <span class="text">Запомнить</span>
-                        </div>
-                        <button type="submit" class="btn btn-default">ВХОД</button>
+                        <button type="submit" class="btn btn-default"><fmt:message key="menu.door" bundle="${lang}"/></button>
                     </div>
                 </form>
             </div>

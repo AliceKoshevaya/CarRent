@@ -5,13 +5,14 @@
   Time: 20:09
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="../views/fspf/include.jspf" %>
 <html>
 <head>
-    <title>Error</title>
+    <title><fmt:message key="error" bundle="${lang}"/></title>
 </head>
 <jsp:include page="header.jsp"/>
 <body>
-<h2>Error on server</h2>
+<h2><fmt:message key="error.server" bundle="${lang}"/></h2>
 </body>
 </html>

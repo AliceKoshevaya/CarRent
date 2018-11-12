@@ -1,4 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${pageContext.request.locale}"/>
-<fmt:setBundle basename="resources.WebAppResources" var="lang"/>
+<fmt:setBundle basename="WebAppResources" var="lang"/>

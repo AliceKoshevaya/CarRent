@@ -5,8 +5,8 @@
   Time: 21:39
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="../views/fspf/include.jspf" %>
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -18,7 +18,7 @@
 <body>
 <form method="GET" action="${pageContext.request.contextPath}/carList">
     <div class="col-lg-3 center-block">
-        <label>Select Brand: </label>
+        <label><fmt:message key="select.brand" bundle="${lang}"/></label>
         <select id="select1" name="selectBrand">
             <c:forEach items="${brands}" var="brand">
                 <option value="${brand.id}">${brand.name}</option>
@@ -26,7 +26,7 @@
         </select>
     </div>
     <div class="col-lg-3 center-block">
-        <label>Select Class Car: </label>
+        <label><fmt:message key="select.class" bundle="${lang}"/></label>
         <select id="select2" name="selectClass">
             <c:forEach items="${classes}" var="clazz">
                 <option value="${clazz.id}">${clazz.name}</option>
@@ -35,25 +35,25 @@
     </div>
     <div class="col-lg-3 center-block">
         <select id="select3" name="selectSort">
-            <option value="ASC:price">From cheap to expensive</option>
-            <option value="DESC:price">From expensive to cheap</option>
-            <option value="ASC:name">A-Z</option>
-            <option value="DESC:name">Z-A</option>
+            <option value="ASC:price"><fmt:message key="select.asc" bundle="${lang}"/></option>
+            <option value="DESC:price"><fmt:message key="select.desc" bundle="${lang}"/></option>
+            <option value="ASC:name"><fmt:message key="asc.name" bundle="${lang}"/></option>
+            <option value="DESC:name"><fmt:message key="desc.name" bundle="${lang}"/></option>
         </select>
     </div>
     <div class="col-lg-3 center-block">
-        <button type="submit" class="btn btn-default">Apply</button>
+        <button type="submit" class="btn btn-default"><fmt:message key="car.apply" bundle="${lang}"/></button>
     </div>
 
 </form>
 <table class="table">
     <thead class="thead-dark">
     <tr>
-        <th scope="col">Car name</th>
-        <th scope="col">Price</th>
-        <th scope="col">State number</th>
-        <th scope="col">Brand</th>
-        <th scope="col">Class</th>
+        <th scope="col"><fmt:message key="car.name" bundle="${lang}"/></th>
+        <th scope="col"><fmt:message key="car.price" bundle="${lang}"/></th>
+        <th scope="col"><fmt:message key="car.number" bundle="${lang}"/></th>
+        <th scope="col"><fmt:message key="car.brand" bundle="${lang}"/></th>
+        <th scope="col"><fmt:message key="car.class" bundle="${lang}"/></th>
     </tr>
 
     <c:forEach items="${cars}" var="car">
@@ -64,7 +64,7 @@
                 <td name="stateNumber">${car.stateNumber}</td>
                 <td name="brand">${car.brand.name}</td>
                 <td name="class">${car.classCar.name}</td>
-                <td><input type="hidden" name="carId" value="${car.id}"/><input type="submit" class="btn btn-default" value="Choose a car"/>
+                <td><input type="hidden" name="carId" value="${car.id}"/><input type="submit" class="btn btn-default" value=<fmt:message key="car.choose" bundle="${lang}"/>/>
                 </td>
             </form>
         </tr>

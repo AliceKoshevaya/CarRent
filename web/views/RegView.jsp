@@ -1,5 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="../views/fspf/include.jspf" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,73 +10,73 @@
 </head>
 <jsp:include page="header.jsp"/>
 <body>
-<p class="form-control">Registration</p>
+<p class="form-control"> <fmt:message key="reg.name" bundle="${lang}"/></p>
 <div class="container">
     <div class="row main-form">
         <form method="POST" action="${pageContext.request.contextPath}/registration">
             <div class="form-group">
                 <c:out value="${errorMessage}"></c:out>
-                <label for="name" class="cols-sm-2 control-label">Your login</label>
+                <label for="name" class="cols-sm-2 control-label"> <fmt:message key="reg.login" bundle="${lang}"/></label>
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="login" placeholder="Enter your login">
+                        <input type="text" class="form-control" name="login" placeholder= <fmt:message key="reg.enter.login" bundle="${lang}"/>>
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="password" class="cols-sm-2 control-label">Password</label>
+                <label for="password" class="cols-sm-2 control-label"> <fmt:message key="reg.password" bundle="${lang}"/></label>
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                        <input type="password" class="form-control" name="password" id="password" placeholder="Enter your Password"/>
+                        <input type="password" class="form-control" name="password" id="password" placeholder= <fmt:message key="reg.enter.pass" bundle="${lang}"/>/>
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
+                <label for="confirm" class="cols-sm-2 control-label"> <fmt:message key="reg.confim.password" bundle="${lang}"/></label>
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                        <input type="password" class="form-control" name="confirm" id="confirm" placeholder="Confirm your Password"/>
+                        <input type="password" class="form-control" name="confirm" id="confirm" placeholder= <fmt:message key="reg.enter.confirm.pass" bundle="${lang}"/>/>
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="name" class="cols-sm-2 control-label">Your Name</label>
+                <label for="name" class="cols-sm-2 control-label"> <fmt:message key="reg.username" bundle="${lang}"/></label>
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="fname" id="name"  placeholder="Enter your Name">
+                        <input type="text" class="form-control" name="fname" id="name"  placeholder= <fmt:message key="reg.enter.name" bundle="${lang}"/>>
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="username" class="cols-sm-2 control-label">LastName</label>
+                <label for="username" class="cols-sm-2 control-label"> <fmt:message key="reg.lastname" bundle="${lang}"/></label>
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="lname"  id = "username" placeholder="Enter your Lastname"/>
+                        <input type="text" class="form-control" name="lname"  id = "username" placeholder= <fmt:message key="reg.enter.lastname" bundle="${lang}"/>"/>
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="username" class="cols-sm-2 control-label">ThirdName</label>
+                <label for="username" class="cols-sm-2 control-label"> <fmt:message key="reg.thirdname" bundle="${lang}"/></label>
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="tname"  placeholder="Enter your ThirdName"/>
+                        <input type="text" class="form-control" name="tname"  placeholder= <fmt:message key="reg.enter.thirdname" bundle="${lang}"/>/>
                     </div>
                 </div>
             </div>
 
             <div class="form-group ">
-                <input type="submit" value= "Register" id="button" class="btn btn-primary btn-lg btn-block login-button />
+                <input type="submit" value=  <fmt:message key="reg.apply" bundle="${lang}"/> id="button" class="btn btn-primary btn-lg btn-block login-button />
                 <a href="${pageContext.request.contextPath}/">
             </div>
 

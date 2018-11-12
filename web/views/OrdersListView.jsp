@@ -5,26 +5,26 @@
   Time: 23:48
   To change this template use File | Settings | File Templates.
 --%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="../views/fspf/include.jspf" %>
+<%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>List orders</title>
+    <title><fmt:message key="menu.list.orders" bundle="${lang}"/></title>
 </head>
 <jsp:include page="header.jsp"/>
 <body>
 <table class="table">
     <thead class="thead-dark">
     <tr>
-        <th>Id order</th>
-        <th>Driver</th>
-        <th>Status</th>
-        <th>Start rent</th>
-        <th>End rent</th>
-        <th>Id user</th>
-        <th>Id car</th>
+        <th><fmt:message key="order.id" bundle="${lang}"/></th>
+        <th><fmt:message key="order.driver" bundle="${lang}"/></th>
+        <th><fmt:message key="car.status" bundle="${lang}"/></th>
+        <th><fmt:message key="order.start.rent" bundle="${lang}"/></th>
+        <th><fmt:message key="order.end.rent" bundle="${lang}"/></th>
+        <th><fmt:message key="order.id.user" bundle="${lang}"/></th>
+        <th><fmt:message key="order.id.car" bundle="${lang}"/></th>
     </tr>
 
     <c:forEach items="${orders}" var="order">
@@ -44,14 +44,14 @@
                         <form method="POST" action="/confirm">
                             <input type="hidden" name="idOrder" value="${order.id}"/>
                             <input type="hidden" name="status" value="${order.status}"/>
-                            <input type="hidden" name="newStatus" value="IN_PROGRESS"/>
-                            <input type="submit" class="btn btn-default" value="Confirm"/>
+                            <input type="hidden" name="newStatus" value=<fmt:message key="order.status.progress" bundle="${lang}"/>/>
+                            <input type="submit" class="btn btn-default" value=<fmt:message key="order.status.confirm" bundle="${lang}"/>/>
                         </form>
                         <form method="POST" action="/confirm">
                             <input type="hidden" name="idOrder" value="${order.id}"/>
                             <input type="hidden" name="status" value="${order.status}"/>
-                            <input type="hidden" name="newStatus" value="CLOSED"/>
-                            <input type="submit" class="btn btn-default" value="Reject"/>
+                            <input type="hidden" name="newStatus" value=<fmt:message key="order.status.closed" bundle="${lang}"/>/>
+                            <input type="submit" class="btn btn-default" value=<fmt:message key="order.status.reject" bundle="${lang}"/>/>
                         </form>
                     </td>
                 </c:when>
@@ -60,8 +60,8 @@
                         <form method="POST" action="/confirm">
                             <input type="hidden" name="idOrder" value="${order.id}"/>
                             <input type="hidden" name="status" value="${order.status}"/>
-                            <input type="hidden" name="newStatus" value="CRASH"/>
-                            <input type="submit" class="btn btn-default" value="Set bill"/>
+                            <input type="hidden" name="newStatus" value=<fmt:message key="order.status.crash" bundle="${lang}"/>/>
+                            <input type="submit" class="btn btn-default" value=<fmt:message key="order.set.bill" bundle="${lang}"//>
                         </form>
                     </td>
                 </c:when>
@@ -70,14 +70,14 @@
                         <form method="POST" action="/confirm">
                             <input type="hidden" name="idOrder" value="${order.id}"/>
                             <input type="hidden" name="status" value="${order.status}"/>
-                            <input type="hidden" name="newStatus" value="CRASH"/>
-                            <input type="submit" class="btn btn-default" value="Crash"/>
+                            <input type="hidden" name="newStatus" <fmt:message key="order.status.crash" bundle="${lang}"/>/>
+                            <input type="submit" class="btn btn-default" value=<fmt:message key="order.crash" bundle="${lang}"/>/>
                         </form>
                         <form method="POST" action="/confirm">
                             <input type="hidden" name="idOrder" value="${order.id}"/>
                             <input type="hidden" name="status" value="${order.status}"/>
-                            <input type="hidden" name="newStatus" value="CLOSED"/>
-                            <input type="submit" class="btn btn-default" value="Returned"/>
+                            <input type="hidden" name="newStatus" value=<fmt:message key="order.status.closed" bundle="${lang}"/>/>
+                            <input type="submit" class="btn btn-default" value=<fmt:message key="order.status.returned" bundle="${lang}"/>/>
                         </form>
                     </td>
                 </c:when>
@@ -85,7 +85,7 @@
 
                 </c:otherwise>
             </c:choose>
-            <td><a href="/billList?idOrder=${order.id}">bills</a></td>
+            <td><a href="/billList?idOrder=${order.id}"><fmt:message key="order.bill" bundle="${lang}"/></a></td>
                 <%--</form>--%>
         </tr>
     </c:forEach>

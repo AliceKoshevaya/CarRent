@@ -40,11 +40,13 @@ public class LocaleFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) req;
         HttpSession session = httpRequest.getSession();
 
-        Locale locale;
-        if (localeSessionProvider.isLocaleSet(session)) {
+        Locale locale = getLocaleFromRequest(httpRequest);
+        if (locale != null) {
+            localeSessionProvider.setLocale(session, locale);
+        } else if (localeSessionProvider.isLocaleSet(session)) {
             locale = localeSessionProvider.getLocale(session);
         } else {
-            locale = getLocaleFromRequest(httpRequest);
+            locale = defaultLocale;
             localeSessionProvider.setLocale(session, locale);
         }
         chain.doFilter(new LocaleHttpServletRequest(httpRequest, locale), resp);
@@ -80,7 +82,7 @@ public class LocaleFilter implements Filter {
         if (isLocaleAvailable(locale)) {
             return locale;
         } else {
-            return defaultLocale;
+            return null;
         }
     }
 

@@ -5,23 +5,23 @@
   Time: 20:04
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="../views/fspf/include.jspf" %>
 <html>
 <head>
     <title>Title</title>
 </head>
 <jsp:include page="header.jsp"/>
 <body>
-<h3>Thank you for ordering, here is your account.</h3>
+<h3><fmt:message key="bill.finish" bundle="${lang}"/></h3>
 <table>
     <tr>
-        <th>Id bill</th>
-        <th>Type</th>
-        <th>Status</th>
-        <th>Sum</th>
-        <th>Date</th>
-        <th>Id order</th>
+        <th><fmt:message key="bill.id" bundle="${lang}"/></th>
+        <th><fmt:message key="bill.type" bundle="${lang}"/></th>
+        <th><fmt:message key="bill.status" bundle="${lang}"/></th>
+        <th><fmt:message key="bill.sum" bundle="${lang}"/></th>
+        <th><fmt:message key="bill.date" bundle="${lang}"/></th>
+        <th><fmt:message key="order.id" bundle="${lang}"/></th>
     </tr>
     <tr>
         <form method="POST" action="/bill">
@@ -34,10 +34,10 @@
             <td>${bill.order.id}</td>
             <c:choose>
                 <c:when test="${bill.status == false}">
-                    <td><input type="submit"  name = "pay"  value="Pay"/></td>
+                    <td><input type="submit"  name = "pay"  value=<fmt:message key="bill.pay" bundle="${lang}"/>/></td>
                 </c:when>
                 <c:when test="${bill.status == true}">
-                    <b>The bill is paid</b>
+                    <b><fmt:message key="bill.payed" bundle="${lang}"/></b>
                 </c:when>
             </c:choose>
         </form>

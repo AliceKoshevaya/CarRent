@@ -7,15 +7,15 @@
 --%>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="../views/fspf/include.jspf" %>
 <html>
 <head>
     <title>Edit a car</title>
 </head>
 <jsp:include page="header.jsp"/>
 <body>
-<p class="form-control">Edit a car</p>
+<p class="form-control"><fmt:message key="edit.car" bundle="${lang}"/></p>
 <div class="container">
     <div class="row main-form">
         <form method="POST" action="${pageContext.request.contextPath}/editCar">

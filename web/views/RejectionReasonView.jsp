@@ -5,7 +5,8 @@
   Time: 4:23
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="../views/fspf/include.jspf" %>
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -16,10 +17,10 @@
 <body>
 <form method="post" action="/reason"> <input type="hidden" name="idOrder" value="${idOrder}"/>
     <div class="com-lg-1">
-    <p>Reason<Br>
+    <p><fmt:message key="menu.reason" bundle="${lang}"/><Br>
         <textarea name="comment" cols="40" rows="3"></textarea></p>
-    <p><input type="submit" value="Send">
-        <input type="reset" value="Clean"></p>
+    <p><input type="submit" value= <fmt:message key="reason.send" bundle="${lang}"/>>
+        <input type="reset" value= <fmt:message key="reason.clear" bundle="${lang}"/>></p>
     </div>
 </form>
 </body>

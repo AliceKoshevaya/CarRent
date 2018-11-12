@@ -5,7 +5,8 @@
   Time: 21:46
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="../views/fspf/include.jspf" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,14 +18,13 @@
 <form method="POST" action="${pageContext.request.contextPath}/userInfo">
     <jsp:include page="header.jsp"></jsp:include>
 
-
-    <h3>Hello, ${sessionScope.user.name}</h3>
+    <h3><fmt:message key="menu.hello" bundle="${lang}"/>  ${sessionScope.user.name}</h3>
 <br>
-        Name: <b>${sessionScope.user.name}</b>
+        <fmt:message key="user.name" bundle="${lang}"/> <b>${sessionScope.user.name}</b>
 <br>
-        Last Name: <b>${sessionScope.user.lastName } </b>
+        <fmt:message key="user.lastName" bundle="${lang}"/> <b>${sessionScope.user.lastName } </b>
 <br>
-        Login: <b>${sessionScope.user.login}</b>
+        <fmt:message key="user.login" bundle="${lang}"/> <b>${sessionScope.user.login}</b>
 <br>
     <jsp:include page="footer.jsp"></jsp:include>
 

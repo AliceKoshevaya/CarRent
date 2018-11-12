@@ -1,25 +1,17 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ajiek
-  Date: 04.11.2018
-  Time: 1:41
-  To change this template use File | Settings | File Templates.
---%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="../views/fspf/include.jspf" %>
 <html>
 <head>
-    <title>All bills</title>
+    <title><fmt:message key="menu.all.bill" bundle="${lang}"/></title>
 </head>
 <jsp:include page="header.jsp"/>
 <body>
 <table>
     <tr>
-        <th>Id bill</th>
-        <th>Type</th>
-        <th>Status</th>
-        <th>Price</th>
-        <th>Date</th>
+        <th><fmt:message key="bill.id" bundle="${lang}"/></th>
+        <th><fmt:message key="bill.type" bundle="${lang}"/></th>
+        <th><fmt:message key="bill.status" bundle="${lang}"/></th>
+        <th><fmt:message key="car.price" bundle="${lang}"/></th>
+        <th><fmt:message key="bill.date" bundle="${lang}"/></th>
     </tr>
 
     <c:forEach items="${bills}" var="bill">

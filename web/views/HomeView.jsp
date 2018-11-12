@@ -5,10 +5,12 @@
   Time: 20:27
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" language="java" %>
+<%@include file="../views/fspf/include.jspf" %>
 <!DOCTYPE html>
 <html>
 <head>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
             crossorigin="anonymous"></script>
@@ -23,6 +25,7 @@
 </head>
 
 <jsp:include page="header.jsp"/>
+
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
@@ -36,20 +39,19 @@
             <img class="d-block w-100" src="../img/lamborghini-urus-2018-topcar-vid-sboku.jpg" alt="Third slide">
             <div class="container">
                 <div class="carousel-caption">
-                    <h1>Car Rental</h1>
-                    <p>For a business and busy person who has come to another country with a working trip, it is inconceivable to be left without a car. He will be dependent on external factors, he will not be able to precisely manage his time. And time is money. We offer such people to contact our company.
-                        We provide rental cars in Kharkov, as well as throughout the country.</p>
+                    <h1><fmt:message key="menu.name" bundle="${lang}"/></h1>
+                    <p><fmt:message key="menu.text" bundle="${lang}"/></p>
                 </div>
             </div>
         </div>
     </div>
     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
+        <span class="sr-only"><fmt:message key="menu.previous" bundle="${lang}"/></span>
     </a>
     <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
+        <span class="sr-only"><fmt:message key="menu.next" bundle="${lang}"/></span>
     </a>
 </div>
 <div class="container marketing">
@@ -59,19 +61,15 @@
         <div class="col-lg-4">
             <img class="rounded-circle" src="../img/best_price.jpg" alt="Generic placeholder image" width="140"
                  height="140">
-            <h2>Reasonable prices</h2>
-            <p>Thanks to favorable rates, our customers save on car rental without sacrificing comfort and safety. Low
-                prices for car rental allow individuals to move freely throughout the country, not owning a personal
-                car, and businesses - to optimize the cost of maintaining a fleet.</p>
+            <h2><fmt:message key="menu.value1" bundle="${lang}"/></h2>
+            <p><fmt:message key="menu.value1.text" bundle="${lang}"/></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
             <img class="rounded-circle" src="../img/2.jpg"
                  src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
                  alt="Generic placeholder image" width="140" height="140">
-            <h2>Convenient service</h2>
-            <p>In the company you can order a specific car for a specific time without paperwork and bail. Booking is a
-                100% guarantee that at the right time the ordered car will be delivered directly to your doors: on time,
-                with a clean interior and a full tank.
+            <h2><fmt:message key="menu.value2" bundle="${lang}"/></h2>
+            <p><fmt:message key="menu.value2.text" bundle="${lang}"/>
             </p>
             <p><a class="btn btn-secondary" href="../img/x5-kh5-kh5m-x5m-bmw-x5-bmw-bmw-x5m.jpg" alt="" role="button"></a></p>
         </div><!-- /.col-lg-4 -->
@@ -79,10 +77,9 @@
             <img class="rounded-circle" src="../img/3.jpg" href="../img/x5-kh5-kh5m-x5m-bmw-x5-bmw-bmw-x5m.jpg"
                  src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
                  alt="Generic placeholder image" width="140" height="140">
-            <h2>New cars</h2>
-            <p>All cars in our fleet are modern models of 2015–2017. release. They are in excellent technical condition,
-                equipped with GPS navigation and Wi-Fi, fully insured (CASCO, OSAGO, driver’s life insurance)</p>
-            <p><a class="btn btn-secondary" href="http://localhost:8080/carList" role="button">Choose a car</a></p>
+            <h2><fmt:message key="menu.value3" bundle="${lang}"/></h2>
+            <p><fmt:message key="menu.value3.text" bundle="${lang}"/></p>
+            <p><a class="btn btn-secondary" href="http://localhost:8080/carList" role="button"><fmt:message key="car.choose" bundle="${lang}"/></a></p>
         </div><!-- /.col-lg-4 -->
     </div><!-- /.row -->
 </div>
