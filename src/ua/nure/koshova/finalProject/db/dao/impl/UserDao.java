@@ -179,8 +179,6 @@ public class UserDao implements IUserDao {
                 ps.setString(3, user.getName());
                 ps.setString(4, user.getLastName());
                 ps.setString(5, user.getThirdName());
-                ps.setString(6, user.getSeria());
-                ps.setString(7, user.getPassDate());
                 ps.setLong(8, user.getRole().getId());
                 ps.executeUpdate();
 

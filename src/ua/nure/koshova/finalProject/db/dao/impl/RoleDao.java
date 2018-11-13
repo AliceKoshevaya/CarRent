@@ -15,8 +15,10 @@ import java.sql.SQLException;
 
 public class RoleDao implements IRoleDao {
 
-    private static final Logger LOGGER = Logger.getLogger(RoleDao.class);
     public static final String ERROR_MESSAGE_SELECT_ROLE_BY_NAME = "Can't select user role by name (name = %s)";
+
+    private static final Logger LOGGER = Logger.getLogger(RoleDao.class);
+
     private static volatile RoleDao instance;
 
     private RoleDao() {
@@ -40,18 +42,25 @@ public class RoleDao implements IRoleDao {
         Connection connection = DatabaseUtils.getConnection();
 
         ResultSet resultSet = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(DatabaseRequests.SELECT_ROLE_BY_NAME + role)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(DatabaseRequests.SELECT_ROLE_BY_NAME))
+        {
+            preparedStatement.setString(1, role);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 rol.setId(resultSet.getLong(1));
                 rol.setName(resultSet.getString(2));
             }
-        } catch (SQLException ex) {
+        } catch(SQLException ex){
             LOGGER.error(String.format(ERROR_MESSAGE_SELECT_ROLE_BY_NAME, role), ex);
             throw new QueryException(String.format(ERROR_MESSAGE_SELECT_ROLE_BY_NAME, role), ex);
-        } finally {
+        } finally{
             DatabaseUtils.closeResultSet(resultSet);
         }
         return rol;
+    }
+
+    public static void main(String[] args) {
+        RoleDao roleDao = RoleDao.getInstance();
+        System.out.println(roleDao.findRoleByName("user"));
     }
 }

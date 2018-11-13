@@ -51,10 +51,11 @@ public class LoginServlet extends HttpServlet {
             request.getRequestDispatcher(Pages.LOGIN_PAGE).forward(request, response);
         } else {
             User user = userService.registeredUser(login, password);
-            if(user.getName() == null){
+            if(user.getName() == null) {
                 String errorMessageLogin = "User does not exist";
                 request.setAttribute("errorMessageLogin", errorMessageLogin);
                 request.getRequestDispatcher(Pages.LOGIN_PAGE).forward(request, response);
+                return;
             }
             Role role = userService.getUserRole(user.getId());
             user.setRole(role);

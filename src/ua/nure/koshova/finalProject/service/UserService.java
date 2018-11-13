@@ -18,7 +18,9 @@ public class UserService {
                               String lastName,
                               String thirdName) {
 
-        Role role = rolesDao.findRoleByName(Roles.user.toString());
+        Role role = new Role();
+        role.setName(Roles.user.toString());
+        rolesDao.findRoleByName(Roles.user.toString());
         User user = new User();
         user.setLogin(login);
         user.setPassword(password);

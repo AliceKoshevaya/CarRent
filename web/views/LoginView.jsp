@@ -16,7 +16,10 @@
             <div class="col-md-offset-3 col-md-6">
                 <form class="form-horizontal">
                     <span class="heading"><fmt:message key="sing.in" bundle="${lang}"/></span>
-                    <c:out value="${errorMessage}"></c:out>
+                    <c:if test="${not empty errorMessageLogin}">
+                        <c:out value="${errorMessageLogin}"/>
+                    </c:if>
+                    <c:out value="${errorMessage}"/>
                     <div class="form-group">
                         <input class="form-control" name="login" placeholder="<fmt:message key="reg.login" bundle="${lang}"/>" />
                         <i class="fa fa-user"></i>

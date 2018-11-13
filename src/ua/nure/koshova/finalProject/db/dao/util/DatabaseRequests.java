@@ -46,14 +46,13 @@ public final class DatabaseRequests {
      * Request to table roles
      */
 
-    public static final String SELECT_ALL_ROLES = "select * from roles";
-    public static final String SELECT_ROLE_BY_NAME = "select id, role_name from roles where role_name =";
+    public static final String SELECT_ROLE_BY_NAME = "select id, role_name from roles where role_name =?";
 
     /**
      * Request to table users
      */
 
-    public static final String INSERT_USER = "insert into users values (DEFAULT ,?,?,?,?,?,?,?,?);";
+    public static final String INSERT_USER = "insert into users values (DEFAULT ,?,?,?,?,?,null,null,?);";
     public static final String SELECT_ALL_USERS = "select u.id, u.user_login, u.password, u.first_name, u.last_name, u.third_name, u.pass_seria,u.data_pass, u.id_role, r.role_name, u.block " +
             "from users AS u " +
             "left join roles AS r ON u.id_role = r.id";
