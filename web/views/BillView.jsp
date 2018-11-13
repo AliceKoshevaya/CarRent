@@ -34,7 +34,7 @@
             <td>${bill.order.id}</td>
             <c:choose>
                 <c:when test="${bill.status == false}">
-                    <td><input type="submit"  name = "pay"  value=<fmt:message key="bill.pay" bundle="${lang}"/>/></td>
+                    <td><input type="submit" name="pay" value="<fmt:message key="bill.pay" bundle="${lang}"/>" /></td>
                 </c:when>
                 <c:when test="${bill.status == true}">
                     <b><fmt:message key="bill.payed" bundle="${lang}"/></b>

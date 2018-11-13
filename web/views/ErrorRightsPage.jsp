@@ -11,7 +11,6 @@
 <head>
     <title><fmt:message key="error" bundle="${lang}"/></title>
 </head>
-<jsp:include page="header.jsp"/>
 <body>
  <h2><fmt:message key="error.rights" bundle="${lang}"/></h2>
 </body>

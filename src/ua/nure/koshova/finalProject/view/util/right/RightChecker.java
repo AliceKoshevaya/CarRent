@@ -5,6 +5,7 @@ import ua.nure.koshova.finalProject.db.entity.Roles;
 import ua.nure.koshova.finalProject.db.entity.User;
 
 import javax.servlet.http.HttpSession;
+import java.util.Locale;
 
 public class RightChecker {
 
@@ -41,6 +42,6 @@ public class RightChecker {
     }
 
     public static boolean isAdmin(HttpSession session) {
-        return roleChecker(session,Roles.admin);
+        return roleChecker(session,Roles.administrator);
     }
 }

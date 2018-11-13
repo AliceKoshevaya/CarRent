@@ -20,7 +20,7 @@
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="login" placeholder= <fmt:message key="reg.enter.login" bundle="${lang}"/>>
+                        <input type="text" class="form-control" name="login" placeholder= "<fmt:message key="reg.enter.login" bundle="${lang}"/>"/>
                     </div>
                 </div>
             </div>
@@ -30,7 +30,7 @@
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                        <input type="password" class="form-control" name="password" id="password" placeholder= <fmt:message key="reg.enter.pass" bundle="${lang}"/>/>
+                        <input type="password" class="form-control" name="password" id="password" placeholder="<fmt:message key="reg.enter.pass" bundle="${lang}"/>" />
                     </div>
                 </div>
             </div>
@@ -40,7 +40,7 @@
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                        <input type="password" class="form-control" name="confirm" id="confirm" placeholder= <fmt:message key="reg.enter.confirm.pass" bundle="${lang}"/>/>
+                        <input type="password" class="form-control" name="confirm" id="confirm" placeholder="<fmt:message key="reg.enter.confirm.pass" bundle="${lang}"/>" />
                     </div>
                 </div>
             </div>
@@ -50,7 +50,7 @@
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="fname" id="name"  placeholder= <fmt:message key="reg.enter.name" bundle="${lang}"/>>
+                        <input type="text" class="form-control" name="fname" id="name"  placeholder= "<fmt:message key="reg.enter.name" bundle="${lang}"/>"/>
                     </div>
                 </div>
             </div>
@@ -70,7 +70,7 @@
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="tname"  placeholder= <fmt:message key="reg.enter.thirdname" bundle="${lang}"/>/>
+                        <input type="text" class="form-control" name="tname"  placeholder="<fmt:message key="reg.enter.thirdname" bundle="${lang}"/>"/>
                     </div>
                 </div>
             </div>

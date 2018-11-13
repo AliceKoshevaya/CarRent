@@ -66,11 +66,11 @@
             <td name="class">${car.classCar.name}</td>
             <td>
                 <form method="get" action="/editCar"><input type="hidden" name="carId" value="${car.id}"/>
-                    <input type="submit" class="btn btn-default" value=<fmt:message key="car.edit" bundle="${lang}"/>/></form>
+                    <input type="submit" class="btn btn-default" value="<fmt:message key="car.edit" bundle="${lang}"/>" /></form>
             </td>
             <td>
                 <form method="post" action="/deleteCar"><input type="hidden" name="carId" value="${car.id}"/>
-                    <input type="submit" class="btn btn-default" value=<fmt:message key="car.delete" bundle="${lang}"/>/></form>
+                    <input type="submit" class="btn btn-default" value="<fmt:message key="car.delete" bundle="${lang}"/>" /></form>
             </td>
         </tr>
     </c:forEach>
@@ -81,7 +81,7 @@
         <input style="float: left;" type="text" name="StateNumber" placeholder="Enter state Number"/>
         <input style="float: left;" type="text" name="Brand" placeholder="Enter brand id"/>
         <input style="float: left;" type="text" name="Class" placeholder="Enter class id"/>
-        <input style="float: left;" type="submit" class="btn btn-default" value=<fmt:message key="car.add" bundle="${lang}"/> style="float: left;"/>
+        <input style="float: left;" type="submit" class="btn btn-default" value="<fmt:message key="car.add" bundle="${lang}"/>" />
     </form>
 </table>
 </body>

@@ -18,12 +18,12 @@
                     <span class="heading"><fmt:message key="sing.in" bundle="${lang}"/></span>
                     <c:out value="${errorMessage}"></c:out>
                     <div class="form-group">
-                        <input class="form-control" name="login" placeholder=<fmt:message key="reg.login" bundle="${lang}"/>>
+                        <input class="form-control" name="login" placeholder="<fmt:message key="reg.login" bundle="${lang}"/>" />
                         <i class="fa fa-user"></i>
                     </div>
                     <div class="form-group help">
                         <input type="password" class="form-control" id="inputPassword" name="password"
-                               placeholder=<fmt:message key="reg.password" bundle="${lang}"/>>
+                               placeholder="<fmt:message key="reg.password" bundle="${lang}"/>"/>
                         <i class="fa fa-lock"></i>
                         <a href="#" class="fa fa-question-circle"></a>
                     </div>

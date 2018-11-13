@@ -64,7 +64,7 @@
                 <td name="stateNumber">${car.stateNumber}</td>
                 <td name="brand">${car.brand.name}</td>
                 <td name="class">${car.classCar.name}</td>
-                <td><input type="hidden" name="carId" value="${car.id}"/><input type="submit" class="btn btn-default" value=<fmt:message key="car.choose" bundle="${lang}"/>/>
+                <td><input type="hidden" name="carId" value="${car.id}"/><input type="submit" class="btn btn-default" value=<fmt:message key="car.choose" bundle="${lang}"/>
                 </td>
             </form>
         </tr>

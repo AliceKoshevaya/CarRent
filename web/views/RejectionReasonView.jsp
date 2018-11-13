@@ -19,8 +19,10 @@
     <div class="com-lg-1">
     <p><fmt:message key="menu.reason" bundle="${lang}"/><Br>
         <textarea name="comment" cols="40" rows="3"></textarea></p>
-    <p><input type="submit" value= <fmt:message key="reason.send" bundle="${lang}"/>>
-        <input type="reset" value= <fmt:message key="reason.clear" bundle="${lang}"/>></p>
+    <p>
+        <input type="submit" value="<fmt:message key="reason.send" bundle="${lang}"/>" />
+        <input type="reset" value="<fmt:message key="reason.clear" bundle="${lang}"/>" />
+    </p>
     </div>
 </form>
 </body>

@@ -53,7 +53,7 @@ public class LoginServlet extends HttpServlet {
             User user = userService.registeredUser(login, password);
             if(user.getName() == null){
                 String errorMessageLogin = "User does not exist";
-                request.setAttribute("errorMessageLogin", errorMessage);
+                request.setAttribute("errorMessageLogin", errorMessageLogin);
                 request.getRequestDispatcher(Pages.LOGIN_PAGE).forward(request, response);
             }
             Role role = userService.getUserRole(user.getId());
@@ -62,7 +62,7 @@ public class LoginServlet extends HttpServlet {
 
             LOGGER.debug("User " + user.getLogin() + " has been logged in as " + role.getName());
 
-            if (role.getName().equals(Roles.admin)) {
+            if (role.getName().equals(Roles.administrator)) {
                 RequestDispatcher dispatcher = request.getServletContext()
                         .getRequestDispatcher(Pages.ADMIN_PAGE_CAR);
                 dispatcher.forward(request, response);

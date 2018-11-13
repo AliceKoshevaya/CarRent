@@ -25,7 +25,7 @@
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="type" id="password" placeholder=<fmt:message key="enter.type" bundle="${lang}"/>>
+                        <input type="text" class="form-control" name="type" id="password" placeholder="<fmt:message key="enter.type" bundle="${lang}"/>" />
                     </div>
                 </div>
             </div>
@@ -35,7 +35,7 @@
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="sum" id="name"  placeholder=<fmt:message key="enter.sum" bundle="${lang}"/>>
+                        <input type="text" class="form-control" name="sum" id="name"  placeholder="<fmt:message key="enter.sum" bundle="${lang}"/>" />
                     </div>
                 </div>
             </div>

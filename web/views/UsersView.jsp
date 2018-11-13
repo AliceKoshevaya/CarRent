@@ -27,7 +27,7 @@
         <c:forEach items="${users}" var="user">
             <tr class="table-primary">
                 <td><fmt:message key="user.id" bundle="${lang}"/></td>
-                <td name = "idUser">${user.id}</td>
+                <td name="idUser">${user.id}</td>
             </tr>
             <tr class="table-primary">
                 <td><fmt:message key="user.name" bundle="${lang}"/></td>
@@ -54,7 +54,7 @@
                 <c:choose>
                 <c:when test="${user.role.name != 'manager'}">
                     <td><form id="makeManager" method="post" action="/makeManager"><input type="hidden" name="idUser" value="${user.id}"/>
-                        <input type="submit" value=<fmt:message key="user.manager" bundle="${lang}"/>/></form></td>
+                        <input type="submit" value="<fmt:message key="user.manager" bundle="${lang}"/>" /></form></td>
                 </c:when>
                 <c:when test="${user.role.name == 'manager'}">
                     <td></td>
@@ -63,10 +63,10 @@
                 <form method="post" action="/block"><input type="hidden" name="idUser" value="${user.id}"/>
                 <c:choose>
                     <c:when test="${user.block == false}">
-                        <td><input type="submit" value=<fmt:message key="menu.block" bundle="${lang}"/>/></td>
+                        <td><input type="submit" value="<fmt:message key="menu.block" bundle="${lang}"/>" /></td>
                     </c:when>
                     <c:when test="${user.block == true}">
-                        <td><input type="submit" value=<fmt:message key="menu.unblock" bundle="${lang}"/>/></td>
+                        <td><input type="submit" value="<fmt:message key="menu.unblock" bundle="${lang}"/>" /></td>
                     </c:when>
                 </c:choose>
                 </form>

@@ -44,14 +44,14 @@
                         <form method="POST" action="/confirm">
                             <input type="hidden" name="idOrder" value="${order.id}"/>
                             <input type="hidden" name="status" value="${order.status}"/>
-                            <input type="hidden" name="newStatus" value=<fmt:message key="order.status.progress" bundle="${lang}"/>/>
-                            <input type="submit" class="btn btn-default" value=<fmt:message key="order.status.confirm" bundle="${lang}"/>/>
+                            <input type="hidden" name="newStatus" value="<fmt:message key="order.status.progress" bundle="${lang}"/>"/>
+                            <input type="submit" class="btn btn-default" value="<fmt:message key="order.status.confirm" bundle="${lang}"/>"/>
                         </form>
                         <form method="POST" action="/confirm">
                             <input type="hidden" name="idOrder" value="${order.id}"/>
                             <input type="hidden" name="status" value="${order.status}"/>
-                            <input type="hidden" name="newStatus" value=<fmt:message key="order.status.closed" bundle="${lang}"/>/>
-                            <input type="submit" class="btn btn-default" value=<fmt:message key="order.status.reject" bundle="${lang}"/>/>
+                            <input type="hidden" name="newStatus" value="<fmt:message key="order.status.closed" bundle="${lang}"/>"/>
+                            <input type="submit" class="btn btn-default" value="<fmt:message key="order.status.reject" bundle="${lang}"/>"/>
                         </form>
                     </td>
                 </c:when>
@@ -60,8 +60,8 @@
                         <form method="POST" action="/confirm">
                             <input type="hidden" name="idOrder" value="${order.id}"/>
                             <input type="hidden" name="status" value="${order.status}"/>
-                            <input type="hidden" name="newStatus" value=<fmt:message key="order.status.crash" bundle="${lang}"/>/>
-                            <input type="submit" class="btn btn-default" value=<fmt:message key="order.set.bill" bundle="${lang}"//>
+                            <input type="hidden" name="newStatus" value="<fmt:message key="order.status.crash" bundle="${lang}"/>"/>
+                            <input type="submit" class="btn btn-default" value="<fmt:message key="order.set.bill" bundle="${lang}"/>"/>
                         </form>
                     </td>
                 </c:when>
@@ -70,14 +70,14 @@
                         <form method="POST" action="/confirm">
                             <input type="hidden" name="idOrder" value="${order.id}"/>
                             <input type="hidden" name="status" value="${order.status}"/>
-                            <input type="hidden" name="newStatus" <fmt:message key="order.status.crash" bundle="${lang}"/>/>
-                            <input type="submit" class="btn btn-default" value=<fmt:message key="order.crash" bundle="${lang}"/>/>
+                            <input type="hidden" name="newStatus" value="<fmt:message key="order.status.crash" bundle="${lang}"/>"/>
+                            <input type="submit" class="btn btn-default" value="<fmt:message key="order.crash" bundle="${lang}"/>"/>
                         </form>
                         <form method="POST" action="/confirm">
                             <input type="hidden" name="idOrder" value="${order.id}"/>
                             <input type="hidden" name="status" value="${order.status}"/>
-                            <input type="hidden" name="newStatus" value=<fmt:message key="order.status.closed" bundle="${lang}"/>/>
-                            <input type="submit" class="btn btn-default" value=<fmt:message key="order.status.returned" bundle="${lang}"/>/>
+                            <input type="hidden" name="newStatus" value="<fmt:message key="order.status.closed" bundle="${lang}"/>"/>
+                            <input type="submit" class="btn btn-default" value="<fmt:message key="order.status.returned" bundle="${lang}"/>"/>
                         </form>
                     </td>
                 </c:when>

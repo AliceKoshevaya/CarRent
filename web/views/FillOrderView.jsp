@@ -38,7 +38,7 @@
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
                         <input type="datetime-local" class="form-control" name="startRent" id="password"
-                               placeholder=<fmt:message key="order.enter.start" bundle="${lang}"/>/>
+                               placeholder="<fmt:message key="order.enter.start" bundle="${lang}"/>" />
                     </div>
                 </div>
             </div>
@@ -49,7 +49,7 @@
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
                         <input type="datetime-local" class="form-control" name="endRent" id="confirm"
-                               placeholder=<fmt:message key="order.enter.end" bundle="${lang}"/>/>
+                               placeholder="<fmt:message key="order.enter.end" bundle="${lang}"/>" />
                     </div>
                 </div>
             </div>
@@ -68,7 +68,7 @@
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="thirdName"  placeholder=<fmt:message key="order.enter.third" bundle="${lang}"/>>
+                        <input type="text" class="form-control" name="thirdName"  placeholder="<fmt:message key="order.enter.third" bundle="${lang}"/>" />
                     </div>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="issued" placeholder=<fmt:message key="order.enter.data" bundle="${lang}"/>>
+                        <input type="text" class="form-control" name="issued" placeholder="<fmt:message key="order.enter.data" bundle="${lang}"/>" />
                     </div>
                 </div>
             </div>
@@ -131,7 +131,7 @@
             </div>
 
             <div class="form-group ">
-                <input type="submit" value=<fmt:message key="order.accept" bundle="${lang}"/> id="button" class="btn btn-primary btn-lg btn-block login-button />
+                <input type="submit" value="<fmt:message key="order.accept" bundle="${lang}"/>" id="button" class="btn btn-primary btn-lg btn-block login-button" />
                 <a href="${pageContext.request.contextPath}/">
             </div>
         </form>

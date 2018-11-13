@@ -16,17 +16,16 @@
 <jsp:include page="header.jsp"/>
 <body>
 <form method="POST" action="${pageContext.request.contextPath}/userInfo">
-    <jsp:include page="header.jsp"></jsp:include>
 
-    <h3><fmt:message key="menu.hello" bundle="${lang}"/>  ${sessionScope.user.name}</h3>
-<br>
-        <fmt:message key="user.name" bundle="${lang}"/> <b>${sessionScope.user.name}</b>
-<br>
-        <fmt:message key="user.lastName" bundle="${lang}"/> <b>${sessionScope.user.lastName } </b>
-<br>
-        <fmt:message key="user.login" bundle="${lang}"/> <b>${sessionScope.user.login}</b>
-<br>
-    <jsp:include page="footer.jsp"></jsp:include>
+    <h3><fmt:message key="menu.hello" bundle="${lang}"/> ${sessionScope.user.name}</h3>
+    <br>
+    <fmt:message key="user.name" bundle="${lang}"/> <b>${sessionScope.user.name}</b>
+    <br>
+    <fmt:message key="user.lastName" bundle="${lang}"/> <b>${sessionScope.user.lastName } </b>
+    <br>
+    <fmt:message key="user.login" bundle="${lang}"/> <b>${sessionScope.user.login}</b>
+    <br>
+    <jsp:include page="footer.jsp"/>
 
 </body>
 </html>

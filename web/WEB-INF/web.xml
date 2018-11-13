@@ -4,11 +4,8 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
     <welcome-file-list>
-
         <welcome-file>home</welcome-file>
-
-        <welcome-file>index.html</welcome-file>
-
+        <welcome-file>/</welcome-file>
     </welcome-file-list>
 
     <error-page>
@@ -28,21 +25,4 @@
         </jsp-property-group>
     </jsp-config>
 
-    <!--<filter>-->
-        <!--<filter-name>LocalizationFilter</filter-name>-->
-        <!--<filter-class>ua.nure.koshova.finalProject.view.filter.LocaleFilter</filter-class>-->
-        <!--<init-param>-->
-            <!--<param-name>default-locale</param-name>-->
-            <!--<param-value>ru</param-value>-->
-        <!--</init-param>-->
-        <!--<init-param>-->
-            <!--<param-name>project-locales</param-name>-->
-            <!--<param-value>en,ru</param-value>-->
-        <!--</init-param>-->
-    <!--</filter>-->
-
-    <!--<filter-mapping>-->
-        <!--<filter-name>LocalizationFilter</filter-name>-->
-        <!--<url-pattern>/*</url-pattern>-->
-    <!--</filter-mapping>-->
 </web-app>
