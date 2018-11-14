@@ -1,6 +1,7 @@
 package ua.nure.koshova.finalProject.db.dao.util;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.commons.dbcp2.DriverManagerConnectionFactory;
 import org.apache.log4j.Logger;
 import ua.nure.koshova.finalProject.db.exception.CloseResourcesException;
 import ua.nure.koshova.finalProject.db.exception.DatabaseConnectionException;
@@ -20,6 +21,7 @@ public class DatabaseUtils {
 
     private static final String MESSAGE_ERROR_DB_CONN = "Can't establish connection with database";
     private static final String MESSAGE_ERROR_CLOSE_RESULT_SET = "Unable to close result set";
+    private static final String MESSAGE_ERROR_CLOSE_CONNECTION = "Unable to close connection";
 
     private static BasicDataSource dataSource;
 
@@ -27,8 +29,6 @@ public class DatabaseUtils {
                                        String userName,
                                        String password,
                                        String driver) {
-
-
         BasicDataSource ds = new BasicDataSource();
         ds.setUrl(connectionURL);
         ds.setUsername(userName);
@@ -73,6 +73,15 @@ public class DatabaseUtils {
         } catch (SQLException e) {
             LOGGER.error(MESSAGE_ERROR_CLOSE_RESULT_SET, e);
             throw new CloseResourcesException(MESSAGE_ERROR_CLOSE_RESULT_SET, e);
+        }
+    }
+
+    public static void closeConnection(Connection connection) throws CloseResourcesException {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            LOGGER.error(MESSAGE_ERROR_CLOSE_CONNECTION, e);
+            throw new CloseResourcesException(MESSAGE_ERROR_CLOSE_CONNECTION, e);
         }
     }
 }

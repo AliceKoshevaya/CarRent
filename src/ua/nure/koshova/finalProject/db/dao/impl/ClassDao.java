@@ -43,11 +43,11 @@ public class ClassDao implements IClassDao {
 
     public ClassCar getClassById(Long id) throws CloseResourcesException, QueryException {
         ClassCar classCar = new ClassCar();
-        Connection con = DatabaseUtils.getConnection();
+        Connection connection = DatabaseUtils.getConnection();
 
         ResultSet resultSet = null;
 
-        try (PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.SELECT_CLASS_BY_ID)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(DatabaseRequests.SELECT_CLASS_BY_ID)) {
             preparedStatement.setLong(1, id);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -59,6 +59,7 @@ public class ClassDao implements IClassDao {
             throw new QueryException(String.format(ERROR_MESSAGE_SELECT_CLASS, id), ex);
         } finally {
             DatabaseUtils.closeResultSet(resultSet);
+            DatabaseUtils.closeConnection(connection);
         }
         return classCar;
     }
@@ -84,18 +85,19 @@ public class ClassDao implements IClassDao {
             throw new QueryException(ERROR_MESSAGE_SELECT_ALL_CLASSES, ex);
         } finally {
             DatabaseUtils.closeResultSet(resultSet);
+            DatabaseUtils.closeConnection(connection);
         }
         return cars;
     }
 
     public Long getClassByName(String name) throws CloseResourcesException, QueryException {
-        Connection con = DatabaseUtils.getConnection();
+        Connection connection = DatabaseUtils.getConnection();
 
         Long id = null;
         ResultSet resultSet = null;
         ClassCar classCar = null;
 
-        try (PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.SELECT_CLASS_BY_NAME)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(DatabaseRequests.SELECT_CLASS_BY_NAME)) {
             preparedStatement.setString(1, name);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -107,6 +109,7 @@ public class ClassDao implements IClassDao {
             throw new QueryException(String.format(ERROR_MESSAGE_SELECT_CLASS_BY_NAME, name), ex);
         } finally {
             DatabaseUtils.closeResultSet(resultSet);
+            DatabaseUtils.closeConnection(connection);
         }
 
         if (classCar != null) {

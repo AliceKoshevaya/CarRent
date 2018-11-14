@@ -16,7 +16,7 @@ public class ContextListener implements ServletContextListener {
 
     public void contextInitialized(ServletContextEvent event) {
         ServletContext servletContext = event.getServletContext();
-        initLog4J(servletContext);
+        initLog4J();
         initDataSource();
     }
 
@@ -27,10 +27,8 @@ public class ContextListener implements ServletContextListener {
 
     /**
      * Log4J initialization
-     *
-     * @param servletContext
      */
-    private void initLog4J(ServletContext servletContext) {
+    private void initLog4J() {
         try {
             ClassLoader classLoader = getClass().getClassLoader();
             PropertyConfigurator.configure(classLoader.getResourceAsStream("log4j.properties"));

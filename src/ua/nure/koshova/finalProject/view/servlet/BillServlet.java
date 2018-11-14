@@ -14,11 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/bill")
-public class PGRBillServlet extends HttpServlet {
+public class BillServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private static final Logger LOGGER = Logger.getLogger(PGRBillServlet.class);
+    private static final Logger LOGGER = Logger.getLogger(BillServlet.class);
 
     private BillDao billDao = BillDao.getInstance();
 

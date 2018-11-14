@@ -1,6 +1,7 @@
 package ua.nure.koshova.finalProject.view.servlet;
 
 
+import nl.captcha.Captcha;
 import org.apache.log4j.Logger;
 import ua.nure.koshova.finalProject.db.entity.Role;
 import ua.nure.koshova.finalProject.db.entity.Roles;
@@ -8,7 +9,7 @@ import ua.nure.koshova.finalProject.db.entity.User;
 import ua.nure.koshova.finalProject.service.UserService;
 import ua.nure.koshova.finalProject.view.constant.Pages;
 import ua.nure.koshova.finalProject.view.util.right.RightChecker;
-import ua.nure.koshova.finalProject.view.util.validator.LoginValidator;
+import ua.nure.koshova.finalProject.view.util.validator.AuthorizationValidator;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -44,9 +45,23 @@ public class LoginServlet extends HttpServlet {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
-        String errorMessage = LoginValidator.validate(login, password);
+        // login params
+        String errorMessage = AuthorizationValidator.validate(
+                login,
+                userService.getUserByLogin(login),
+                password
+        );
 
-        if (!errorMessage.isEmpty()) {
+        // captcha
+        Captcha captcha = (Captcha)  request.getSession().getAttribute(Captcha.NAME);
+        request.setCharacterEncoding("UTF-8");
+        String answer = request.getParameter("answer");
+
+        if (captcha.isCorrect(answer)) {
+            String errorMessageLogin = "Incorrect captcha";
+            request.setAttribute("errorMessageLogin", errorMessageLogin);
+            request.getRequestDispatcher(Pages.LOGIN_PAGE).forward(request, response);
+        } else if (!errorMessage.isEmpty()) {
             request.setAttribute("errorMessage", errorMessage);
             request.getRequestDispatcher(Pages.LOGIN_PAGE).forward(request, response);
         } else {
@@ -55,7 +70,6 @@ public class LoginServlet extends HttpServlet {
                 String errorMessageLogin = "User does not exist";
                 request.setAttribute("errorMessageLogin", errorMessageLogin);
                 request.getRequestDispatcher(Pages.LOGIN_PAGE).forward(request, response);
-                return;
             }
             Role role = userService.getUserRole(user.getId());
             user.setRole(role);
@@ -63,14 +77,10 @@ public class LoginServlet extends HttpServlet {
 
             LOGGER.debug("User " + user.getLogin() + " has been logged in as " + role.getName());
 
-            if (role.getName().equals(Roles.administrator)) {
-                RequestDispatcher dispatcher = request.getServletContext()
-                        .getRequestDispatcher(Pages.ADMIN_PAGE_CAR);
-                dispatcher.forward(request, response);
-            } else if (role.getName().equals(Roles.manager)) {
-                RequestDispatcher dispatcher = request.getServletContext()
-                        .getRequestDispatcher(Pages.LIST_ORDER_PAGE);
-                dispatcher.forward(request, response);
+            if (Roles.valueOf(role.getName()) == Roles.administrator) {
+                response.sendRedirect("/userList");
+            } else if (Roles.valueOf(role.getName()) == Roles.manager) {
+                response.sendRedirect("/ordersList");
             } else {
                 RequestDispatcher dispatcher = request.getServletContext()
                         .getRequestDispatcher(Pages.HOMEPAGE);

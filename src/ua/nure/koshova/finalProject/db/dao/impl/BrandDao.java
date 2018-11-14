@@ -45,11 +45,11 @@ public class BrandDao implements IBrandDao {
     }
 
     public Brand getBrandById(Long id) throws QueryException, CloseResourcesException {
-        Connection con = DatabaseUtils.getConnection();
+        Connection connection = DatabaseUtils.getConnection();
         Brand b = new Brand();
 
         ResultSet resultSet = null;
-        try (PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.SELECT_BRAND_BY_ID)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(DatabaseRequests.SELECT_BRAND_BY_ID)) {
             preparedStatement.setLong(1, id);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -61,30 +61,32 @@ public class BrandDao implements IBrandDao {
             throw new QueryException(String.format(ERROR_MESSAGE_SELECT_BRAND, id), ex);
         } finally {
             DatabaseUtils.closeResultSet(resultSet);
+            DatabaseUtils.closeConnection(connection);
         }
         return b;
     }
 
     public Long getBrandByName(String name) throws QueryException, CloseResourcesException {
-        Connection con = DatabaseUtils.getConnection();
+        Connection connection = DatabaseUtils.getConnection();
 
-        Long id = null;
+        Long id;
         ResultSet resultSet = null;
 
-        Brand b = new Brand();
-        try (PreparedStatement preparedStatement = con.prepareStatement(DatabaseRequests.SELECT_BRAND_BY_NAME)) {
+        Brand brand = new Brand();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(DatabaseRequests.SELECT_BRAND_BY_NAME)) {
             preparedStatement.setString(1, name);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                b.setId(resultSet.getLong(1));
+                brand.setId(resultSet.getLong(1));
             }
         } catch (SQLException ex) {
             LOGGER.error(String.format(ERROR_MESSAGE_SELECT_BRAND_BY_NAME, name), ex);
             throw new QueryException(String.format(ERROR_MESSAGE_SELECT_BRAND_BY_NAME, name), ex);
         } finally {
             DatabaseUtils.closeResultSet(resultSet);
+            DatabaseUtils.closeConnection(connection);
         }
-        id = b.getId();
+        id = brand.getId();
         return id;
     }
 
@@ -109,6 +111,7 @@ public class BrandDao implements IBrandDao {
             throw new QueryException(ERROR_MESSAGE_SELECT_ALL_BRANDS, ex);
         } finally {
             DatabaseUtils.closeResultSet(resultSet);
+            DatabaseUtils.closeConnection(connection);
         }
         return brands;
     }

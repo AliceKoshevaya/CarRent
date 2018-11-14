@@ -21,7 +21,8 @@
                     </c:if>
                     <c:out value="${errorMessage}"/>
                     <div class="form-group">
-                        <input class="form-control" name="login" placeholder="<fmt:message key="reg.login" bundle="${lang}"/>" />
+                        <input class="form-control" name="login"
+                               placeholder="<fmt:message key="reg.login" bundle="${lang}"/>"/>
                         <i class="fa fa-user"></i>
                     </div>
                     <div class="form-group help">
@@ -31,7 +32,12 @@
                         <a href="#" class="fa fa-question-circle"></a>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-default"><fmt:message key="menu.door" bundle="${lang}"/></button>
+                        <img src="<c:url value="${pageContext.request.contextPath}/stickyCaptcha.png" />"><br />
+                        <input name="answer" />
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-default"><fmt:message key="menu.door"
+                                                                                   bundle="${lang}"/></button>
                     </div>
                 </form>
             </div>

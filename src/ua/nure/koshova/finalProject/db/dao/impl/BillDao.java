@@ -42,13 +42,13 @@ public class BillDao implements IBillDao {
     public Long createBill(String type, Boolean status, int sum, Timestamp date, Long idOrder)
             throws QueryException, CloseResourcesException {
 
-        Connection con = DatabaseUtils.getConnection();
+        Connection connection = DatabaseUtils.getConnection();
 
         Long id = null;
         ResultSet generatedKeys = null;
 
         try (PreparedStatement ps =
-                     con.prepareStatement(DatabaseRequests.INSERT_BILL, Statement.RETURN_GENERATED_KEYS)) {
+                     connection.prepareStatement(DatabaseRequests.INSERT_BILL, Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setBoolean(1, status);
             ps.setString(2, type);
@@ -69,6 +69,7 @@ public class BillDao implements IBillDao {
             throw new QueryException(ERROR_MESSAGE_INSERT_BILL, ex);
         } finally {
             DatabaseUtils.closeResultSet(generatedKeys);
+            DatabaseUtils.closeConnection(connection);
         }
 
         return id;
@@ -101,6 +102,7 @@ public class BillDao implements IBillDao {
             throw new QueryException(String.format(ERROR_MESSAGE_SELECT_BILL, id), ex);
         } finally {
             DatabaseUtils.closeResultSet(resultSet);
+            DatabaseUtils.closeConnection(connection);
         }
 
         return bill;
@@ -129,19 +131,22 @@ public class BillDao implements IBillDao {
             throw new QueryException(String.format(ERROR_MESSAGE_SELECT_BILL_BY_ORDER, id), ex);
         } finally {
             DatabaseUtils.closeResultSet(resultSet);
+            DatabaseUtils.closeConnection(connection);
         }
         return billList;
     }
 
     public void updateBill(Long id) throws QueryException, CloseResourcesException {
-        Connection con = DatabaseUtils.getConnection();
+        Connection connection = DatabaseUtils.getConnection();
         try (PreparedStatement preparedStatement =
-                     con.prepareStatement(DatabaseRequests.UPDATE_BILL)) {
+                     connection.prepareStatement(DatabaseRequests.UPDATE_BILL)) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
             LOGGER.error(String.format(ERROR_MESSAGE_UPDATE_BILL, id), ex);
             throw new QueryException(String.format(ERROR_MESSAGE_UPDATE_BILL, id), ex);
+        } finally {
+            DatabaseUtils.closeConnection(connection);
         }
     }
 

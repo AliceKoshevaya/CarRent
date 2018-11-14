@@ -17,11 +17,11 @@
 <body>
 <form method="POST" action="${pageContext.request.contextPath}/userInfo">
     <c:choose>
-    <c:when test="${empty userName}">
+    <c:when test="${empty sessionScope.user }">
         <h1><fmt:message key="acc.acc" bundle="${lang}"/></h1>
     <br />
     </c:when>
-    <c:otherwise>
+        <c:when test="${not empty sessionScope.user}">
         <h3><fmt:message key="menu.hello" bundle="${lang}"/> ${sessionScope.user.name}</h3>
         <br>
             <fmt:message key="user.name" bundle="${lang}"/> <b>${sessionScope.user.name}</b>
@@ -30,7 +30,7 @@
         <br>
             <fmt:message key="user.login" bundle="${lang}"/> <b>${sessionScope.user.login}</b>
         <br>
-    </c:otherwise>
+        </c:when>
     </c:choose>
     <jsp:include page="footer.jsp"/>
 

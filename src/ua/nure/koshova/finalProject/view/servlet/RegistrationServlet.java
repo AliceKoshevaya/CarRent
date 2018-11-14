@@ -48,11 +48,14 @@ public class RegistrationServlet extends HttpServlet {
         LOGGER.debug("Got user last name parameter as " + lastName);
         String thirdName = request.getParameter("tname");
         LOGGER.debug("Got user third name parameter as " + thirdName);
-        String errorMessage = RegistrationValidator.validate(login,password,name,lastName);
+        String errorMessage = RegistrationValidator.validate(login,null,password,name,lastName);
         if (!errorMessage.isEmpty()) {
             request.setAttribute("errorMessage", errorMessage);
         }
 
         userService.createNewUser(login, password, name, lastName, thirdName);
+        RequestDispatcher dispatcher
+                = this.getServletContext().getRequestDispatcher(Pages.LOGIN_PAGE);
+        dispatcher.forward(request, response);
     }
 }

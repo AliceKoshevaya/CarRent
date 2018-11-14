@@ -52,7 +52,7 @@ public final class DatabaseRequests {
      * Request to table users
      */
 
-    public static final String INSERT_USER = "insert into users values (DEFAULT ,?,?,?,?,?,null,null,?);";
+    public static final String INSERT_USER = "insert into users values (DEFAULT ,?,?,?,?,?,null,null,false,?);";
     public static final String SELECT_ALL_USERS = "select u.id, u.user_login, u.password, u.first_name, u.last_name, u.third_name, u.pass_seria,u.data_pass, u.id_role, r.role_name, u.block " +
             "from users AS u " +
             "left join roles AS r ON u.id_role = r.id";
@@ -89,6 +89,7 @@ public final class DatabaseRequests {
     public static final String CLOSE_ORDER = "UPDATE orders SET status = 'CLOSED' WHERE id =?";
     public static final String CRASH_ORDER = "UPDATE orders SET status = 'CRASH' WHERE id =?";
     public static final String UPDATE_REASON = "update orders SET reason = ? WHERE id = ?";
+    public static final String SELECT_ORDER_BY_ID_USER = "select driver,status,start_rent,end_rent FROM orders WHERE id_user=?";
 
     /**
      * Request to table bill
