@@ -20,7 +20,6 @@ public interface UserDao {
      *
      * @param login
      * @param password
-     *
      * @return {@link User}
      */
 
@@ -30,7 +29,6 @@ public interface UserDao {
      * Select user by id
      *
      * @param id
-     *
      * @return {@link User}
      */
     User findUserById(Long id);
@@ -39,7 +37,6 @@ public interface UserDao {
      * Select user by login
      *
      * @param login
-     *
      * @return {@link User}
      */
 
@@ -49,7 +46,6 @@ public interface UserDao {
      * Create a new user
      *
      * @param user
-     *
      * @return id user
      */
 
@@ -97,17 +93,21 @@ public interface UserDao {
      *
      * @param id
      */
-
     void updateUnblockUser(Long id);
 
     /**
      * Select user by role
      *
      * @param id
-     *
      * @return {@link Role}
-     *
      */
-
     Role findRoleByUser(Long id);
+
+    /**
+     * User by passport serial number
+     *
+     * @param seria
+     * @return
+     */
+    User findUserByPassportSeria(String seria);
 }

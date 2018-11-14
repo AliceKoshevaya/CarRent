@@ -20,8 +20,8 @@
     <div class="col-lg-3 center-block">
         <label><fmt:message key="select.brand" bundle="${lang}"/></label>
         <select id="select1" name="selectBrand">
+            <option value="all">All</option>
             <c:forEach items="${brands}" var="brand">
-                <option value="all">All</option>
                 <option value="${brand.id}">${brand.name}</option>
             </c:forEach>
         </select>
@@ -32,8 +32,8 @@
     <div class="col-lg-3 center-block">
         <label><fmt:message key="select.class" bundle="${lang}"/></label>
         <select id="select2" name="selectClass">
+            <option value="all">All</option>
             <c:forEach items="${classes}" var="clazz">
-                <option value="all">All</option>
                 <option value="${clazz.id}">${clazz.name}</option>
             </c:forEach>
         </select>

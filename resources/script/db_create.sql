@@ -14,25 +14,17 @@ CREATE TABLE roles (
 );
 
 CREATE TABLE users(
-	  id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-	  user_login VARCHAR(21) NOT NULL,
-	  password VARCHAR(15) NOT NULL,
-	  first_name VARCHAR(20) NOT NULL,
-	  last_name VARCHAR(25) NOT NULL,
-	  third_name VARCHAR(25),
-	  pass_seria VARCHAR(10) unique,
-	  data_pass VARCHAR(30),
-	  id_role INT NOT NULL REFERENCES roles(id)
-
--- removing a row with some ID from roles table implies removing 
--- all rows from users table for which ROLES_ID=ID
--- default value is ON DELETE RESTRICT, it means you cannot remove
--- row with some ID from the roles table if there are rows in 
--- users table with ROLES_ID=ID
-		ON DELETE CASCADE 
-
--- the same as previous but updating is used insted deleting
-		ON UPDATE RESTRICT
+  id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  user_login VARCHAR(21) NOT NULL,
+  password VARCHAR(15) NOT NULL,
+  first_name VARCHAR(20) NOT NULL,
+  last_name VARCHAR(25) NOT NULL,
+  third_name VARCHAR(25),
+  pass_seria VARCHAR(10) unique,
+  data_pass VARCHAR(30),
+  id_role INT NOT NULL REFERENCES roles(id)
+	ON DELETE RESTRICT
+	ON UPDATE RESTRICT
 );
 
 CREATE TABLE brand(
@@ -54,6 +46,8 @@ CREATE TABLE cars(
 	status enum('RENT','CRASH','STOCK'),
 	id_brand INT NOT NULL REFERENCES brand(id),
 	id_class INT NOT NULL REFERENCES classes(id)
+	ON DELETE RESTRICT
+	ON UPDATE RESTRICT
 );
 
 CREATE TABLE bill(
@@ -62,14 +56,18 @@ CREATE TABLE bill(
 	type VARCHAR(20) NOT NULL,
 	summa INT NOT NULL,
 	data TIMESTAMP,
-    id_order  INT NOT NULL REFERENCES orders(id) ON UPDATE CASCADE
+  id_order INT NOT NULL REFERENCES orders(id)
+  ON DELETE RESTRICT
+	ON UPDATE RESTRICT
 );
 CREATE TABLE orders(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	driver BOOLEAN NOT NULL,
-    status enum('NEW', 'CLOSED', 'IN_PROGRESS'),
+  status enum('NEW', 'CLOSED', 'IN_PROGRESS'),
 	start_rent TIMESTAMP NOT NULL,
 	end_rent TIMESTAMP NOT NULL,
-    id_user INT NOT NULL REFERENCES users(id),
-	id_car  INT NOT NULL REFERENCES cars(id)
+  id_user INT NOT NULL REFERENCES users(id),
+	id_car INT NOT NULL REFERENCES cars(id)
+	ON DELETE RESTRICT
+	ON UPDATE RESTRICT
 );

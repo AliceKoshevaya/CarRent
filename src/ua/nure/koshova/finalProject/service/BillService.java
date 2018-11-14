@@ -2,6 +2,7 @@ package ua.nure.koshova.finalProject.service;
 
 import ua.nure.koshova.finalProject.db.entity.Bill;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public interface BillService {
      * @param OrderId
      * @return {@link Bill}
      */
-    public Bill createBill(String startRent, String endRent, int price, Long OrderId);
+    Bill createBill(String startRent, String endRent, int price, Long OrderId);
 
     /**
      * Creating a new bill for crash
@@ -28,7 +29,7 @@ public interface BillService {
      * @return id bill
      */
 
-    public Long createCrashBill(int sum, String date, Long orderId);
+    Long createCrashBill(int sum, Timestamp date, Long orderId);
 
     /**
      * Receipt bill by id
@@ -36,6 +37,6 @@ public interface BillService {
      * @param id
      * @return {@link List<Bill>}
      */
-    public List<Bill> getAllBillByOrder(Long id);
+    List<Bill> getAllBillByOrder(Long id);
 
 }

@@ -3,6 +3,11 @@ package ua.nure.koshova.finalProject.view.util.validator;
 import ua.nure.koshova.finalProject.db.entity.User;
 import ua.nure.koshova.finalProject.view.util.validator.util.FieldValidatorUtil;
 
+/**
+ * /**
+ * Class for validating user registration
+ */
+
 public class RegistrationValidator {
 
     private static final String MESSAGE_LOGIN_EXIST = "Login is already in use";

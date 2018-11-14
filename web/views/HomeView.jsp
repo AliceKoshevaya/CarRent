@@ -50,7 +50,6 @@
 </div>
 <div class="container marketing">
 
-    <!-- Three columns of text below the carousel -->
     <div class="row">
         <div class="col-lg-4">
             <img class="rounded-circle" src="../img/best_price.jpg" alt="Generic placeholder image" width="140"
@@ -65,8 +64,7 @@
             <h2><fmt:message key="menu.value2" bundle="${lang}"/></h2>
             <p><fmt:message key="menu.value2.text" bundle="${lang}"/>
             </p>
-            <p><a class="btn btn-secondary" href="../img/x5-kh5-kh5m-x5m-bmw-x5-bmw-bmw-x5m.jpg" alt="" role="button"></a></p>
-        </div><!-- /.col-lg-4 -->
+        </div>
         <div class="col-lg-4">
             <img class="rounded-circle" src="../img/3.jpg" href="../img/x5-kh5-kh5m-x5m-bmw-x5-bmw-bmw-x5m.jpg"
                  src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
@@ -74,8 +72,8 @@
             <h2><fmt:message key="menu.value3" bundle="${lang}"/></h2>
             <p><fmt:message key="menu.value3.text" bundle="${lang}"/></p>
             <p><a class="btn btn-secondary" href="http://localhost:8080/carList" role="button"><fmt:message key="car.choose" bundle="${lang}"/></a></p>
-        </div><!-- /.col-lg-4 -->
-    </div><!-- /.row -->
+        </div>
+    </div>
 </div>
 </div>
 

@@ -7,6 +7,11 @@ import ua.nure.koshova.finalProject.db.entity.User;
 import javax.servlet.http.HttpSession;
 import java.util.Locale;
 
+/**
+ *Class that checks user access to a resource by role in the system
+ *
+ */
+
 public class RightChecker {
 
     public static final String ATTRIBUTE_USER = "user";

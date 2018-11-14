@@ -18,8 +18,8 @@ public interface CarService {
      * @param classId
      * @return {@Link List<Car>}
      */
-    public List<Car> getCarsList(String sortField, String sortOrder,
-                                 String brandId, String classId);
+    List<Car> getCarsList(String sortField, String sortOrder,
+                          String brandId, String classId);
 
     /**
      * Get car by id
@@ -27,14 +27,14 @@ public interface CarService {
      * @param id
      * @return {@Link Car}
      */
-    public Car getCarById(Long id);
+    Car getCarById(Long id);
 
     /**
-     *  Delete Car
+     * Delete Car
      *
      * @param id
      */
-    public void deleteCar(Long id);
+    void deleteCar(Long id);
 
     /**
      * Add a new car
@@ -45,7 +45,7 @@ public interface CarService {
      * @param idBrand
      * @param idClass
      */
-    public void addNewCar(String name, int price, String stateNumber, Long idBrand, Long idClass);
+    void addNewCar(String name, int price, String stateNumber, Long idBrand, Long idClass);
 
     /**
      * Update car info
@@ -58,6 +58,6 @@ public interface CarService {
      * @param idBrand
      * @param idClass
      */
-    public void updateCar(Long id, String name, int price, String status, String stateNumber, Long idBrand, Long idClass);
+    void updateCar(Long id, String name, int price, String status, String stateNumber, Long idBrand, Long idClass);
 
 }

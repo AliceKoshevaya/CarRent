@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Timestamp;
 
 @WebServlet(urlPatterns = {"/crash"})
 public class CreateBillForCrashServlet extends HttpServlet {
@@ -32,7 +33,8 @@ public class CreateBillForCrashServlet extends HttpServlet {
         Long idOrder = Long.valueOf(request.getParameter("idOrder"));
         String sum = request.getParameter("sum");
         Integer numSum = Integer.valueOf(sum);
-        billServiceImpl.createCrashBill(numSum, null, idOrder);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        billServiceImpl.createCrashBill(numSum, timestamp, idOrder);
 
         response.sendRedirect("/ordersList");
 

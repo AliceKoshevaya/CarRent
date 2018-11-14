@@ -3,6 +3,9 @@ package ua.nure.koshova.finalProject.view.util.validator.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Class validating entered fields
+ */
 public class FieldValidatorUtil {
 
     public static final String MESSAGE_VALID = "";
@@ -26,7 +29,7 @@ public class FieldValidatorUtil {
     private static final String REGEXP_NAMES = "^[A-Za-zА-Яа-я]+";
     private static final String REGEXP_LOGIN = "^[\\w.-]{0,19}[0-9a-zA-Z]$";
     private static final String REGEXP_PASSWORD = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$";
-    private static final String REGEXP_THIRD_NAME = "[A-ZА-Я][a-zа-я]+";
+    private static final String REGEXP_THIRD_NAME = "^[A-ZА-Я][a-zа-я]+";
     private static final String REGEXP_SERIES = "[А-Я]{2}[0-9]{6}";
     private static final String REGEXP_PASSPORT_CITY = "[A-ZА-Я][a-zа-я]+";
 

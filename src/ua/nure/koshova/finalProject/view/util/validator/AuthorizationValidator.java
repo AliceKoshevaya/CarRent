@@ -3,6 +3,9 @@ package ua.nure.koshova.finalProject.view.util.validator;
 import ua.nure.koshova.finalProject.db.entity.User;
 import ua.nure.koshova.finalProject.view.util.validator.util.FieldValidatorUtil;
 
+/**
+ * Class for validating user authorization
+ */
 public class AuthorizationValidator {
 
     private static final String MESSAGE_VALID_LOGIN_NOT_EXIST = "This user not exists";

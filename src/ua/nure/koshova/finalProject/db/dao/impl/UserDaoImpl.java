@@ -17,6 +17,7 @@ public class UserDaoImpl implements UserDao {
 
     private static final Logger LOGGER = Logger.getLogger(UserDaoImpl.class);
     private static final String ERROR_MESSAGE_SELECT_USER = "Can't select user by id (id = %d)";
+    private static final String ERROR_MESSAGE_SELECT_USER_BY_SERIA = "Can't select user by seria (id = %s)";
     private static final String ERROR_MESSAGE_SELECT_USER_BY_LOGIN = "Can't select user by login (login = %s)";
     private static final String ERROR_MESSAGE_UPDATE_USER = "Can't update user details by id(id = %d)";
     private static final String ERROR_MESSAGE_UPDATE_USER_ROLE = "Can't update user role by id(id = %d)";
@@ -86,6 +87,7 @@ public class UserDaoImpl implements UserDao {
 
         User user = new User();
         Role role = new Role();
+        user.setRole(role);
 
         ResultSet resultSet = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(DatabaseRequests.SELECT_GET_USER)) {
@@ -93,8 +95,6 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(2, password);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-
-                user.setRole(role);
                 user.setLogin(login);
                 user.setId(resultSet.getLong(1));
                 user.setName(resultSet.getString(2));
@@ -113,6 +113,29 @@ public class UserDaoImpl implements UserDao {
         return user;
     }
 
+    public User findUserByPassportSeria(String seria) throws QueryException, CloseResourcesException {
+        Connection connection = DatabaseUtils.getConnection();
+
+        User user = null;
+
+        ResultSet rs = null;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(DatabaseRequests.SELECT_USER_BY_SERIA)) {
+            preparedStatement.setString(1, seria);
+            rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                user = new User();
+                user.setId(rs.getLong(1));
+                user.setSeria(rs.getString(2));
+            }
+        } catch (SQLException ex) {
+            LOGGER.error(String.format(ERROR_MESSAGE_SELECT_USER_BY_SERIA, seria), ex);
+            throw new QueryException(String.format(ERROR_MESSAGE_SELECT_USER_BY_SERIA, seria), ex);
+        } finally {
+            DatabaseUtils.closeResultSet(rs);
+            DatabaseUtils.closeConnection(connection);
+        }
+        return user;
+    }
 
     public User findUserById(Long id) throws QueryException, CloseResourcesException {
         Connection connection = DatabaseUtils.getConnection();
@@ -120,7 +143,7 @@ public class UserDaoImpl implements UserDao {
         User user = new User();
 
         ResultSet rs = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(DatabaseRequests.CHECKBLOCK)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(DatabaseRequests.SELECT_USER)) {
             preparedStatement.setLong(1, id);
             rs = preparedStatement.executeQuery();
             if (rs.next()) {
@@ -240,7 +263,7 @@ public class UserDaoImpl implements UserDao {
 
     public void updateUserRole(Long id) throws QueryException, CloseResourcesException {
         Connection connection = DatabaseUtils.getConnection();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(DatabaseRequests.SET_A_MANAGER)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(DatabaseRequests.SET_USER_ROLE_MANAGER)) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {

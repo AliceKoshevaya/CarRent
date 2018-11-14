@@ -1,5 +1,7 @@
 package ua.nure.koshova.finalProject.service;
 
+import ua.nure.koshova.finalProject.db.entity.Bill;
+import ua.nure.koshova.finalProject.db.entity.Car;
 import ua.nure.koshova.finalProject.db.entity.Order;
 import java.util.List;
 
@@ -15,10 +17,10 @@ public interface OrderService {
      * @param startRent
      * @param endRent
      * @param idUser
-     * @param idCar
-     * @return id order
+     * @param car
+     * @return new bill with order
      */
-    public Long newOrder(String driver, String startRent, String endRent, Long idUser, Long idCar);
+    Bill newOrderAndBill(String driver, String startRent, String endRent, Long idUser, Car car);
 
 
     /**
@@ -26,7 +28,7 @@ public interface OrderService {
      *
      * @return {@Link List<Order>}
      */
-    public List<Order> getOrderList();
+    List<Order> getOrderList();
 
     /**
      * Change order status to confirmed
@@ -34,7 +36,7 @@ public interface OrderService {
      * @param id
      */
 
-    public void confirmOrder(Long id);
+    void confirmOrder(Long id);
 
     /**
      * Change order status to crashed
@@ -42,7 +44,7 @@ public interface OrderService {
      * @param id
      */
 
-    public void crashOrder(Long id);
+    void crashOrder(Long id);
 
     /**
      * Change order status to closed
@@ -50,7 +52,7 @@ public interface OrderService {
      * @param id
      */
 
-    public void closeOrder(Long id);
+    void closeOrder(Long id);
 
     /**
      * Update reason to reject order
@@ -59,7 +61,7 @@ public interface OrderService {
      * @param name
      */
 
-    public void updateReason(Long id, String name);
+    void updateReason(Long id, String name);
 
     /**
      * Select all users order
@@ -67,7 +69,6 @@ public interface OrderService {
      * @param id
      * @return {@Link List<Order>}
      */
-
-    public List<Order> findAllOrdersByUser(Long id);
+    List<Order> findAllOrdersByUser(Long id);
 
 }

@@ -57,9 +57,9 @@ public class LoginServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String answer = request.getParameter("answer");
 
-        if (captcha.isCorrect(answer)) {
+        if (!captcha.isCorrect(answer)) {
             String errorMessageLogin = "Incorrect captcha";
-            request.setAttribute("errorMessageLogin", errorMessageLogin);
+            request.setAttribute("errorMessageCaptcha", errorMessageLogin);
             request.getRequestDispatcher(Pages.LOGIN_PAGE).forward(request, response);
         } else if (!errorMessage.isEmpty()) {
             request.setAttribute("errorMessage", errorMessage);

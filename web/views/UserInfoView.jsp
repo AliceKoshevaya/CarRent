@@ -11,22 +11,24 @@
     <title>User Info</title>
 </head>
 <jsp:include page="header.jsp"/>
-    <form method="POST" action="${pageContext.request.contextPath}/userInfo">
-        <c:choose>
-        <c:when test="${empty sessionScope.user }">
-            <h1><fmt:message key="acc.acc" bundle="${lang}"/></h1>
-            <br/>
-        </c:when>
-        <c:when test="${not empty sessionScope.user}">
+
+<c:choose>
+    <c:when test="${empty sessionScope.user }">
+        <h1><fmt:message key="acc.acc" bundle="${lang}"/></h1>
+        <br/>
+    </c:when>
+    <c:when test="${not empty sessionScope.user}">
         <div align="center">
             <div class="container bootstrap snippet">
-                    <h3><fmt:message key="menu.hello" bundle="${lang}"/> ${sessionScope.user.name}</h3>
-                    <div class="text-center">
-                        <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
-                             class="avatar img-circle img-thumbnail"
-                             alt="avatar">
-                        <input type="file" class="text-center center-block file-upload">
-                    </div>
+                <h3><fmt:message key="menu.hello" bundle="${lang}"/> ${sessionScope.user.name}</h3>
+                <div class="text-center">
+                    <%--<form method="GET" action="${pageContext.request.contextPath}/userInfo">--%>
+                        <%--<img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"--%>
+                             <%--class="avatar img-circle img-thumbnail"--%>
+                             <%--alt="avatar" name ="image">--%>
+                        <%--<input type="file" class="text-center center-block file-upload">--%>
+                    <%--</form>--%>
+                </div>
             </div>
             <br>
             <fmt:message key="user.name" bundle="${lang}"/> <b>${sessionScope.user.name}</b>
@@ -34,8 +36,12 @@
             <fmt:message key="user.lastName" bundle="${lang}"/> <b>${sessionScope.user.lastName } </b>
             <br>
             <fmt:message key="user.login" bundle="${lang}"/> <b>${sessionScope.user.login}</b>
-<br>
-            <h5><u>You orders</u></h5>
+            <br>
+            <p>
+
+
+            </p>
+            <h5><u><fmt:message key="acc.orders" bundle="${lang}"/></u></h5>
             <table>
                 <tr>
                     <th class="bg-success"><fmt:message key="order.driver" bundle="${lang}"/></th>
@@ -54,14 +60,13 @@
                 </c:forEach>
             </table>
         </div>
-            <br>
-        <p style="color: darkred" align="center">Dear customer, if the order is in the New status,wait for the confirmation call.If the car was found damaged when returning to the parking lot, you will be billed for crash.</p>
+        <br>
+        <p style="color: darkred" align="center"><fmt:message key="acc.info" bundle="${lang}"/></p>
 
-    </form>
     </c:when>
-    </c:choose>
-    <jsp:include page="footer.jsp"/>
+</c:choose>
+<jsp:include page="footer.jsp"/>
 
-    </body>
-    <script src="../views/js/icon.js"></script>
+</body>
+<script src="../views/js/icon.js"></script>
 </html>

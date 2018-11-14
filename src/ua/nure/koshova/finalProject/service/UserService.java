@@ -108,6 +108,6 @@ public interface UserService {
      * @return existSeries
      */
 
-    public boolean passportSeriaExist();
+    public User getUserByPassportSerial(String series);
 
 }

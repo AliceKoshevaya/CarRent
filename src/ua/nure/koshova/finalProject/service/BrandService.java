@@ -14,7 +14,7 @@ public interface BrandService {
      *
      * @return {@Link List<Brand}
      */
-    public List<Brand> getBrandList();
+    List<Brand> getBrandList();
 
     /**
      * Get brand by id
@@ -23,7 +23,7 @@ public interface BrandService {
      * @return {@Link Brand}
      */
 
-    public Brand getBrandById(Long id);
+    Brand getBrandById(Long id);
 
     /**
      * Get brand by name
@@ -31,6 +31,5 @@ public interface BrandService {
      * @param name
      * @return id brand
      */
-
-    public Long getBrandByName(String name);
+    Long getBrandByName(String name);
 }

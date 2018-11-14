@@ -14,7 +14,10 @@
         <div class="com-lg-1">
         <form method="POST" action="${pageContext.request.contextPath}/finalOrder">
             <div class="form-check">
-                <c:out value="${errorMessage}"></c:out>
+                <c:if test="${not empty errorMessage}">
+                    <c:out value="${errorMessage}"/>
+                    <br>
+                </c:if>
                 <input class="form-check-input" type="radio" name="driver" id="exampleRadios1" value="true" checked>
                 <label class="form-check-label" for="exampleRadios1">
                     <fmt:message key="order.with.driver" bundle="${lang}"/>

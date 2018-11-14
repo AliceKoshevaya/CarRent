@@ -1,7 +1,10 @@
 package ua.nure.koshova.finalProject.db.dao;
 
 
+import ua.nure.koshova.finalProject.db.entity.Bill;
 import ua.nure.koshova.finalProject.db.entity.Order;
+import ua.nure.koshova.finalProject.db.exception.CloseResourcesException;
+import ua.nure.koshova.finalProject.db.exception.QueryException;
 
 import java.util.List;
 
@@ -13,7 +16,7 @@ public interface OrderDao {
      * @param {@link Order}
      * @return id order
      */
-    Long createOrder(Order order);
+    Bill createOrderAndRentBill(Bill bill);
 
     /**
      * Select all orders
@@ -55,4 +58,12 @@ public interface OrderDao {
      */
 
     void updateReasonOrder(Long id, String reason);
+
+    /**
+     * All orders by user id
+     *
+     * @param id
+     * @return
+     */
+    List<Order> findOrderByIdUser(Long id);
 }

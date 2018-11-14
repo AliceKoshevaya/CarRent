@@ -16,10 +16,15 @@
             <div class="col-md-offset-3 col-md-6">
                 <form class="form-horizontal">
                     <span class="heading"><fmt:message key="sing.in" bundle="${lang}"/></span>
-                    <c:if test="${not empty errorMessageLogin}">
-                        <c:out value="${errorMessageLogin}"/>
+                    <c:if test="${not empty errorMessageCaptcha}">
+                        <c:out value="${errorMessageCaptcha}"/>
+                        <br>
                     </c:if>
-                    <c:out value="${errorMessage}"/>
+                    <br>
+                    <c:if test="${not empty errorMessage}">
+                        <c:out value="${errorMessage}"/>
+                        <br>
+                    </c:if>
                     <div class="form-group">
                         <input class="form-control" name="login"
                                placeholder="<fmt:message key="reg.login" bundle="${lang}"/>"/>
@@ -32,8 +37,8 @@
                         <a href="#" class="fa fa-question-circle"></a>
                     </div>
                     <div class="form-group">
-                        <img src="<c:url value="${pageContext.request.contextPath}/stickyCaptcha.png" />"><br />
-                        <input name="answer" />
+                        <img src="<c:url value="${pageContext.request.contextPath}/stickyCaptcha.png" />"><br/>
+                        <input name="answer"/>
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-default"><fmt:message key="menu.door"
@@ -41,10 +46,7 @@
                     </div>
                 </form>
             </div>
-
-        </div><!-- /.row -->
+        </div>
     </div>
-
-
 </body>
 </html>

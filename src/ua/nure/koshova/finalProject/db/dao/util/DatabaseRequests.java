@@ -25,7 +25,7 @@ public final class DatabaseRequests {
             "from cars AS c " +
             "left join brand b on c.id_brand = b.id " +
             "left join classes as cl on c.id_class = cl.id " +
-            "WHERE id_brand =?";
+            "WHERE id_brand = ?";
     public static final String SELECT_GET_CAR_BY_CLASS = "select c.id, c.name as name, c.price*cl.coeff as total, c.gov_number, c.status, b.name, cl.name " +
             "from cars AS c " +
             "left join classes cl on c.id_class = cl.id " +
@@ -65,7 +65,9 @@ public final class DatabaseRequests {
             "WHERE u.user_login=? and u.password=?";
     public static final String DELETE_USER = "DELETE FROM users WHERE id=?";
     public static final String UPDATE_USER = "UPDATE users SET third_name=?, pass_seria=?, data_pass =? WHERE id=?";
-    public static final String SET_A_MANAGER = "update users set id_role = 2 where id = ?";
+    public static final String SELECT_USER = "select id, block from users where id = ?";
+    public static final String SET_USER_ROLE_MANAGER = "update users set id_role = 2 where id = ?";
+    public static final String SELECT_USER_BY_SERIA = "select id, pass_seria from users where pass_seria = ?";
     public static final String SELECT_USER_BY_LOGIN = "select  u.id,u.user_login, u.first_name, u.last_name, u.third_name, u.pass_seria, u.data_pass, id_role " +
             "FROM users as u WHERE u.user_login=?";
     public static final String SELECT_USER_ROLE = "select r.id, r.role_name " +
@@ -74,7 +76,6 @@ public final class DatabaseRequests {
             "ON u.id_role = r.id where u.id =?";
     public static final String BLOCK_USER = "update users SET block = true where id =?";
     public static final String UNBLOCK_USER = "update users SET block = false where id =?";
-    public static final String CHECKBLOCK = "select id, block from users where id = ?";
 
     /**
      * Request to table orders

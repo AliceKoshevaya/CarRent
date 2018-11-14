@@ -4,6 +4,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.log4j.Logger;
 import ua.nure.koshova.finalProject.db.exception.CloseResourcesException;
 import ua.nure.koshova.finalProject.db.exception.DatabaseConnectionException;
+import ua.nure.koshova.finalProject.db.exception.QueryException;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -21,6 +22,8 @@ public class DatabaseUtils {
     private static final String MESSAGE_ERROR_DB_CONN = "Can't establish connection with database";
     private static final String MESSAGE_ERROR_CLOSE_RESULT_SET = "Unable to close result set";
     private static final String MESSAGE_ERROR_CLOSE_CONNECTION = "Unable to close connection";
+    private static final String MESSAGE_ERROR_IN_ROLLBACK = "Error in rollback";
+    private static final String MESSAGE_ERROR_IN_COMMIT = "Error in commit";
 
     private static BasicDataSource dataSource;
 
@@ -81,6 +84,25 @@ public class DatabaseUtils {
         } catch (SQLException e) {
             LOGGER.error(MESSAGE_ERROR_CLOSE_CONNECTION, e);
             throw new CloseResourcesException(MESSAGE_ERROR_CLOSE_CONNECTION, e);
+        }
+    }
+
+    public static void rollback(Connection connection){
+        try {
+            connection.rollback();
+        }
+        catch (SQLException e){
+            LOGGER.error(MESSAGE_ERROR_IN_ROLLBACK, e);
+            throw new QueryException(MESSAGE_ERROR_IN_ROLLBACK,e);
+        }
+    }
+    public static void commit(Connection connection){
+        try {
+            connection.commit();
+        }
+        catch (SQLException e){
+            LOGGER.error(MESSAGE_ERROR_IN_COMMIT, e);
+            throw new QueryException(MESSAGE_ERROR_IN_COMMIT,e);
         }
     }
 }

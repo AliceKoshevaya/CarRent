@@ -1,46 +1,48 @@
 package ua.nure.koshova.finalProject.service.Impl;
 
+import ua.nure.koshova.finalProject.db.dao.CarDao;
 import ua.nure.koshova.finalProject.db.dao.impl.CarDaoImpl;
 import ua.nure.koshova.finalProject.db.entity.Brand;
 import ua.nure.koshova.finalProject.db.entity.Car;
 import ua.nure.koshova.finalProject.db.entity.ClassCar;
 import ua.nure.koshova.finalProject.db.entity.Status;
+import ua.nure.koshova.finalProject.service.BrandService;
 import ua.nure.koshova.finalProject.service.CarService;
+import ua.nure.koshova.finalProject.service.ClassService;
 
 import java.util.List;
 
 public class CarServiceImpl implements CarService{
 
-
-    private CarDaoImpl carDaoImpl = CarDaoImpl.getInstance();
-    private ClassServiceImpl classServiceImpl = new ClassServiceImpl();
-    private BrandServiceImpl brandServiceImpl = new BrandServiceImpl();
+    private CarDao carDao = CarDaoImpl.getInstance();
+    private ClassService classService = new ClassServiceImpl();
+    private BrandService brandService = new BrandServiceImpl();
 
     public List<Car> getCarsList(String sortField, String sortOrder,
                                  String brandId, String classId) {
         List<Car> cars;
         if (brandId == null && classId == null) {
-            cars = carDaoImpl.findAllCars();
+            cars = carDao.findAllCars();
         } else if (brandId == null && classId != null) {
             Long classIdNum = Long.valueOf(classId);
-            cars = carDaoImpl.getCarByClass(sortField, sortOrder, classIdNum);
+            cars = carDao.getCarByClass(sortField, sortOrder, classIdNum);
         } else if (brandId != null && classId == null) {
             Long classIdNum = Long.valueOf(brandId);
-            cars = carDaoImpl.getCarByBrand(sortField, sortOrder, classIdNum);
+            cars = carDao.getCarByBrand(sortField, sortOrder, classIdNum);
         } else {
             Long brandIdNum = Long.valueOf(brandId);
             Long classIdNum = Long.valueOf(classId);
-            cars = carDaoImpl.getCarByClassBrand(sortField, sortOrder, brandIdNum, classIdNum);
+            cars = carDao.getCarByClassBrand(sortField, sortOrder, brandIdNum, classIdNum);
         }
         return cars;
     }
 
     public Car getCarById(Long id){
-        return carDaoImpl.findCarById(id);
+        return carDao.findCarById(id);
     }
 
     public void deleteCar(Long id){
-        carDaoImpl.deleteCar(id);
+        carDao.deleteCar(id);
     }
 
     public void addNewCar(String name, int price, String stateNumber, Long idBrand, Long idClass){
@@ -49,14 +51,14 @@ public class CarServiceImpl implements CarService{
         car.setPrice(price);
         car.setStateNumber(stateNumber);
         car.setStatus(Status.valueOf("NEW"));
-        Brand brand = brandServiceImpl.getBrandById(idBrand);
+        Brand brand = brandService.getBrandById(idBrand);
         car.setBrand(brand);
-        ClassCar classCar = classServiceImpl.getClassById(idClass);
+        ClassCar classCar = classService.getClassById(idClass);
         car.setClassCar(classCar);
-        carDaoImpl.createCar(car);
+        carDao.createCar(car);
     }
 
     public void updateCar(Long id ,String name, int price,String status, String stateNumber, Long idBrand, Long idClass){
-        carDaoImpl.updateCar(name,price,stateNumber,status,idBrand,idClass,id);
+        carDao.updateCar(name,price,stateNumber,status,idBrand,idClass,id);
     }
 }

@@ -14,7 +14,7 @@ public interface ClassService {
      *
      * @return {@Link List<ClassCar>}
      */
-    public List<ClassCar> getClassList();
+    List<ClassCar> getClassList();
 
     /**
      * Get class car by id
@@ -22,7 +22,7 @@ public interface ClassService {
      * @param id
      * @return {@Link ClassCar}
      */
-    public ClassCar getClassById(Long id);
+    ClassCar getClassById(Long id);
 
     /**
      * Get class car by name
@@ -30,5 +30,5 @@ public interface ClassService {
      * @param name
      * @return id caar class
      */
-    public Long getClassByName(String name);
+    Long getClassByName(String name);
 }

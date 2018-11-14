@@ -185,20 +185,7 @@ public class CarDaoImpl implements CarDao {
                      connection.prepareStatement(DatabaseRequests.SELECT_GET_CAR_BY_BRAND + order)) {
             preparedStatement.setLong(1, id);
             resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                Car car = new Car();
-                ClassCar classCar = new ClassCar();
-                car.setClassCar(classCar);
-
-                car.setId(resultSet.getLong(1));
-                car.setName(resultSet.getString(2));
-                car.setPrice(resultSet.getInt(3));
-                car.setStateNumber(resultSet.getString(4));
-                car.setStatus(Status.valueOf(resultSet.getString(5).toUpperCase()));
-
-                classCar.setName(resultSet.getString(6));
-                carList.add(car);
-            }
+            extractCarsListFromResultSet(carList, resultSet);
         } catch (SQLException ex) {
             LOGGER.error(String.format(ERROR_MESSAGE_SELECT_CAR_BY_BRAND, sortField, sortOrder, id), ex);
             throw new QueryException(String.format(ERROR_MESSAGE_SELECT_CAR_BY_BRAND, sortField, sortOrder, id), ex);
@@ -226,22 +213,7 @@ public class CarDaoImpl implements CarDao {
                      connection.prepareStatement(DatabaseRequests.SELECT_GET_CAR_BY_CLASS + order)) {
             preparedStatement.setLong(1, id);
             resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                Car c = new Car();
-                Brand brand = new Brand();
-                ClassCar classCar = new ClassCar();
-                c.setClassCar(classCar);
-                c.setBrand(brand);
-
-                c.setId(resultSet.getLong(1));
-                c.setName(resultSet.getString(2));
-                c.setPrice(resultSet.getInt(3));
-                c.setStateNumber(resultSet.getString(4));
-                c.setStatus(Status.valueOf(resultSet.getString(5).toUpperCase()));
-                brand.setName(resultSet.getString(6));
-                classCar.setName(resultSet.getString(7));
-                carList.add(c);
-            }
+            extractCarsListFromResultSet(carList, resultSet);
         } catch (SQLException ex) {
             LOGGER.error(String.format(ERROR_MESSAGE_SELECT_CAR_BY_CLASS, sortField, sortOrder, id), ex);
             throw new QueryException(String.format(ERROR_MESSAGE_SELECT_CAR_BY_CLASS, sortField, sortOrder, id), ex);
@@ -269,22 +241,7 @@ public class CarDaoImpl implements CarDao {
             preparedStatement.setLong(1, brandId);
             preparedStatement.setLong(2, classId);
             resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                Car c = new Car();
-                Brand brand = new Brand();
-                ClassCar classCar = new ClassCar();
-                c.setClassCar(classCar);
-                c.setBrand(brand);
-
-                c.setId(resultSet.getLong(1));
-                c.setName(resultSet.getString(2));
-                c.setPrice(resultSet.getInt(3));
-                c.setStateNumber(resultSet.getString(4));
-                c.setStatus(Status.valueOf(resultSet.getString(5).toUpperCase()));
-                brand.setName(resultSet.getString(6));
-                classCar.setName(resultSet.getString(7));
-                carList.add(c);
-            }
+            extractCarsListFromResultSet(carList, resultSet);
         } catch (SQLException ex) {
             LOGGER.error(String.format(ERROR_MESSAGE_SELECT_CAR_BY_CLASS_AND_BRAND, sortField, sortOrder, brandId, classId), ex);
             throw new QueryException(String.format(ERROR_MESSAGE_SELECT_CAR_BY_CLASS_AND_BRAND, sortField, sortOrder, brandId, classId), ex);
@@ -328,4 +285,23 @@ public class CarDaoImpl implements CarDao {
         return car;
     }
 
+
+    private void extractCarsListFromResultSet(List<Car> carList, ResultSet resultSet) throws SQLException {
+        while (resultSet.next()) {
+            Car c = new Car();
+            Brand brand = new Brand();
+            ClassCar classCar = new ClassCar();
+            c.setClassCar(classCar);
+            c.setBrand(brand);
+
+            c.setId(resultSet.getLong(1));
+            c.setName(resultSet.getString(2));
+            c.setPrice(resultSet.getInt(3));
+            c.setStateNumber(resultSet.getString(4));
+            c.setStatus(Status.valueOf(resultSet.getString(5).toUpperCase()));
+            brand.setName(resultSet.getString(6));
+            classCar.setName(resultSet.getString(7));
+            carList.add(c);
+        }
+    }
 }

@@ -15,8 +15,6 @@ import java.util.List;
 public class OrderDaoImpl implements OrderDao {
 
     private static final Logger LOGGER = Logger.getLogger(OrderDaoImpl.class);
-    private static volatile OrderDaoImpl instance;
-
     private static final String ERROR_MESSAGE_UPDATE_CLOSE_ORDER = "Can't update order to status closed by id (id = %d)";
     private static final String ERROR_MESSAGE_UPDATE_REASON_ORDER = "Can't update reason to reject in order by id (id = %d reason =%s)";
     private static final String ERROR_MESSAGE_UPDATE_CRASH_ORDER = "Can't update order to status crash by id (id = %d)";
@@ -24,6 +22,7 @@ public class OrderDaoImpl implements OrderDao {
     private static final String ERROR_MESSAGE_SELECT_ALL_ORDERS = "Can't select all orders";
     private static final String ERROR_MESSAGE_CREATE_ORDER = "Can't create a new order";
     private static final String ERROR_MESSAGE_SELECT_ORDER_BY_USER = "Can't select order by id (id = %d)";
+    private static volatile OrderDaoImpl instance;
 
     private OrderDaoImpl() {
 
@@ -42,38 +41,66 @@ public class OrderDaoImpl implements OrderDao {
         return localInstance;
     }
 
-    public Long createOrder(Order order) throws QueryException, CloseResourcesException {
-        Long id = null;
+    public Bill createOrderAndRentBill(Bill bill) throws QueryException, CloseResourcesException {
         Connection connection = DatabaseUtils.getConnection();
 
         ResultSet generatedKeys = null;
 
-        if (order != null) {
-            try (PreparedStatement ps =
-                         connection.prepareStatement(DatabaseRequests.INSERT_ORDER, Statement.RETURN_GENERATED_KEYS)) {
-                ps.setBoolean(1, order.isDriver());
-                ps.setString(2, order.getStatus().toString());
-                ps.setTimestamp(3, order.getStartRent());
-                ps.setTimestamp(4, order.getEndRent());
-                ps.setLong(5, order.getUser().getId());
-                ps.setLong(6, order.getCar().getId());
-                ps.executeUpdate();
+        if (bill != null && bill.getOrder() != null) {
+            try (
+                    PreparedStatement psOrder =
+                            connection.prepareStatement(DatabaseRequests.INSERT_ORDER, Statement.RETURN_GENERATED_KEYS);
+                    PreparedStatement psBill =
+                            connection.prepareStatement(DatabaseRequests.INSERT_BILL, Statement.RETURN_GENERATED_KEYS)
+            ) {
+                connection.setAutoCommit(false);
+                Order order = bill.getOrder();
 
-                generatedKeys = ps.getGeneratedKeys();
+                psOrder.setBoolean(1, order.isDriver());
+                psOrder.setString(2, order.getStatus().toString());
+                psOrder.setTimestamp(3, order.getStartRent());
+                psOrder.setTimestamp(4, order.getEndRent());
+                psOrder.setLong(5, order.getUser().getId());
+                psOrder.setLong(6, order.getCar().getId());
+                psOrder.executeUpdate();
+
+                generatedKeys = psOrder.getGeneratedKeys();
 
                 if (null != generatedKeys && generatedKeys.next()) {
-                    id = generatedKeys.getLong(1);
+                    Long idOrder = generatedKeys.getLong(1);
+                    order.setId(idOrder);
+
+                    psBill.setBoolean(1, bill.getStatus());
+                    psBill.setString(2, bill.getType());
+                    psBill.setInt(3, bill.getSum());
+                    psBill.setTimestamp(4, bill.getDate());
+                    psBill.setLong(5, idOrder);
+
+                    psBill.executeUpdate();
+
+                    generatedKeys = psBill.getGeneratedKeys();
+
+                    if (null != generatedKeys && generatedKeys.next()) {
+                        Long idBill = generatedKeys.getLong(1);
+                        bill.setId(idBill);
+                    } else {
+                        throw new SQLException("Bill was not created");
+                    }
+                } else {
+                    throw new SQLException("Order was not created");
                 }
 
             } catch (SQLException ex) {
+                DatabaseUtils.rollback(connection);
                 LOGGER.error(ERROR_MESSAGE_CREATE_ORDER, ex);
                 throw new QueryException(ERROR_MESSAGE_CREATE_ORDER, ex);
             } finally {
+                DatabaseUtils.commit(connection);
                 DatabaseUtils.closeResultSet(generatedKeys);
                 DatabaseUtils.closeConnection(connection);
             }
         }
-        return id;
+        return bill;
     }
 
     public List<Order> findAllOrders() throws QueryException, CloseResourcesException {

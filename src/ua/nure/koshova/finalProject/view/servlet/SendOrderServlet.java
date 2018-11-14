@@ -1,12 +1,17 @@
 package ua.nure.koshova.finalProject.view.servlet;
 
 import org.apache.log4j.Logger;
-import ua.nure.koshova.finalProject.db.dao.impl.CarDaoImpl;
 import ua.nure.koshova.finalProject.db.entity.Bill;
 import ua.nure.koshova.finalProject.db.entity.Car;
+import ua.nure.koshova.finalProject.db.entity.User;
+import ua.nure.koshova.finalProject.service.BillService;
+import ua.nure.koshova.finalProject.service.CarService;
 import ua.nure.koshova.finalProject.service.Impl.BillServiceImpl;
+import ua.nure.koshova.finalProject.service.Impl.CarServiceImpl;
 import ua.nure.koshova.finalProject.service.Impl.OrderServiceImpl;
 import ua.nure.koshova.finalProject.service.Impl.UserServiceImpl;
+import ua.nure.koshova.finalProject.service.OrderService;
+import ua.nure.koshova.finalProject.service.UserService;
 import ua.nure.koshova.finalProject.view.constant.Pages;
 import ua.nure.koshova.finalProject.view.util.validator.OrderValidator;
 
@@ -22,13 +27,12 @@ import java.io.IOException;
 public class SendOrderServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-
-    private OrderServiceImpl orderServiceImpl = new OrderServiceImpl();
-    private BillServiceImpl billServiceImpl = new BillServiceImpl();
-    private CarDaoImpl carsDao = CarDaoImpl.getInstance();
-    private UserServiceImpl userServiceImpl = new UserServiceImpl();
-
     private static final Logger LOGGER = Logger.getLogger(SendOrderServlet.class);
+
+    private OrderService orderService = new OrderServiceImpl();
+    private BillService billService = new BillServiceImpl();
+    private CarService carService = new CarServiceImpl();
+    private UserService userService = new UserServiceImpl();
 
     public SendOrderServlet() {
         super();
@@ -54,34 +58,26 @@ public class SendOrderServlet extends HttpServlet {
         LOGGER.debug("Got passport series parameter as " + series);
         String issued = request.getParameter("issued");
         LOGGER.debug("Got issued parameter as " + issued);
-        String errorMessage = OrderValidator.validate(driver, startRent, endRent, thirdName, series, issued);
+        User user = userService.getUserByPassportSerial(series);
+
+        String errorMessage = OrderValidator.validate(driver, startRent, endRent, thirdName, series, issued, user);
         if (!errorMessage.isEmpty()) {
+            Car car = carService.getCarById(idCar);
+            request.setAttribute("car", car);
             request.setAttribute("errorMessage", errorMessage);
             LOGGER.error("An error occurred while filling the order - " + errorMessage);
             RequestDispatcher dispatcher
                     = this.getServletContext().getRequestDispatcher(Pages.ORDER_PAGE);
             dispatcher.forward(request, response);
         } else {
-
             Long userId = Long.valueOf(userName);
-            Long idOrder = orderServiceImpl.newOrder(driver, startRent, endRent, userId, idCar);
-
-            if (!userServiceImpl.passportSeriaExist()) {
-                errorMessage = "This passport series already exists.";
-                request.setAttribute("errorMessage", errorMessage);
-                LOGGER.error("An error occurred while filling the field passport series - " + errorMessage);
-                RequestDispatcher dispatcher
-                        = this.getServletContext().getRequestDispatcher(Pages.ORDER_PAGE);
-                dispatcher.forward(request, response);
-            }else {
-                userServiceImpl.addUserInfo(userId, thirdName, series, issued);
-                Car car = carsDao.findCarById(idCar);
-                int priceCar = car.getPrice();
-                Bill bill = billServiceImpl.createBill(startRent, endRent, priceCar, idOrder);
-                Long id = bill.getId();
-                response.sendRedirect("/bill?idBill=" + id);
-            }
+            userService.addUserInfo(userId, thirdName, series, issued);
+            Car car = carService.getCarById(idCar);
+            Bill bill = orderService.newOrderAndBill(driver, startRent, endRent, userId, car);
+            Long id = bill.getId();
+            response.sendRedirect("/bill?idBill=" + id);
         }
+
     }
 }
 

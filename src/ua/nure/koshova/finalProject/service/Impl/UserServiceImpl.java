@@ -1,5 +1,7 @@
 package ua.nure.koshova.finalProject.service.Impl;
 
+import ua.nure.koshova.finalProject.db.dao.RoleDao;
+import ua.nure.koshova.finalProject.db.dao.UserDao;
 import ua.nure.koshova.finalProject.db.dao.impl.RoleDaoImpl;
 import ua.nure.koshova.finalProject.db.dao.impl.UserDaoImpl;
 import ua.nure.koshova.finalProject.db.entity.Role;
@@ -11,8 +13,8 @@ import java.util.List;
 
 public class UserServiceImpl implements UserService {
 
-    private RoleDaoImpl rolesDao = RoleDaoImpl.getInstance();
-    private UserDaoImpl usersDao = UserDaoImpl.getInstance();
+    private RoleDao rolesDao = RoleDaoImpl.getInstance();
+    private UserDao usersDao = UserDaoImpl.getInstance();
 
 
     public User createNewUser(String login,
@@ -74,15 +76,8 @@ public class UserServiceImpl implements UserService {
         return usersDao.findUserById(id);
     }
 
-    public boolean passportSeriaExist(){
-        boolean isExists = true;
-        List<User> list= usersDao.findAllUsers();
-        for (User user: list) {
-            if(user.getSeria()!= null){
-                return false;
-            }
-        }
-        return isExists;
+    public User getUserByPassportSerial(String seria){
+        return usersDao.findUserByPassportSeria(seria);
     }
 
 }

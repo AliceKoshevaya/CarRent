@@ -30,6 +30,8 @@
                     <fmt:message key="menu.drop" bundle="${lang}"/>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/info"><fmt:message key="menu.info"
+                                                                                                         bundle="${lang}"/></a>
                     <c:choose>
                         <c:when test="${sessionScope.user.role.name == 'manager'}">
                             <a class="dropdown-item" href="${pageContext.request.contextPath}/ordersList"><fmt:message
@@ -39,10 +41,6 @@
                             <a class="dropdown-item" href="${pageContext.request.contextPath}/userList"><fmt:message
                                     key="menu.users" bundle="${lang}"/></a>
                         </c:when>
-                        <c:otherwise>
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/info"><fmt:message key="menu.info"
-                                                                                                                 bundle="${lang}"/></a>
-                        </c:otherwise>
                     </c:choose>
                 </div>
             </li>

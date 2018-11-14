@@ -25,6 +25,8 @@ public class CarServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = Logger.getLogger(CarServlet.class);
+    private static String PARAM_FILTER_NOOP = "all";
+
     private CarServiceImpl carServiceImpl = new CarServiceImpl();
     private BrandServiceImpl brandServiceImpl = new BrandServiceImpl();
     private ClassServiceImpl classServiceImpl = new ClassServiceImpl();
@@ -74,7 +76,12 @@ public class CarServlet extends HttpServlet {
             sortOrder = keyValue[0];
         }
 
-        List<Car> allCar = carServiceImpl.getCarsList(sortField, sortOrder, brandId, classId);
+        List<Car> allCar = carServiceImpl.getCarsList(
+                sortField,
+                sortOrder,
+                PARAM_FILTER_NOOP.equals(brandId) ? null : brandId,
+                PARAM_FILTER_NOOP.equals(classId) ? null : classId
+        );
         request.setAttribute("cars", allCar);
 
         RequestDispatcher dispatcher = request.getServletContext()
