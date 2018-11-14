@@ -2,7 +2,7 @@ package ua.nure.koshova.finalProject.view.servlet;
 
 import org.apache.log4j.Logger;
 import ua.nure.koshova.finalProject.db.entity.Car;
-import ua.nure.koshova.finalProject.service.CarService;
+import ua.nure.koshova.finalProject.service.Impl.CarServiceImpl;
 import ua.nure.koshova.finalProject.view.constant.Pages;
 
 import javax.servlet.RequestDispatcher;
@@ -20,7 +20,7 @@ public class OrderServlet extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(OrderServlet.class);
 
-    private CarService carService = new CarService();
+    private CarServiceImpl carServiceImpl = new CarServiceImpl();
 
     public OrderServlet() {
         super();
@@ -40,7 +40,7 @@ public class OrderServlet extends HttpServlet {
             response.sendRedirect("ErrorPage.jsp");
             return;
         }
-        Car car = carService.getCarById(idCar);
+        Car car = carServiceImpl.getCarById(idCar);
         request.setAttribute("car", car);
         RequestDispatcher dispatcher
                 = this.getServletContext().getRequestDispatcher(Pages.ORDER_PAGE);

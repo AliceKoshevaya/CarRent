@@ -1,6 +1,6 @@
 package ua.nure.koshova.finalProject.view.servlet.admin;
 
-import ua.nure.koshova.finalProject.service.UserService;
+import ua.nure.koshova.finalProject.service.Impl.UserServiceImpl;
 import ua.nure.koshova.finalProject.view.util.right.RightChecker;
 
 import javax.servlet.ServletException;
@@ -15,7 +15,7 @@ public class MakeManagerServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private UserService userService = new UserService();
+    private UserServiceImpl userServiceImpl = new UserServiceImpl();
 
     public MakeManagerServlet() {
         super();
@@ -30,7 +30,7 @@ public class MakeManagerServlet extends HttpServlet {
         }
         String stringIdUser = request.getParameter("idUser");
         Long idUser = Long.valueOf(stringIdUser);
-        userService.makeManager(idUser);
+        userServiceImpl.makeManager(idUser);
         response.sendRedirect("/userList");
     }
 }

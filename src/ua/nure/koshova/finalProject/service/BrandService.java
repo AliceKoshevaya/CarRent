@@ -1,22 +1,36 @@
 package ua.nure.koshova.finalProject.service;
 
-import ua.nure.koshova.finalProject.db.dao.impl.BrandDao;
 import ua.nure.koshova.finalProject.db.entity.Brand;
 
 import java.util.List;
 
-public class BrandService {
+/**
+ * Interface for common brand actions
+ */
+public interface BrandService {
 
-    private BrandDao brandDao  = BrandDao.getInstance();
+    /**
+     * Get all brand
+     *
+     * @return {@Link List<Brand}
+     */
+    public List<Brand> getBrandList();
 
-    public List<Brand> getBrandList() {
-        return brandDao.findAllBrands();
-    }
+    /**
+     * Get brand by id
+     *
+     * @param id
+     * @return {@Link Brand}
+     */
 
-    public Brand getBrandById(Long id){
-        return brandDao.getBrandById(id);
-    }
-    public Long getBrandByName(String name){
-        return brandDao.getBrandByName(name);
-    }
+    public Brand getBrandById(Long id);
+
+    /**
+     * Get brand by name
+     *
+     * @param name
+     * @return id brand
+     */
+
+    public Long getBrandByName(String name);
 }

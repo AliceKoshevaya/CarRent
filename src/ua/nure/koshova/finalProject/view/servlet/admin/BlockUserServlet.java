@@ -2,7 +2,7 @@ package ua.nure.koshova.finalProject.view.servlet.admin;
 
 import org.apache.log4j.Logger;
 import ua.nure.koshova.finalProject.db.entity.User;
-import ua.nure.koshova.finalProject.service.UserService;
+import ua.nure.koshova.finalProject.service.Impl.UserServiceImpl;
 import ua.nure.koshova.finalProject.view.constant.Pages;
 import ua.nure.koshova.finalProject.view.util.right.RightChecker;
 
@@ -20,7 +20,7 @@ public class BlockUserServlet extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(BlockUserServlet.class);
 
-    private UserService userService = new UserService();
+    private UserServiceImpl userServiceImpl = new UserServiceImpl();
 
     public BlockUserServlet() {
         super();
@@ -36,11 +36,11 @@ public class BlockUserServlet extends HttpServlet {
         String stringIdUser = request.getParameter("idUser");
         LOGGER.debug("Got idUser parameter as " + stringIdUser);
         Long numIdUser = Long.valueOf(stringIdUser);
-        User user = userService.checkBlockUser(numIdUser);
+        User user = userServiceImpl.checkBlockUser(numIdUser);
         if(user.isBlock()){
-            userService.unblockUser(numIdUser);
+            userServiceImpl.unblockUser(numIdUser);
         }else {
-            userService.blockUser(numIdUser);
+            userServiceImpl.blockUser(numIdUser);
         }
         response.sendRedirect("/userList");
     }

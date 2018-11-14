@@ -2,9 +2,9 @@ package ua.nure.koshova.finalProject.view.servlet.admin;
 
 import ua.nure.koshova.finalProject.db.entity.Car;
 import ua.nure.koshova.finalProject.db.entity.Status;
-import ua.nure.koshova.finalProject.service.BrandService;
-import ua.nure.koshova.finalProject.service.CarService;
-import ua.nure.koshova.finalProject.service.ClassService;
+import ua.nure.koshova.finalProject.service.Impl.BrandServiceImpl;
+import ua.nure.koshova.finalProject.service.Impl.CarServiceImpl;
+import ua.nure.koshova.finalProject.service.Impl.ClassServiceImpl;
 import ua.nure.koshova.finalProject.view.constant.Pages;
 import ua.nure.koshova.finalProject.view.util.right.RightChecker;
 
@@ -21,9 +21,9 @@ public class EditACarServlet extends HttpServlet{
 
     private static final long serialVersionUID = 1L;
 
-    private CarService carService = new CarService();
-    private BrandService brandService = new BrandService();
-    private ClassService classService = new ClassService();
+    private CarServiceImpl carServiceImpl = new CarServiceImpl();
+    private BrandServiceImpl brandServiceImpl = new BrandServiceImpl();
+    private ClassServiceImpl classServiceImpl = new ClassServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -40,11 +40,11 @@ public class EditACarServlet extends HttpServlet{
         Integer priceForCar = Integer.valueOf(price);
         String stateNumber = request.getParameter("stateNumber");
         String brand = request.getParameter("brand");
-        Long idBrand = brandService.getBrandByName(brand);
+        Long idBrand = brandServiceImpl.getBrandByName(brand);
         String classCar = request.getParameter("class");
-        Long idClass = classService.getClassByName(classCar);
+        Long idClass = classServiceImpl.getClassByName(classCar);
         String status = request.getParameter("status");
-        carService.updateCar(idCar,carName,priceForCar,status,stateNumber,idBrand,idClass);
+        carServiceImpl.updateCar(idCar,carName,priceForCar,status,stateNumber,idBrand,idClass);
         response.sendRedirect("/carList");
 
     }
@@ -54,7 +54,7 @@ public class EditACarServlet extends HttpServlet{
             throws ServletException, IOException {
         String stringIdCar = request.getParameter("carId");
         Long idCar = Long.valueOf(stringIdCar);
-        Car car = carService.getCarById(idCar);
+        Car car = carServiceImpl.getCarById(idCar);
         request.setAttribute("car", car);
         request.setAttribute("statuses", Status.values());
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(Pages.EDIT_A_CAR_PAGE);

@@ -1,5 +1,5 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="../views/fspf/include.jspf" %>
+<%@include file="../views/jspf/include.jspf" %>
 <!DOCTYPE html>
 <html>
 <head>

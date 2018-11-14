@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 import ua.nure.koshova.finalProject.db.entity.Role;
 import ua.nure.koshova.finalProject.db.entity.Roles;
 import ua.nure.koshova.finalProject.db.entity.User;
-import ua.nure.koshova.finalProject.service.UserService;
+import ua.nure.koshova.finalProject.service.Impl.UserServiceImpl;
 import ua.nure.koshova.finalProject.view.constant.Pages;
 import ua.nure.koshova.finalProject.view.util.right.RightChecker;
 import ua.nure.koshova.finalProject.view.util.validator.AuthorizationValidator;
@@ -23,7 +23,7 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = Logger.getLogger(LoginServlet.class);
-    private UserService userService = new UserService();
+    private UserServiceImpl userServiceImpl = new UserServiceImpl();
 
     public LoginServlet() {
         super();
@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
         // login params
         String errorMessage = AuthorizationValidator.validate(
                 login,
-                userService.getUserByLogin(login),
+                userServiceImpl.getUserByLogin(login),
                 password
         );
 
@@ -65,13 +65,13 @@ public class LoginServlet extends HttpServlet {
             request.setAttribute("errorMessage", errorMessage);
             request.getRequestDispatcher(Pages.LOGIN_PAGE).forward(request, response);
         } else {
-            User user = userService.registeredUser(login, password);
+            User user = userServiceImpl.registeredUser(login, password);
             if(user.getName() == null) {
                 String errorMessageLogin = "User does not exist";
                 request.setAttribute("errorMessageLogin", errorMessageLogin);
                 request.getRequestDispatcher(Pages.LOGIN_PAGE).forward(request, response);
             }
-            Role role = userService.getUserRole(user.getId());
+            Role role = userServiceImpl.getUserRole(user.getId());
             user.setRole(role);
             request.getSession().setAttribute(RightChecker.ATTRIBUTE_USER, user);
 

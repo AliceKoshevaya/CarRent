@@ -1,5 +1,5 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="../views/fspf/include.jspf" %>
+<%@include file="../views/jspf/include.jspf" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,10 +15,8 @@
     <div class="row main-form">
         <form method="POST" action="${pageContext.request.contextPath}/registration">
             <div class="form-group">
-                <c:if test="${not empty errorMessageLogin}">
-                    <c:out value="${errorMessageLogin}"/>
-                </c:if>
                 <c:out value="${errorMessage}"></c:out>
+                <p></p>
                 <label for="name" class="cols-sm-2 control-label"> <fmt:message key="reg.login"
                                                                                 bundle="${lang}"/></label>
                 <div class="cols-sm-10">

@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="../views/fspf/include.jspf" %>
+<%@include file="../views/jspf/include.jspf" %>
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -21,17 +21,25 @@
         <label><fmt:message key="select.brand" bundle="${lang}"/></label>
         <select id="select1" name="selectBrand">
             <c:forEach items="${brands}" var="brand">
+                <option value="all">All</option>
                 <option value="${brand.id}">${brand.name}</option>
             </c:forEach>
         </select>
+        <script type="text/javascript">
+            document.getElementById('name').value = "<?php echo $_GET['select1'];?>";
+        </script>
     </div>
     <div class="col-lg-3 center-block">
         <label><fmt:message key="select.class" bundle="${lang}"/></label>
         <select id="select2" name="selectClass">
             <c:forEach items="${classes}" var="clazz">
+                <option value="all">All</option>
                 <option value="${clazz.id}">${clazz.name}</option>
             </c:forEach>
         </select>
+        <script type="text/javascript">
+            document.getElementById('name').value = "<?php echo $_GET['select2'];?>";
+        </script>
     </div>
     <div class="col-lg-3 center-block">
         <select id="select3" name="selectSort">
@@ -40,6 +48,9 @@
             <option value="ASC:name"><fmt:message key="asc.name" bundle="${lang}"/></option>
             <option value="DESC:name"><fmt:message key="desc.name" bundle="${lang}"/></option>
         </select>
+        <script type="text/javascript">
+            document.getElementById('name').value = "<?php echo $_GET['select3'];?>";
+        </script>
     </div>
     <div class="col-lg-3 center-block">
         <button type="submit" class="btn btn-default"><fmt:message key="car.apply" bundle="${lang}"/></button>

@@ -2,7 +2,7 @@ package ua.nure.koshova.finalProject.db.dao.impl;
 
 
 import org.apache.log4j.Logger;
-import ua.nure.koshova.finalProject.db.dao.ICarDao;
+import ua.nure.koshova.finalProject.db.dao.CarDao;
 import ua.nure.koshova.finalProject.db.dao.util.DatabaseRequests;
 import ua.nure.koshova.finalProject.db.dao.util.DatabaseUtils;
 import ua.nure.koshova.finalProject.db.entity.Brand;
@@ -16,10 +16,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CarDao implements ICarDao {
+public class CarDaoImpl implements CarDao {
 
 
-    private static final Logger LOGGER = Logger.getLogger(CarDao.class);
+    private static final Logger LOGGER = Logger.getLogger(CarDaoImpl.class);
 
     private static final String ERROR_MESSAGE_GET_CAR_BY_ID = "Can't select car by id (id = %d)";
     private static final String ERROR_MESSAGE_SELECT_CAR_BY_CLASS_AND_BRAND = "Can't select car by id (sortField = %s sortOrder = %s idBrand%d idClass%d)";
@@ -29,19 +29,19 @@ public class CarDao implements ICarDao {
     private static final String ERROR_MESSAGE_DELETE_CAR = "Can't delete a car";
     private static final String ERROR_MESSAGE_UPDATE_CAR = "Can't update a new car";
     private static final String ERROR_MESSAGE_SELECT_ALL_CARS = "Can't select all cars";
-    private static volatile CarDao instance;
+    private static volatile CarDaoImpl instance;
 
-    private CarDao() {
+    private CarDaoImpl() {
 
     }
 
-    public static CarDao getInstance() {
-        CarDao localInstance = instance;
+    public static CarDaoImpl getInstance() {
+        CarDaoImpl localInstance = instance;
         if (localInstance == null) {
-            synchronized (CarDao.class) {
+            synchronized (CarDaoImpl.class) {
                 localInstance = instance;
                 if (localInstance == null) {
-                    instance = localInstance = new CarDao();
+                    instance = localInstance = new CarDaoImpl();
                 }
             }
         }

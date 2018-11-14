@@ -2,7 +2,7 @@ package ua.nure.koshova.finalProject.db.dao;
 
 import ua.nure.koshova.finalProject.db.entity.Role;
 
-public interface IRoleDao {
+public interface RoleDao {
 
     /**
      * Select role by name

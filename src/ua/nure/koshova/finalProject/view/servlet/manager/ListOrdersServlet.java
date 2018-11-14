@@ -1,7 +1,7 @@
 package ua.nure.koshova.finalProject.view.servlet.manager;
 
 import ua.nure.koshova.finalProject.db.entity.Order;
-import ua.nure.koshova.finalProject.service.OrderService;
+import ua.nure.koshova.finalProject.service.Impl.OrderServiceImpl;
 import ua.nure.koshova.finalProject.view.constant.Pages;
 import ua.nure.koshova.finalProject.view.util.right.RightChecker;
 
@@ -19,7 +19,7 @@ public class ListOrdersServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private OrderService orderService = new OrderService();
+    private OrderServiceImpl orderServiceImpl = new OrderServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -28,7 +28,7 @@ public class ListOrdersServlet extends HttpServlet {
             response.sendRedirect(Pages.ERROR_PAGE_NOT_ENOUGH_RIGTH);
             return;
         }
-        List<Order> allOrders = orderService.getOrderList();
+        List<Order> allOrders = orderServiceImpl.getOrderList();
         request.setAttribute("orders", allOrders);
 
         RequestDispatcher dispatcher = request.getServletContext()

@@ -5,7 +5,7 @@ import ua.nure.koshova.finalProject.db.entity.Order;
 
 import java.util.List;
 
-public interface IOrderDao {
+public interface OrderDao {
 
     /**
      * Create a new order

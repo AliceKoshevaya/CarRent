@@ -1,7 +1,7 @@
 package ua.nure.koshova.finalProject.db.dao.impl;
 
 import org.apache.log4j.Logger;
-import ua.nure.koshova.finalProject.db.dao.IUserDao;
+import ua.nure.koshova.finalProject.db.dao.UserDao;
 import ua.nure.koshova.finalProject.db.dao.util.DatabaseRequests;
 import ua.nure.koshova.finalProject.db.dao.util.DatabaseUtils;
 import ua.nure.koshova.finalProject.db.entity.Role;
@@ -13,9 +13,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDao implements IUserDao {
+public class UserDaoImpl implements UserDao {
 
-    private static final Logger LOGGER = Logger.getLogger(UserDao.class);
+    private static final Logger LOGGER = Logger.getLogger(UserDaoImpl.class);
     private static final String ERROR_MESSAGE_SELECT_USER = "Can't select user by id (id = %d)";
     private static final String ERROR_MESSAGE_SELECT_USER_BY_LOGIN = "Can't select user by login (login = %s)";
     private static final String ERROR_MESSAGE_UPDATE_USER = "Can't update user details by id(id = %d)";
@@ -27,19 +27,19 @@ public class UserDao implements IUserDao {
     private static final String ERROR_MESSAGE_CREATE_USER = "Can't create a new user";
     private static final String ERROR_MESSAGE_DELETE_USER = "Can't delete a user";
     private static final String ERROR_MESSAGE_SELECT_ALL_USERS = "Can't select all users";
-    private static volatile UserDao instance;
+    private static volatile UserDaoImpl instance;
 
-    private UserDao() {
+    private UserDaoImpl() {
 
     }
 
-    public static UserDao getInstance() {
-        UserDao localInstance = instance;
+    public static UserDaoImpl getInstance() {
+        UserDaoImpl localInstance = instance;
         if (localInstance == null) {
-            synchronized (CarDao.class) {
+            synchronized (CarDaoImpl.class) {
                 localInstance = instance;
                 if (localInstance == null) {
-                    instance = localInstance = new UserDao();
+                    instance = localInstance = new UserDaoImpl();
                 }
             }
         }

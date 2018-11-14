@@ -1,14 +1,8 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ajiek
-  Date: 05.11.2018
-  Time: 22:31
-  To change this template use File | Settings | File Templates.
---%>
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="../views/fspf/include.jspf" %>
+<%@include file="../views/jspf/include.jspf" %>
 <html>
 <head>
     <title>Edit a car</title>

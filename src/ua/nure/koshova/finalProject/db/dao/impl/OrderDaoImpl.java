@@ -1,7 +1,7 @@
 package ua.nure.koshova.finalProject.db.dao.impl;
 
 import org.apache.log4j.Logger;
-import ua.nure.koshova.finalProject.db.dao.IOrderDao;
+import ua.nure.koshova.finalProject.db.dao.OrderDao;
 import ua.nure.koshova.finalProject.db.dao.util.DatabaseRequests;
 import ua.nure.koshova.finalProject.db.dao.util.DatabaseUtils;
 import ua.nure.koshova.finalProject.db.entity.*;
@@ -12,10 +12,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderDao implements IOrderDao {
+public class OrderDaoImpl implements OrderDao {
 
-    private static final Logger LOGGER = Logger.getLogger(OrderDao.class);
-    private static volatile OrderDao instance;
+    private static final Logger LOGGER = Logger.getLogger(OrderDaoImpl.class);
+    private static volatile OrderDaoImpl instance;
 
     private static final String ERROR_MESSAGE_UPDATE_CLOSE_ORDER = "Can't update order to status closed by id (id = %d)";
     private static final String ERROR_MESSAGE_UPDATE_REASON_ORDER = "Can't update reason to reject in order by id (id = %d reason =%s)";
@@ -25,17 +25,17 @@ public class OrderDao implements IOrderDao {
     private static final String ERROR_MESSAGE_CREATE_ORDER = "Can't create a new order";
     private static final String ERROR_MESSAGE_SELECT_ORDER_BY_USER = "Can't select order by id (id = %d)";
 
-    private OrderDao() {
+    private OrderDaoImpl() {
 
     }
 
-    public static OrderDao getInstance() {
-        OrderDao localInstance = instance;
+    public static OrderDaoImpl getInstance() {
+        OrderDaoImpl localInstance = instance;
         if (localInstance == null) {
-            synchronized (CarDao.class) {
+            synchronized (CarDaoImpl.class) {
                 localInstance = instance;
                 if (localInstance == null) {
-                    instance = localInstance = new OrderDao();
+                    instance = localInstance = new OrderDaoImpl();
                 }
             }
         }
@@ -170,7 +170,7 @@ public class OrderDao implements IOrderDao {
                      connection.prepareStatement(DatabaseRequests.SELECT_ORDER_BY_ID_USER)) {
             preparedStatement.setLong(1, id);
             resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 Order order = new Order();
                 order.setDriver(resultSet.getBoolean(1));
                 order.setStatus(OrderStatus.valueOf(resultSet.getString(2).toUpperCase()));

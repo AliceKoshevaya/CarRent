@@ -1,12 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ajiek
-  Date: 25.10.2018
-  Time: 21:46
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="../views/fspf/include.jspf" %>
+<%@include file="../views/jspf/include.jspf" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,12 +9,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <meta charset="UTF-8">
     <title>User Info</title>
-    <style> h4 {
-        text-align: left;
-    }</style>
 </head>
 <jsp:include page="header.jsp"/>
-<tr>
     <form method="POST" action="${pageContext.request.contextPath}/userInfo">
         <c:choose>
         <c:when test="${empty sessionScope.user }">
@@ -45,7 +34,7 @@
             <fmt:message key="user.lastName" bundle="${lang}"/> <b>${sessionScope.user.lastName } </b>
             <br>
             <fmt:message key="user.login" bundle="${lang}"/> <b>${sessionScope.user.login}</b>
-
+<br>
             <h5><u>You orders</u></h5>
             <table>
                 <tr>
@@ -65,7 +54,8 @@
                 </c:forEach>
             </table>
         </div>
-        <p>Dear customer, if the order is in the New status,wait for the confirmation call.If the car was found damaged when returning to the parking lot, you will be billed for crash.</p>
+            <br>
+        <p style="color: darkred" align="center">Dear customer, if the order is in the New status,wait for the confirmation call.If the car was found damaged when returning to the parking lot, you will be billed for crash.</p>
 
     </form>
     </c:when>

@@ -4,7 +4,7 @@ import ua.nure.koshova.finalProject.db.entity.Car;
 
 import java.util.List;
 
-public interface ICarDao {
+public interface CarDao {
 
     /**
      * Create a new car

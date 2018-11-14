@@ -1,7 +1,7 @@
 package ua.nure.koshova.finalProject.db.dao.impl;
 
 import org.apache.log4j.Logger;
-import ua.nure.koshova.finalProject.db.dao.IBrandDao;
+import ua.nure.koshova.finalProject.db.dao.BrandDao;
 import ua.nure.koshova.finalProject.db.dao.util.DatabaseRequests;
 import ua.nure.koshova.finalProject.db.dao.util.DatabaseUtils;
 import ua.nure.koshova.finalProject.db.entity.Brand;
@@ -16,28 +16,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class BrandDao implements IBrandDao {
+public class BrandDaoImpl implements BrandDao {
 
-    private static volatile BrandDao instance;
+    private static volatile BrandDaoImpl instance;
 
-    private static final Logger LOGGER = Logger.getLogger(BrandDao.class);
+    private static final Logger LOGGER = Logger.getLogger(BrandDaoImpl.class);
 
     private static final String ERROR_MESSAGE_SELECT_BRAND_BY_NAME = "Can't select car brand by name (name = %s)";
     private static final String ERROR_MESSAGE_SELECT_BRAND = "Can't select brand car by id (id = %d)";
     private static final String ERROR_MESSAGE_SELECT_ALL_BRANDS = "Can't select all brand ";
 
 
-    private BrandDao() {
+    private BrandDaoImpl() {
 
     }
 
-    public static BrandDao getInstance() {
-        BrandDao localInstance = instance;
+    public static BrandDaoImpl getInstance() {
+        BrandDaoImpl localInstance = instance;
         if (localInstance == null) {
-            synchronized (BrandDao.class) {
+            synchronized (BrandDaoImpl.class) {
                 localInstance = instance;
                 if (localInstance == null) {
-                    instance = localInstance = new BrandDao();
+                    instance = localInstance = new BrandDaoImpl();
                 }
             }
         }

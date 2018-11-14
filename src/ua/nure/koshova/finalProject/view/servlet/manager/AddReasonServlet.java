@@ -1,7 +1,7 @@
 package ua.nure.koshova.finalProject.view.servlet.manager;
 
 import org.apache.log4j.Logger;
-import ua.nure.koshova.finalProject.service.OrderService;
+import ua.nure.koshova.finalProject.service.Impl.OrderServiceImpl;
 import ua.nure.koshova.finalProject.view.constant.Pages;
 import ua.nure.koshova.finalProject.view.util.right.RightChecker;
 
@@ -19,7 +19,7 @@ public class AddReasonServlet extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(AddReasonServlet.class);
 
-    private OrderService orderService = new OrderService();
+    private OrderServiceImpl orderServiceImpl = new OrderServiceImpl();
 
     public AddReasonServlet() {
         super();
@@ -37,7 +37,7 @@ public class AddReasonServlet extends HttpServlet {
         Long numIdOrder = Long.valueOf(idOrderString);
         String reason = request.getParameter("comment");
         LOGGER.debug("Got reason for reject order parameter as " + reason);
-        orderService.updateReason(numIdOrder,reason);
+        orderServiceImpl.updateReason(numIdOrder,reason);
         response.sendRedirect("/ordersList");
     }
 }

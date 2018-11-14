@@ -1,12 +1,12 @@
 package ua.nure.koshova.finalProject.view.servlet;
 
 import org.apache.log4j.Logger;
-import ua.nure.koshova.finalProject.db.dao.impl.CarDao;
+import ua.nure.koshova.finalProject.db.dao.impl.CarDaoImpl;
 import ua.nure.koshova.finalProject.db.entity.Bill;
 import ua.nure.koshova.finalProject.db.entity.Car;
-import ua.nure.koshova.finalProject.service.BillService;
-import ua.nure.koshova.finalProject.service.OrderService;
-import ua.nure.koshova.finalProject.service.UserService;
+import ua.nure.koshova.finalProject.service.Impl.BillServiceImpl;
+import ua.nure.koshova.finalProject.service.Impl.OrderServiceImpl;
+import ua.nure.koshova.finalProject.service.Impl.UserServiceImpl;
 import ua.nure.koshova.finalProject.view.constant.Pages;
 import ua.nure.koshova.finalProject.view.util.validator.OrderValidator;
 
@@ -23,10 +23,10 @@ public class SendOrderServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private OrderService orderService = new OrderService();
-    private BillService billService = new BillService();
-    private CarDao carsDao = CarDao.getInstance();
-    private UserService userService = new UserService();
+    private OrderServiceImpl orderServiceImpl = new OrderServiceImpl();
+    private BillServiceImpl billServiceImpl = new BillServiceImpl();
+    private CarDaoImpl carsDao = CarDaoImpl.getInstance();
+    private UserServiceImpl userServiceImpl = new UserServiceImpl();
 
     private static final Logger LOGGER = Logger.getLogger(SendOrderServlet.class);
 
@@ -57,21 +57,30 @@ public class SendOrderServlet extends HttpServlet {
         String errorMessage = OrderValidator.validate(driver, startRent, endRent, thirdName, series, issued);
         if (!errorMessage.isEmpty()) {
             request.setAttribute("errorMessage", errorMessage);
+            LOGGER.error("An error occurred while filling the order - " + errorMessage);
             RequestDispatcher dispatcher
                     = this.getServletContext().getRequestDispatcher(Pages.ORDER_PAGE);
             dispatcher.forward(request, response);
         } else {
 
             Long userId = Long.valueOf(userName);
-            Long idOrder = orderService.newOrder(driver, startRent, endRent, userId, idCar);
+            Long idOrder = orderServiceImpl.newOrder(driver, startRent, endRent, userId, idCar);
 
-            userService.addUserInfo(userId, thirdName, series, issued);
-
-            Car car = carsDao.findCarById(idCar);
-            int priceCar = car.getPrice();
-            Bill bill = billService.createBill(startRent, endRent, priceCar, idOrder);
-            Long id = bill.getId();
-            response.sendRedirect("/bill?idBill=" + id);
+            if (!userServiceImpl.passportSeriaExist()) {
+                errorMessage = "This passport series already exists.";
+                request.setAttribute("errorMessage", errorMessage);
+                LOGGER.error("An error occurred while filling the field passport series - " + errorMessage);
+                RequestDispatcher dispatcher
+                        = this.getServletContext().getRequestDispatcher(Pages.ORDER_PAGE);
+                dispatcher.forward(request, response);
+            }else {
+                userServiceImpl.addUserInfo(userId, thirdName, series, issued);
+                Car car = carsDao.findCarById(idCar);
+                int priceCar = car.getPrice();
+                Bill bill = billServiceImpl.createBill(startRent, endRent, priceCar, idOrder);
+                Long id = bill.getId();
+                response.sendRedirect("/bill?idBill=" + id);
+            }
         }
     }
 }

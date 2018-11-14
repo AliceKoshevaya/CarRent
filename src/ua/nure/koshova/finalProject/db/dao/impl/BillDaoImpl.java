@@ -1,7 +1,7 @@
 package ua.nure.koshova.finalProject.db.dao.impl;
 
 import org.apache.log4j.Logger;
-import ua.nure.koshova.finalProject.db.dao.IBillDao;
+import ua.nure.koshova.finalProject.db.dao.BillDao;
 import ua.nure.koshova.finalProject.db.dao.util.DatabaseRequests;
 import ua.nure.koshova.finalProject.db.dao.util.DatabaseUtils;
 import ua.nure.koshova.finalProject.db.entity.Bill;
@@ -13,26 +13,26 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BillDao implements IBillDao {
+public class BillDaoImpl implements BillDao {
 
-    private static final Logger LOGGER = Logger.getLogger(BillDao.class);
-    private static volatile BillDao instance;
+    private static final Logger LOGGER = Logger.getLogger(BillDaoImpl.class);
+    private static volatile BillDaoImpl instance;
 
     private static final String ERROR_MESSAGE_UPDATE_BILL = "Can't update user bill (id = %d)";
     private static final String ERROR_MESSAGE_SELECT_BILL_BY_ORDER = "Can't select user bill by order id (id = %d)";
     private static final String ERROR_MESSAGE_INSERT_BILL = "Unable to perform operation insert bill ";
     private static final String ERROR_MESSAGE_SELECT_BILL = "Can't select user bill (id = %d)";
 
-    private BillDao() {
+    private BillDaoImpl() {
     }
 
-    public static BillDao getInstance() {
-        BillDao localInstance = instance;
+    public static BillDaoImpl getInstance() {
+        BillDaoImpl localInstance = instance;
         if (localInstance == null) {
-            synchronized (BillDao.class) {
+            synchronized (BillDaoImpl.class) {
                 localInstance = instance;
                 if (localInstance == null) {
-                    instance = localInstance = new BillDao();
+                    instance = localInstance = new BillDaoImpl();
                 }
             }
         }

@@ -1,7 +1,7 @@
 package ua.nure.koshova.finalProject.view.servlet;
 
 import org.apache.log4j.Logger;
-import ua.nure.koshova.finalProject.db.dao.impl.BillDao;
+import ua.nure.koshova.finalProject.db.dao.impl.BillDaoImpl;
 import ua.nure.koshova.finalProject.db.entity.Bill;
 import ua.nure.koshova.finalProject.view.constant.Pages;
 
@@ -20,7 +20,7 @@ public class BillServlet extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(BillServlet.class);
 
-    private BillDao billDao = BillDao.getInstance();
+    private BillDaoImpl billDaoImpl = BillDaoImpl.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -28,7 +28,7 @@ public class BillServlet extends HttpServlet {
         String id = request.getParameter("idBill");
         LOGGER.debug("Got id bill parameter as " + id);
         Long idBill = Long.valueOf(id);
-        billDao.updateBill(idBill);
+        billDaoImpl.updateBill(idBill);
         response.sendRedirect("/bill?idBill=" + idBill);
     }
 
@@ -37,7 +37,7 @@ public class BillServlet extends HttpServlet {
             throws ServletException, IOException {
         String stringIdBill = request.getParameter("idBill");
         Long idBill = Long.valueOf(stringIdBill);
-        Bill bill = billDao.findBillById(idBill);
+        Bill bill = billDaoImpl.findBillById(idBill);
         request.setAttribute("bill", bill);
         RequestDispatcher dispatcher
                 = this.getServletContext().getRequestDispatcher(Pages.BILL_PAGE);

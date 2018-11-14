@@ -1,7 +1,7 @@
 package ua.nure.koshova.finalProject.view.servlet;
 
 import org.apache.log4j.Logger;
-import ua.nure.koshova.finalProject.service.UserService;
+import ua.nure.koshova.finalProject.service.Impl.UserServiceImpl;
 import ua.nure.koshova.finalProject.view.constant.Pages;
 import ua.nure.koshova.finalProject.view.util.validator.RegistrationValidator;
 
@@ -18,7 +18,7 @@ public class RegistrationServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private UserService userService = new UserService();
+    private UserServiceImpl userServiceImpl = new UserServiceImpl();
 
     private static final Logger LOGGER = Logger.getLogger(RegistrationServlet.class);
 
@@ -48,14 +48,13 @@ public class RegistrationServlet extends HttpServlet {
         LOGGER.debug("Got user last name parameter as " + lastName);
         String thirdName = request.getParameter("tname");
         LOGGER.debug("Got user third name parameter as " + thirdName);
-        String errorMessage = RegistrationValidator.validate(login,null,password,name,lastName);
+        String errorMessage = RegistrationValidator.validate(login, userServiceImpl.getUserByLogin(login),password,name,lastName);
         if (!errorMessage.isEmpty()) {
             request.setAttribute("errorMessage", errorMessage);
+            request.getRequestDispatcher(Pages.REG_PAGE).forward(request, response);
+        }else {
+            userServiceImpl.createNewUser(login, password, name, lastName, thirdName);
+            response.sendRedirect("/login");
         }
-
-        userService.createNewUser(login, password, name, lastName, thirdName);
-        RequestDispatcher dispatcher
-                = this.getServletContext().getRequestDispatcher(Pages.LOGIN_PAGE);
-        dispatcher.forward(request, response);
     }
 }

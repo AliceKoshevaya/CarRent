@@ -1,7 +1,7 @@
 package ua.nure.koshova.finalProject.db.dao.impl;
 
 import org.apache.log4j.Logger;
-import ua.nure.koshova.finalProject.db.dao.IClassDao;
+import ua.nure.koshova.finalProject.db.dao.ClassDao;
 import ua.nure.koshova.finalProject.db.dao.util.DatabaseRequests;
 import ua.nure.koshova.finalProject.db.dao.util.DatabaseUtils;
 import ua.nure.koshova.finalProject.db.entity.ClassCar;
@@ -15,26 +15,26 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClassDao implements IClassDao {
+public class ClassDaoImpl implements ClassDao {
 
-    private static final Logger LOGGER = Logger.getLogger(ClassDao.class);
+    private static final Logger LOGGER = Logger.getLogger(ClassDaoImpl.class);
 
-    private static volatile ClassDao instance;
+    private static volatile ClassDaoImpl instance;
 
     private static final String ERROR_MESSAGE_SELECT_CLASS_BY_NAME = "Can't select class car by name (name = %s)";
     private static final String ERROR_MESSAGE_SELECT_CLASS = "Can't select class car by id (id = %d)";
     private static final String ERROR_MESSAGE_SELECT_ALL_CLASSES = "Can't select all classes";
 
-    private ClassDao() {
+    private ClassDaoImpl() {
     }
 
-    public static ClassDao getInstance() {
-        ClassDao localInstance = instance;
+    public static ClassDaoImpl getInstance() {
+        ClassDaoImpl localInstance = instance;
         if (localInstance == null) {
-            synchronized (ClassDao.class) {
+            synchronized (ClassDaoImpl.class) {
                 localInstance = instance;
                 if (localInstance == null) {
-                    instance = localInstance = new ClassDao();
+                    instance = localInstance = new ClassDaoImpl();
                 }
             }
         }

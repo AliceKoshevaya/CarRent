@@ -1,7 +1,7 @@
 package ua.nure.koshova.finalProject.view.servlet.manager;
 
 import ua.nure.koshova.finalProject.db.entity.OrderStatus;
-import ua.nure.koshova.finalProject.service.OrderService;
+import ua.nure.koshova.finalProject.service.Impl.OrderServiceImpl;
 import ua.nure.koshova.finalProject.view.constant.Pages;
 import ua.nure.koshova.finalProject.view.util.right.RightChecker;
 
@@ -18,7 +18,7 @@ public class ChangeStatusServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private OrderService orderService = new OrderService();
+    private OrderServiceImpl orderServiceImpl = new OrderServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -35,12 +35,12 @@ public class ChangeStatusServlet extends HttpServlet {
         // confirm case
         if (OrderStatus.valueOf(newStatus) == OrderStatus.IN_PROGRESS &&
                 OrderStatus.valueOf(oldStatus) == OrderStatus.NEW) {
-            orderService.confirmOrder(idOrder);
+            orderServiceImpl.confirmOrder(idOrder);
         }
         // reject case
         else if (OrderStatus.valueOf(newStatus) == OrderStatus.CLOSED &&
                 OrderStatus.valueOf(oldStatus) == OrderStatus.NEW) {
-            orderService.closeOrder(idOrder);
+            orderServiceImpl.closeOrder(idOrder);
             // forward
             request.setAttribute("idOrder", idOrder);
             RequestDispatcher dispatcher = request.getServletContext()
@@ -51,7 +51,7 @@ public class ChangeStatusServlet extends HttpServlet {
         else if((OrderStatus.valueOf(oldStatus) == OrderStatus.CRASH ||
                 OrderStatus.valueOf(oldStatus) == OrderStatus.IN_PROGRESS)  &&
                 OrderStatus.valueOf(newStatus) == OrderStatus.CRASH) {
-            orderService.crashOrder(idOrder);
+            orderServiceImpl.crashOrder(idOrder);
             // forward
             request.setAttribute("idOrder", idOrder);
             RequestDispatcher dispatcher = request.getServletContext()
@@ -61,7 +61,7 @@ public class ChangeStatusServlet extends HttpServlet {
         // return a car
         else if(OrderStatus.valueOf(oldStatus) == OrderStatus.IN_PROGRESS &&
                 OrderStatus.valueOf(newStatus) == OrderStatus.CLOSED) {
-            orderService.closeOrder(idOrder);
+            orderServiceImpl.closeOrder(idOrder);
         }
 
         response.sendRedirect("/ordersList");

@@ -2,7 +2,7 @@ package ua.nure.koshova.finalProject.view.servlet;
 
 import ua.nure.koshova.finalProject.db.entity.Order;
 import ua.nure.koshova.finalProject.db.entity.User;
-import ua.nure.koshova.finalProject.service.OrderService;
+import ua.nure.koshova.finalProject.service.Impl.OrderServiceImpl;
 import ua.nure.koshova.finalProject.view.constant.Pages;
 
 import java.io.IOException;
@@ -23,7 +23,7 @@ public class UserInfoServlet extends HttpServlet {
         super();
     }
 
-    OrderService orderService = new OrderService();
+    OrderServiceImpl orderServiceImpl = new OrderServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -31,7 +31,7 @@ public class UserInfoServlet extends HttpServlet {
         User user = (User)request.getSession().getAttribute("user");
         if(user != null) {
             Long idUser = user.getId();
-            List<Order> allOrders = orderService.findAllOrdersByUser(idUser);
+            List<Order> allOrders = orderServiceImpl.findAllOrdersByUser(idUser);
             request.setAttribute("orders", allOrders);
             RequestDispatcher dispatcher = request.getServletContext()
                     .getRequestDispatcher(Pages.USER_INFO);

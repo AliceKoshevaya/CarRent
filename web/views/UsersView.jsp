@@ -1,12 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ajiek
-  Date: 05.11.2018
-  Time: 0:45
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="../views/fspf/include.jspf" %>
+<%@include file="../views/jspf/include.jspf" %>
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"

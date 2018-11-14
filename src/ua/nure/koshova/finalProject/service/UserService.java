@@ -1,75 +1,113 @@
 package ua.nure.koshova.finalProject.service;
 
-import ua.nure.koshova.finalProject.db.dao.impl.RoleDao;
-import ua.nure.koshova.finalProject.db.dao.impl.UserDao;
 import ua.nure.koshova.finalProject.db.entity.Role;
-import ua.nure.koshova.finalProject.db.entity.Roles;
 import ua.nure.koshova.finalProject.db.entity.User;
+
 import java.util.List;
 
-public class UserService {
+/**
+ * Interface for common user actions
+ */
+public interface UserService {
 
-    private RoleDao rolesDao = RoleDao.getInstance();
-    private UserDao usersDao = UserDao.getInstance();
-
-
+    /**
+     * Create a new user
+     *
+     * @param login
+     * @param password
+     * @param name
+     * @param lastName
+     * @param thirdName
+     * @return {@Link User}
+     */
     public User createNewUser(String login,
                               String password,
                               String name,
                               String lastName,
-                              String thirdName) {
+                              String thirdName);
 
-        Role role = new Role();
-        role.setName(Roles.user.toString());
-        role = rolesDao.findRoleByName(Roles.user.toString());
-        User user = new User();
-        user.setLogin(login);
-        user.setPassword(password);
-        user.setName(name);
-        user.setLastName(lastName);
-        user.setThirdName(thirdName);
-        user.setRole(role);
+    /**
+     *
+     * Authorization check
+     *
+     * @param login
+     * @param password
+     * @return {@Link User}
+     */
+    public User registeredUser(String login, String password);
 
-        usersDao.createUser(user);
-        return user;
-    }
+    /**
+     * Select all users
+     *
+     * @return {@Link List<User>}
+     */
+    public List<User> getAllUsers();
 
-    public User registeredUser(String login, String password) {
-        return usersDao.findUser(login, password);
-    }
+    /**
+     * Add additional info user
+     *
+     * @param id
+     * @param thirdName
+     * @param passSer
+     * @param passInfo
+     */
+    public void addUserInfo(Long id, String thirdName, String passSer, String passInfo);
 
-    public List<User> getAllUsers(){
-        return usersDao.findAllUsers();
-    }
+    /**
+     * Assign user to manager
+     *
+     * @param id user
+     */
 
-    public void addUserInfo(Long id, String thirdName, String passSer, String passInfo ){
-        usersDao.updateUser(thirdName,passSer,passInfo,id);
-    }
+    public void makeManager(Long id);
 
-    public void makeManager(Long id){
-        usersDao.updateUserRole(id);
-    }
+    /**
+     * Select user by login
+     *
+     * @param login
+     * @return {@link User}
+     */
 
+    public User getUserByLogin(String login);
 
-    public User getUserByLogin(String login){
-        return usersDao.findUserByLogin(login);
-    }
+    /**
+     * Select user role by id
+     *
+     * @param id
+     * @return {@Link Role}
+     */
 
-    public Role getUserRole(Long id){
-        return usersDao.findRoleByUser(id);
+    public Role getUserRole(Long id);
 
-    }
+    /**
+     * Change user status to blocked
+     *
+     * @param id
+     */
 
-    public void blockUser(Long id){
-        usersDao.updateBlockUser(id);
-    }
+    public void blockUser(Long id);
 
-    public void unblockUser(Long id){
-        usersDao.updateUnblockUser(id);
-    }
+    /**
+     * Change user status to unblocked
+     *
+     * @param id
+     */
+    public void unblockUser(Long id);
 
-    public User checkBlockUser(Long id){
-        return usersDao.findUserById(id);
-    }
+    /**
+     * Find all users with blocked status
+     *
+     * @param id
+     * @return {@Link User}
+     */
+    public User checkBlockUser(Long id);
+
+    /**
+     * Check whether there are such passport data in the system
+     *
+     * @return existSeries
+     */
+
+    public boolean passportSeriaExist();
 
 }

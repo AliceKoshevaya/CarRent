@@ -5,7 +5,7 @@ import ua.nure.koshova.finalProject.db.entity.User;
 
 import java.util.List;
 
-public interface IUserDao {
+public interface UserDao {
 
     /**
      * Select all users

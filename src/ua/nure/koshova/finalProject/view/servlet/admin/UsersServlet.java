@@ -2,7 +2,7 @@ package ua.nure.koshova.finalProject.view.servlet.admin;
 
 
 import ua.nure.koshova.finalProject.db.entity.User;
-import ua.nure.koshova.finalProject.service.UserService;
+import ua.nure.koshova.finalProject.service.Impl.UserServiceImpl;
 import ua.nure.koshova.finalProject.view.constant.Pages;
 import ua.nure.koshova.finalProject.view.util.right.RightChecker;
 
@@ -20,7 +20,7 @@ public class UsersServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private UserService userService = new UserService();
+    private UserServiceImpl userServiceImpl = new UserServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -29,7 +29,7 @@ public class UsersServlet extends HttpServlet {
             response.sendRedirect(Pages.ERROR_PAGE_NOT_ENOUGH_RIGTH);
             return;
         }
-        List<User> allUsers = userService.getAllUsers();
+        List<User> allUsers = userServiceImpl.getAllUsers();
         request.setAttribute("users", allUsers);
 
         RequestDispatcher dispatcher = request.getServletContext()

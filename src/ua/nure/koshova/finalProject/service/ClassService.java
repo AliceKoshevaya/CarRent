@@ -1,19 +1,34 @@
 package ua.nure.koshova.finalProject.service;
-import java.util.List;
-import ua.nure.koshova.finalProject.db.dao.impl.ClassDao;
+
 import ua.nure.koshova.finalProject.db.entity.ClassCar;
 
-public class ClassService {
-    private ClassDao classDao  = ClassDao.getInstance();
+import java.util.List;
 
-    public List<ClassCar> getClassList() {
-        return classDao.findAllClasses();
-    }
+/**
+ * Interface for common class car actions
+ */
+public interface ClassService {
 
-    public ClassCar getClassById(Long id){
-        return classDao.getClassById(id);
-    }
-    public Long getClassByName(String name){
-        return classDao.getClassByName(name);
-    }
+    /**
+     * Get all class car
+     *
+     * @return {@Link List<ClassCar>}
+     */
+    public List<ClassCar> getClassList();
+
+    /**
+     * Get class car by id
+     *
+     * @param id
+     * @return {@Link ClassCar}
+     */
+    public ClassCar getClassById(Long id);
+
+    /**
+     * Get class car by name
+     *
+     * @param name
+     * @return id caar class
+     */
+    public Long getClassByName(String name);
 }

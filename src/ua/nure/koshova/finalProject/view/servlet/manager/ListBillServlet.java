@@ -2,7 +2,7 @@ package ua.nure.koshova.finalProject.view.servlet.manager;
 
 
 import ua.nure.koshova.finalProject.db.entity.Bill;
-import ua.nure.koshova.finalProject.service.BillService;
+import ua.nure.koshova.finalProject.service.Impl.BillServiceImpl;
 import ua.nure.koshova.finalProject.view.constant.Pages;
 import ua.nure.koshova.finalProject.view.util.right.RightChecker;
 
@@ -20,7 +20,7 @@ public class ListBillServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private BillService billService = new BillService();
+    private BillServiceImpl billServiceImpl = new BillServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -31,7 +31,7 @@ public class ListBillServlet extends HttpServlet {
         }
         String stringOrderId = request.getParameter("idOrder");
         Long idOrder = Long.valueOf(stringOrderId);
-        List<Bill> allBills = billService.getAllBillByOrder(idOrder);
+        List<Bill> allBills = billServiceImpl.getAllBillByOrder(idOrder);
         request.setAttribute("bills", allBills);
 
         RequestDispatcher dispatcher = request.getServletContext()

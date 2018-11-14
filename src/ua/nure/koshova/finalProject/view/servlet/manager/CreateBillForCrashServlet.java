@@ -1,6 +1,6 @@
 package ua.nure.koshova.finalProject.view.servlet.manager;
 
-import ua.nure.koshova.finalProject.service.BillService;
+import ua.nure.koshova.finalProject.service.Impl.BillServiceImpl;
 import ua.nure.koshova.finalProject.view.constant.Pages;
 import ua.nure.koshova.finalProject.view.util.right.RightChecker;
 
@@ -15,7 +15,7 @@ import java.io.IOException;
 public class CreateBillForCrashServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    private BillService billService = new BillService();
+    private BillServiceImpl billServiceImpl = new BillServiceImpl();
 
     public CreateBillForCrashServlet() {
         super();
@@ -32,7 +32,7 @@ public class CreateBillForCrashServlet extends HttpServlet {
         Long idOrder = Long.valueOf(request.getParameter("idOrder"));
         String sum = request.getParameter("sum");
         Integer numSum = Integer.valueOf(sum);
-        billService.createCrashBill(numSum, null, idOrder);
+        billServiceImpl.createCrashBill(numSum, null, idOrder);
 
         response.sendRedirect("/ordersList");
 

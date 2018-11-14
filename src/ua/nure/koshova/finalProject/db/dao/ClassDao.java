@@ -5,7 +5,7 @@ import ua.nure.koshova.finalProject.db.entity.ClassCar;
 
 import java.util.List;
 
-public interface IClassDao {
+public interface ClassDao {
 
     /**
      * Select class by id

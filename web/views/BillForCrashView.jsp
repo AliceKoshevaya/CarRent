@@ -12,7 +12,7 @@
 <head>
     <title>Bill for Crash</title>
 </head>
-<%@include file="../views/fspf/include.jspf" %>
+<%@include file="../views/jspf/include.jspf" %>
 <jsp:include page="header.jsp"/>
 <body>
 <p class="form-control"><fmt:message key="menu.bill" bundle="${lang}"/></p>

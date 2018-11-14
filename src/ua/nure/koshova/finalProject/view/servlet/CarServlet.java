@@ -4,9 +4,9 @@ import org.apache.log4j.Logger;
 import ua.nure.koshova.finalProject.db.entity.Brand;
 import ua.nure.koshova.finalProject.db.entity.Car;
 import ua.nure.koshova.finalProject.db.entity.ClassCar;
-import ua.nure.koshova.finalProject.service.BrandService;
-import ua.nure.koshova.finalProject.service.CarService;
-import ua.nure.koshova.finalProject.service.ClassService;
+import ua.nure.koshova.finalProject.service.Impl.BrandServiceImpl;
+import ua.nure.koshova.finalProject.service.Impl.CarServiceImpl;
+import ua.nure.koshova.finalProject.service.Impl.ClassServiceImpl;
 import ua.nure.koshova.finalProject.view.constant.Pages;
 import ua.nure.koshova.finalProject.view.util.right.RightChecker;
 
@@ -24,14 +24,10 @@ import java.util.List;
 public class CarServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-
-    private CarService carService = new CarService();
-
-    private BrandService brandService = new BrandService();
-
-    private ClassService classService = new ClassService();
-
     private static final Logger LOGGER = Logger.getLogger(CarServlet.class);
+    private CarServiceImpl carServiceImpl = new CarServiceImpl();
+    private BrandServiceImpl brandServiceImpl = new BrandServiceImpl();
+    private ClassServiceImpl classServiceImpl = new ClassServiceImpl();
 
     public CarServlet() {
         super();
@@ -58,11 +54,11 @@ public class CarServlet extends HttpServlet {
         String classCar = request.getParameter("class");
         LOGGER.debug("Got class car parameter as " + classCar);
 
-        List<ClassCar> allClasses = classService.getClassList();
-        request.setAttribute("classes", allClasses);
-
-        List<Brand> allBrand = brandService.getBrandList();
+        List<Brand> allBrand = brandServiceImpl.getBrandList();
         request.setAttribute("brands", allBrand);
+
+        List<ClassCar> allClasses = classServiceImpl.getClassList();
+        request.setAttribute("classes", allClasses);
 
         String brandId = request.getParameter("selectBrand");
         String classId = request.getParameter("selectClass");
@@ -78,7 +74,7 @@ public class CarServlet extends HttpServlet {
             sortOrder = keyValue[0];
         }
 
-        List<Car> allCar = carService.getCarsList(sortField, sortOrder, brandId, classId);
+        List<Car> allCar = carServiceImpl.getCarsList(sortField, sortOrder, brandId, classId);
         request.setAttribute("cars", allCar);
 
         RequestDispatcher dispatcher = request.getServletContext()

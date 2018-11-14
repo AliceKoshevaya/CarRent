@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * DAO interface for bill entity
  */
-public interface IBillDao {
+public interface BillDao {
 
     /**
      * Create new bill for user

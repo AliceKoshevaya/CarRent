@@ -1,4 +1,4 @@
-<%@include file="../views/fspf/include.jspf" %>
+<%@include file="../views/jspf/include.jspf" %>
 <html>
 <head>
     <title><fmt:message key="menu.all.bill" bundle="${lang}"/></title>

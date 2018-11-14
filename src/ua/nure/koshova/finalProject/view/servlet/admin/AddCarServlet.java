@@ -1,7 +1,7 @@
 package ua.nure.koshova.finalProject.view.servlet.admin;
 
 import org.apache.log4j.Logger;
-import ua.nure.koshova.finalProject.service.CarService;
+import ua.nure.koshova.finalProject.service.Impl.CarServiceImpl;
 import ua.nure.koshova.finalProject.view.constant.Pages;
 import ua.nure.koshova.finalProject.view.util.right.RightChecker;
 
@@ -19,7 +19,7 @@ public class AddCarServlet extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(AddCarServlet.class);
 
-    private CarService carService = new CarService();
+    private CarServiceImpl carServiceImpl = new CarServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -41,7 +41,7 @@ public class AddCarServlet extends HttpServlet {
         Long idBrand = Long.valueOf(brand);
         Long idClass = Long.valueOf(classCar);
         Integer priceCar = Integer.valueOf(price);
-        carService.addNewCar(carName, priceCar, stateNumber, idBrand, idClass);
+        carServiceImpl.addNewCar(carName, priceCar, stateNumber, idBrand, idClass);
         response.sendRedirect("/carList");
     }
 

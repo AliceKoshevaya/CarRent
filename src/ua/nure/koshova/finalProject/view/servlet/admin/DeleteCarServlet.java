@@ -1,6 +1,6 @@
 package ua.nure.koshova.finalProject.view.servlet.admin;
 
-import ua.nure.koshova.finalProject.service.CarService;
+import ua.nure.koshova.finalProject.service.Impl.CarServiceImpl;
 import ua.nure.koshova.finalProject.view.constant.Pages;
 import ua.nure.koshova.finalProject.view.util.right.RightChecker;
 
@@ -16,7 +16,7 @@ public class DeleteCarServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private CarService carService = new CarService();
+    private CarServiceImpl carServiceImpl = new CarServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -27,7 +27,7 @@ public class DeleteCarServlet extends HttpServlet {
         }
         String stringIdCar = request.getParameter("carId");
         Long idCar = Long.valueOf(stringIdCar);
-        carService.deleteCar(idCar);
+        carServiceImpl.deleteCar(idCar);
         response.sendRedirect("/carList");
     }
 }

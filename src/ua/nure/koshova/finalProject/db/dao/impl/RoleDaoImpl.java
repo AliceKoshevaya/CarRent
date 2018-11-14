@@ -1,7 +1,7 @@
 package ua.nure.koshova.finalProject.db.dao.impl;
 
 import org.apache.log4j.Logger;
-import ua.nure.koshova.finalProject.db.dao.IRoleDao;
+import ua.nure.koshova.finalProject.db.dao.RoleDao;
 import ua.nure.koshova.finalProject.db.dao.util.DatabaseRequests;
 import ua.nure.koshova.finalProject.db.dao.util.DatabaseUtils;
 import ua.nure.koshova.finalProject.db.entity.Role;
@@ -13,24 +13,24 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class RoleDao implements IRoleDao {
+public class RoleDaoImpl implements RoleDao {
 
     public static final String ERROR_MESSAGE_SELECT_ROLE_BY_NAME = "Can't select user role by name (name = %s)";
 
-    private static final Logger LOGGER = Logger.getLogger(RoleDao.class);
+    private static final Logger LOGGER = Logger.getLogger(RoleDaoImpl.class);
 
-    private static volatile RoleDao instance;
+    private static volatile RoleDaoImpl instance;
 
-    private RoleDao() {
+    private RoleDaoImpl() {
     }
 
-    public static RoleDao getInstance() {
-        RoleDao localInstance = instance;
+    public static RoleDaoImpl getInstance() {
+        RoleDaoImpl localInstance = instance;
         if (localInstance == null) {
-            synchronized (CarDao.class) {
+            synchronized (CarDaoImpl.class) {
                 localInstance = instance;
                 if (localInstance == null) {
-                    instance = localInstance = new RoleDao();
+                    instance = localInstance = new RoleDaoImpl();
                 }
             }
         }
