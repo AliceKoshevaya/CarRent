@@ -57,7 +57,6 @@
 
                 <c:forEach items="${orders}" var="order">
                     <tr>
-
                         <td scope="col">${order.driver}</td>
                         <td scope="col">${order.status}</td>
                         <td scope="col">${order.startRent}</td>

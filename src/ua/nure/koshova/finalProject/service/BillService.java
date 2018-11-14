@@ -17,7 +17,8 @@ public class BillService {
         int time = (int)( (Timestamp.valueOf(end).getTime() - Timestamp.valueOf(start).getTime())
                 / 3600000 );
         int totalSum = time *price;
-        Long idBill = billDao.createBill("RENT", Boolean.FALSE, totalSum, null, OrderId);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        Long idBill = billDao.createBill("RENT", Boolean.FALSE, totalSum, timestamp, OrderId);
         return billDao.findBillById(idBill);
     }
 
