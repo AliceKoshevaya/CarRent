@@ -1,8 +1,12 @@
 package ua.nure.koshova.finalProject.view.servlet;
 
+import ua.nure.koshova.finalProject.db.entity.Order;
+import ua.nure.koshova.finalProject.db.entity.User;
+import ua.nure.koshova.finalProject.service.OrderService;
 import ua.nure.koshova.finalProject.view.constant.Pages;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,12 +23,24 @@ public class UserInfoServlet extends HttpServlet {
         super();
     }
 
+    OrderService orderService = new OrderService();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/views/UserInfoView.jsp");
-        dispatcher.forward(request, response);
+        User user = (User)request.getSession().getAttribute("user");
+        if(user != null) {
+            Long idUser = user.getId();
+            List<Order> allOrders = orderService.findAllOrdersByUser(idUser);
+            request.setAttribute("orders", allOrders);
+            RequestDispatcher dispatcher = request.getServletContext()
+                    .getRequestDispatcher(Pages.USER_INFO);
+            dispatcher.forward(request, response);
+        } else {
+            RequestDispatcher dispatcher = request.getServletContext()
+                    .getRequestDispatcher(Pages.USER_INFO);
+            dispatcher.forward(request, response);
+        }
 
     }
 

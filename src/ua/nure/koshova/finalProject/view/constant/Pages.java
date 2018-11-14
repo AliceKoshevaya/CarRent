@@ -41,5 +41,7 @@ public final class Pages {
     public static final String ERROR_PAGE_LOGIN_PLEASE = "/views/ErrorChooseCarPage.jsp";
 
     public static final String INFO_PAGE = "/views/InfoView.jsp";
+
+    public static final String USER_INFO = "/views/UserInfoView.jsp";
 }
 

@@ -12,6 +12,7 @@ public class UserService {
     private RoleDao rolesDao = RoleDao.getInstance();
     private UserDao usersDao = UserDao.getInstance();
 
+
     public User createNewUser(String login,
                               String password,
                               String name,

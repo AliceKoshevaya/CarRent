@@ -176,6 +176,7 @@ public class OrderDao implements IOrderDao {
                 order.setStatus(OrderStatus.valueOf(resultSet.getString(2).toUpperCase()));
                 order.setStartRent(resultSet.getTimestamp(3));
                 order.setEndRent(resultSet.getTimestamp(4));
+                orderList.add(order);
             }
         } catch (SQLException ex) {
             LOGGER.error(String.format(ERROR_MESSAGE_SELECT_ORDER_BY_USER, id), ex);

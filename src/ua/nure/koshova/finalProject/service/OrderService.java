@@ -2,11 +2,13 @@ package ua.nure.koshova.finalProject.service;
 
 
 import ua.nure.koshova.finalProject.db.dao.impl.OrderDao;
+import ua.nure.koshova.finalProject.db.dao.util.DatabaseUtils;
 import ua.nure.koshova.finalProject.db.entity.Car;
 import ua.nure.koshova.finalProject.db.entity.Order;
 import ua.nure.koshova.finalProject.db.entity.OrderStatus;
 import ua.nure.koshova.finalProject.db.entity.User;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -51,4 +53,9 @@ public class OrderService {
     public void updateReason(Long id, String name){
         ordersDao.updateReasonOrder(id,name);
     }
+
+    public List<Order> findAllOrdersByUser(Long id){
+        return ordersDao.findOrderByIdUser(id);
+    }
+
 }

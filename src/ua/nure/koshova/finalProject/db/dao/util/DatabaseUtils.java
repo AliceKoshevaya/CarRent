@@ -1,7 +1,6 @@
 package ua.nure.koshova.finalProject.db.dao.util;
 
 import org.apache.commons.dbcp2.BasicDataSource;
-import org.apache.commons.dbcp2.DriverManagerConnectionFactory;
 import org.apache.log4j.Logger;
 import ua.nure.koshova.finalProject.db.exception.CloseResourcesException;
 import ua.nure.koshova.finalProject.db.exception.DatabaseConnectionException;
