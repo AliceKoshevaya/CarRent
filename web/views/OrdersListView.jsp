@@ -31,7 +31,6 @@
             <td scope="col">${order.endRent}</td>
             <td scope="col">${order.user.id}</td>
             <td scope="col">${order.car.id}</td>
-                <%--<form method="POST" action="/confirm"><input type="hidden" name="idOrder" value="${order.id}"/>--%>
             <c:choose>
                 <c:when test="${order.status == 'NEW'}">
                     <td>

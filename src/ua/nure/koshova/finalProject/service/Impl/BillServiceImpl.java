@@ -24,7 +24,8 @@ public class BillServiceImpl implements BillService{
     }
 
     public Long createCrashBill(int sum, String date, Long orderId){
-        return billDaoImpl.createBill("CRASH", Boolean.FALSE, sum, null, orderId );
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        return billDaoImpl.createBill("CRASH", Boolean.FALSE, sum, timestamp, orderId );
     }
 
     public List<Bill> getAllBillByOrder(Long id){

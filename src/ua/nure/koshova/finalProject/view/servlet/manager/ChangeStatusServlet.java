@@ -40,23 +40,25 @@ public class ChangeStatusServlet extends HttpServlet {
         // reject case
         else if (OrderStatus.valueOf(newStatus) == OrderStatus.CLOSED &&
                 OrderStatus.valueOf(oldStatus) == OrderStatus.NEW) {
+            request.setAttribute("idOrder", idOrder);
             orderServiceImpl.closeOrder(idOrder);
             // forward
-            request.setAttribute("idOrder", idOrder);
             RequestDispatcher dispatcher = request.getServletContext()
                     .getRequestDispatcher(Pages.REJECT_REASON_PAGE);
             dispatcher.forward(request, response);
+            return;
         }
         // set bill for crash case
         else if((OrderStatus.valueOf(oldStatus) == OrderStatus.CRASH ||
                 OrderStatus.valueOf(oldStatus) == OrderStatus.IN_PROGRESS)  &&
                 OrderStatus.valueOf(newStatus) == OrderStatus.CRASH) {
+            request.setAttribute("idOrder", idOrder);
             orderServiceImpl.crashOrder(idOrder);
             // forward
-            request.setAttribute("idOrder", idOrder);
             RequestDispatcher dispatcher = request.getServletContext()
                     .getRequestDispatcher(Pages.CRASH_BILL_PAGE);
             dispatcher.forward(request, response);
+            return;
         }
         // return a car
         else if(OrderStatus.valueOf(oldStatus) == OrderStatus.IN_PROGRESS &&
