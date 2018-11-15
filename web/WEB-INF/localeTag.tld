@@ -7,7 +7,7 @@
     <uri>/WEB-INF/localeTag</uri>
     <tag>
         <name>localeReceiver</name>
-        <tag-class>ua.nure.koshova.finalProject.view.util.myJSTL.LocaleReceiver</tag-class>
+        <tag-class>ua.nure.koshova.SummaryTask4.view.util.myJSTL.LocaleReceiver</tag-class>
         <body-content>empty</body-content>
         <attribute>
             <name>servletContext</name>

@@ -11,31 +11,42 @@
 <jsp:include page="header.jsp"/>
 <body>
 <form method="GET" action="${pageContext.request.contextPath}/carList">
-    <div class="form-group ">
+    <div class="col-lg-3 center-block">
         <label><fmt:message key="select.brand" bundle="${lang}"/></label>
         <select id="select1" name="selectBrand">
+            <option value="all">All</option>
             <c:forEach items="${brands}" var="brand">
                 <option value="${brand.id}">${brand.name}</option>
             </c:forEach>
         </select>
+        <script type="text/javascript">
+            document.getElementById('name').value = "<?php echo $_GET['select1'];?>";
+        </script>
     </div>
-    <div class="form-group ">
+    <div class="col-lg-3 center-block">
         <label><fmt:message key="select.class" bundle="${lang}"/></label>
         <select id="select2" name="selectClass">
+            <option value="all">All</option>
             <c:forEach items="${classes}" var="clazz">
                 <option value="${clazz.id}">${clazz.name}</option>
             </c:forEach>
         </select>
+        <script type="text/javascript">
+            document.getElementById('name').value = "<?php echo $_GET['select2'];?>";
+        </script>
     </div>
-    <div class="form-group ">
+    <div class="col-lg-3 center-block">
         <select id="select3" name="selectSort">
             <option value="ASC:price"><fmt:message key="select.asc" bundle="${lang}"/></option>
             <option value="DESC:price"><fmt:message key="select.desc" bundle="${lang}"/></option>
-            <option value="ASC:name"><fmt:message key="select.asc.name" bundle="${lang}"/></option>
-            <option value="DESC:name"><fmt:message key="select.desc.name" bundle="${lang}"/></option>
+            <%--<option value="ASC:name"><fmt:message key="asc.name" bundle="${lang}"/></option>--%>
+            <%--<option value="DESC:name"><fmt:message key="desc.name" bundle="${lang}"/></option>--%>
         </select>
+        <script type="text/javascript">
+            document.getElementById('name').value = "<?php echo $_GET['select3'];?>";
+        </script>
     </div>
-    <div class="form-group">
+    <div class="col-lg-3 center-block">
         <button type="submit" class="btn btn-default"><fmt:message key="car.apply" bundle="${lang}"/></button>
     </div>
 

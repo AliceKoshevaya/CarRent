@@ -45,8 +45,8 @@
         <select id="select3" name="selectSort">
             <option value="ASC:price"><fmt:message key="select.asc" bundle="${lang}"/></option>
             <option value="DESC:price"><fmt:message key="select.desc" bundle="${lang}"/></option>
-            <option value="ASC:name"><fmt:message key="asc.name" bundle="${lang}"/></option>
-            <option value="DESC:name"><fmt:message key="desc.name" bundle="${lang}"/></option>
+            <%--<option value="ASC:name"><fmt:message key="asc.name" bundle="${lang}"/></option>--%>
+            <%--<option value="DESC:name"><fmt:message key="desc.name" bundle="${lang}"/></option>--%>
         </select>
         <script type="text/javascript">
             document.getElementById('name').value = "<?php echo $_GET['select3'];?>";
