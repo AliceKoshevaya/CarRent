@@ -36,11 +36,11 @@ public class CarServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        if (!RightChecker.isUser(request.getSession()) && !RightChecker.isManager(request.getSession())
-//                && !RightChecker.isAdmin(request.getSession())) {
-//            response.sendRedirect(Pages.ERROR_PAGE_LOGIN_PLEASE);
-//            return;
-//        }
+        if (!RightChecker.isUser(request.getSession()) && !RightChecker.isManager(request.getSession())
+                && !RightChecker.isAdmin(request.getSession())) {
+            response.sendRedirect(Pages.ERROR_PAGE_LOGIN_PLEASE);
+            return;
+        }
         String idCar = request.getParameter("idCar");
         LOGGER.debug("Got idCar parameter as " + idCar);
         String carName = request.getParameter("carName");
